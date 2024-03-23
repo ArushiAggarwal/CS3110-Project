@@ -1,0 +1,7 @@
+# dune init project --inline-tests project_code
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Shared cache location: /Users/gracew/.cache/dune/db
+# Workspace root:
+# /Users/gracew/Desktop/Classes/CS3110/CS3110-Project/project_code
+# Auto-detected concurrency: 8
