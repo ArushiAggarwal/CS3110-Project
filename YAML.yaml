@@ -1,10 +1,25 @@
-# CS3110-Project
-
-Arushi Aggarwal (aa2555) <br>
-Grace Wei (gtw25) <br>
-Petros Georgiou (pag238)
-
-Overview:
+# Members of your group.
+group:
+  - name: Arushi Aggarwal
+    netid: aa2555
+  - name: Grace Wei
+    netid: gtw25
+  - name: Petros Georgiou
+    netid: pag238
+# Your PM.
+pm:
+  name: Allen Wu
+  netid: axw4
+# Set to false if you don't want your gallery entry to be public.
+publish: true
+# Pithy title
+title: "Mastermind Board Game"
+# OK if this is a Cornell Github link, but public gallery viewers won't be able to see it.
+git-repo: "https://github.com/ArushiAggarwal/CS3110-Project"
+# If you have no demo screencast, replace the url string with an empty string ""
+demo-video-url: ""
+# Write a short, attention-grabbing description of your project.
+desc: >
 This project is a game inspired by Mastermind, a code cracking game between two 
 players, where one player assumes the role of the code maker, and the other the 
 code breaker. The code breaker guesses codes that the code maker creates uses 
