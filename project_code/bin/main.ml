@@ -3,6 +3,7 @@
 
 open Project_code.Computer_output
 
+(** [to_string lst] converts [lst] to a string of digits *)
 let rec to_string = function
   | [] -> ""
   | h :: t -> string_of_int h ^ to_string t

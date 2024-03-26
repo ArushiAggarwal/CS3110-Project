@@ -23,4 +23,5 @@ let generate_guess seed =
   in
   helper seed []
 
+(** Make a guess using the [random_seed] *)
 let guess = generate_guess random_seed
