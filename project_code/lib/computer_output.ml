@@ -22,3 +22,6 @@ let generate_guess seed =
       helper new_seed (random_value :: acc)
   in
   helper seed []
+
+(** Make a guess using the [random_seed] *)
+let guess = generate_guess random_seed
