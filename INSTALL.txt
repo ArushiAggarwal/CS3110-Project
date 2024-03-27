@@ -1,0 +1,7 @@
+How to run:
+
+Download or clone the project repository from Github (link found in YAML.yaml).
+As of now, the project is terminal-based, and is built on Dune. Open the terminal
+and navigate to CS3110-Project. Then cd into the "project_code" directory. From 
+there, run the command [dune build], then run [dune exec bin/main.exe] to run 
+actual game. The game will start in the terminal.

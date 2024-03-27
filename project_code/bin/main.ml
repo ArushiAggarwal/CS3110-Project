@@ -16,7 +16,7 @@ let rec run_round_terminal ended i =
     | true -> print_endline "Thanks for playing!"
     | false -> (
         let () = print_endline "computer guess" in
-        let guess = generate_guess 42 in
+        let guess = make_guess in
         let () =
           print_endline (to_string guess);
           print_endline "Is the computer correct? yes/no/quit"

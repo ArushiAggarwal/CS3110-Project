@@ -7,7 +7,7 @@ let max_value = 9
 (* A maximum value of 9 with assuming the integers are between 0 and 9 *)
 
 (* Linear Congruential Generator (LCG) for pseudorandom number generation *)
-(*Citation: https://rosettacode.org/wiki/Linear_congruential_generator*)
+(* Citation: https://rosettacode.org/wiki/Linear_congruential_generator *)
 let lcg state =
   let next_state = ((1103515245 * state) + 12345) mod (1 lsl 31) in
   let random_value = next_state mod (max_value + 1) in
@@ -24,4 +24,4 @@ let generate_guess seed =
   helper seed []
 
 (** Make a guess using the [random_seed] *)
-let guess = generate_guess random_seed
+let make_guess = generate_guess random_seed
