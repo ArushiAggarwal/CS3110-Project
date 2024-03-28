@@ -3,6 +3,10 @@ let random_seed = 42
    sequence of pseudorandom numbers Can change the seed value to generate
    another sequence of guesses *)
 
+(* Initialize Random *)
+let () = Random.self_init ()
+
+(* Generate a random integer between 1 and len. Requires len > 1 *)
 let max_value = 9
 (* A maximum value of 9 with assuming the integers are between 0 and 9 *)
 
@@ -23,5 +27,5 @@ let generate_guess seed =
   in
   helper seed []
 
-(** Make a guess using the [random_seed] *)
-let make_guess = generate_guess random_seed
+(** Make a guess using a random integer *)
+let make_guess () = generate_guess (Random.int 1073741823)

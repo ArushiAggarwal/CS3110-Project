@@ -4,9 +4,11 @@
 (* open Project_code.Computer_output *)
 
 (** [to_string lst] converts [lst] to a string of digits *)
-let rec to_string = function
-  | [] -> ""
-  | h :: t -> string_of_int h ^ to_string t
+let rec to_string acc = function
+  | [] -> acc
+  | h :: t -> to_string (acc ^ string_of_int h) t
+
+(* let verify_input s = *)
 
 (** main function that runs the game *)
 let rec run_round_terminal ended i =
@@ -16,9 +18,9 @@ let rec run_round_terminal ended i =
     | true -> print_endline "Thanks for playing!"
     | false -> (
         let () = print_endline "computer guess" in
-        let guess = Project_code.Computer_output.make_guess in
+        let guess = Project_code.Computer_output.make_guess () in
         let () =
-          print_endline (to_string guess);
+          print_endline (to_string "" guess);
           print_endline "Is the computer correct? yes/no/quit"
         in
         let the_input = read_line () in
