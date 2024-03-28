@@ -10,6 +10,16 @@ let rec to_string acc = function
 
 (* let verify_input s = *)
 
+(**[accept_feedback s] checks if a string is "yes", "no", or "quit". It will
+   prompt the user to reenter a string if it does not match any of those cases. *)
+let rec accept_feedback s =
+  match s with
+  | "yes" | "quit" -> true
+  | "no" -> false
+  | _ ->
+      print_endline "Invalid feedback. Please try again";
+      accept_feedback (read_line ())
+
 (** main function that runs the game *)
 let rec run_round_terminal ended i =
   if i <= 0 then print_endline "Thanks for playing!"
@@ -24,9 +34,9 @@ let rec run_round_terminal ended i =
           print_endline "Is the computer correct? yes/no/quit"
         in
         let the_input = read_line () in
-        match the_input with
-        | "yes" | "quit" -> run_round_terminal true 0
-        | _ -> run_round_terminal false (i - 1))
+        match accept_feedback the_input with
+        | true -> run_round_terminal true 0
+        | false -> run_round_terminal false (i - 1))
 
 let () = print_endline "input the answer"
 let answer = read_line ()
