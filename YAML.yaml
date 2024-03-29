@@ -18,15 +18,15 @@ title: "Mastermind Board Game"
 # OK if this is a Cornell Github link, but public gallery viewers won't be able to see it.
 git-repo: "https://github.com/ArushiAggarwal/CS3110-Project"
 # If you have no demo screencast, replace the url string with an empty string ""
-demo-video-url: ""
+demo-video-url: "https://youtu.be/IBZE6vwd3wk"
 # Write a short, attention-grabbing description of your project.
 desc: >
 This project is a game inspired by Mastermind, a code cracking game between two 
 players, where one player assumes the role of the code maker, and the other the 
-code breaker. The code breaker guesses codes that the code maker creates uses 
-keys, while providing ambiguous feedback, until the code is guessed. The player 
-plays from the terminal against the computer. If the player is a code maker, 
-then they create a code and the computer will guess for a limited number of 
-tries. If the player is a code breaker, the computer generates a code by which 
+code breaker. The code breaker guesses 5-digit codes that the code maker creates 
+using keys, while providing ambiguous feedback, until the code is guessed. The 
+player plays from the terminal against the computer. If the player is the code 
+maker, then they create a code and the computer will guess for a limited number 
+of tries. If the player is a code breaker, the computer generates a code by which 
 the player must guess. The algorithms are heavily inspired by Bayesian 
 inference, hashing, pseudorandomness, and game theory.
