@@ -38,7 +38,24 @@ let rec run_round_terminal ended i =
         | true -> run_round_terminal true 0
         | false -> run_round_terminal false (i - 1))
 
+let rec run_guess_terminal i answer =
+  if i = 0 then print_endline ("Answer: " ^ answer ^ ". Thanks for playing!")
+  else
+    let guess = read_line () in
+    if String.length guess != 5 then
+      let () = print_endline "Incorrect length" in
+      run_guess_terminal i answer
+    else if guess = answer then print_endline "You win!"
+    else
+      let () = print_endline "Try again" in
+      run_guess_terminal (i - 1) answer
+
 let () = print_endline "input the answer"
 let answer = read_line ()
 let () = print_endline answer
 let () = run_round_terminal false 12
+let () = print_endline "guess the code"
+
+let () =
+  run_guess_terminal 12
+    (to_string "" Project_code.Computer_output.(make_guess ()))
