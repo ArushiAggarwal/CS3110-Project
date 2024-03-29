@@ -8,7 +8,7 @@ let rec to_string acc = function
   | [] -> acc
   | h :: t -> to_string (acc ^ string_of_int h) t
 
-(* let verify_input s = *)
+let verify_input s length = String.length s = length
 
 (**[accept_feedback s] checks if a string is "yes", "no", or "quit". It will
    prompt the user to reenter a string if it does not match any of those cases. *)
@@ -53,6 +53,7 @@ let rec run_guess_terminal i answer =
 
 let () = print_string "Input the answer: "
 let answer = read_line ()
+let () = assert (verify_input answer 5)
 
 (* run the first round (computer guess) with 12 tries *)
 let () = run_round_terminal false 12
