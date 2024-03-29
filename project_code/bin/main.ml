@@ -51,7 +51,7 @@ let rec run_guess_terminal i answer =
       let () = print_endline "Try again" in
       run_guess_terminal (i - 1) answer
 
-let () = print_string "Input the answer: "
+let () = print_string "Input the answer (5 digits): "
 let answer = read_line ()
 let () = assert (verify_input answer 5)
 
