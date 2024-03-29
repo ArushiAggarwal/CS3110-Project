@@ -22,12 +22,12 @@ let rec accept_feedback s =
 
 (** main function that runs the game *)
 let rec run_round_terminal ended i =
-  if i <= 0 then print_endline "Thanks for playing!"
+  if i <= 0 then print_endline "The computer did not get the answer :("
   else
     match ended with
-    | true -> print_endline "Thanks for playing!"
+    | true -> print_endline "The computer wins the round! :)"
     | false -> (
-        let () = print_endline "computer guess" in
+        let () = print_string "The computer guessed: " in
         let guess = Project_code.Computer_output.make_guess () in
         let () =
           print_endline (to_string "" guess);
@@ -42,7 +42,8 @@ let rec run_guess_terminal i answer =
   if i = 0 then print_endline ("Answer: " ^ answer ^ ". Thanks for playing!")
   else
     let guess = read_line () in
-    if String.length guess != 5 then
+    if guess = "quit" then run_guess_terminal 0 answer
+    else if String.length guess != 5 then
       let () = print_endline "Incorrect length" in
       run_guess_terminal i answer
     else if guess = answer then print_endline "You win!"
@@ -50,12 +51,14 @@ let rec run_guess_terminal i answer =
       let () = print_endline "Try again" in
       run_guess_terminal (i - 1) answer
 
-let () = print_endline "input the answer"
+let () = print_string "Input the answer: "
 let answer = read_line ()
-let () = print_endline answer
-let () = run_round_terminal false 12
-let () = print_endline "guess the code"
 
+(* run the first round (computer guess) with 12 tries *)
+let () = run_round_terminal false 12
+let () = print_endline "guess the code (type \"quit\" to stop)"
+
+(* run the second round (user guesses) with 12 tries*)
 let () =
   run_guess_terminal 12
     (to_string "" Project_code.Computer_output.(make_guess ()))
