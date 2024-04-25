@@ -59,7 +59,7 @@ let () = assert (verify_input answer 4)
 let () = run_round_terminal false 12
 let () = print_endline "guess the code (type \"quit\" to stop)"
 
-(* run the second round (user guesses) with 12 tries*)
+(* run the second round (user guesses) with 12 tries as per the game *)
 let () =
   run_guess_terminal 12
     (to_string "" Project_code.Computer_output.(make_guess ()))
