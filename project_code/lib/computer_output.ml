@@ -13,14 +13,14 @@ let max_value = 9
 (* Linear Congruential Generator (LCG) for pseudorandom number generation *)
 (* Citation: https://rosettacode.org/wiki/Linear_congruential_generator *)
 let lcg state =
-  let next_state = ((1103515245 * state) + 12345) mod (1 lsl 31) in
+  let next_state = ((1103515245 * state) + 1234) mod (1 lsl 31) in
   let random_value = next_state mod (max_value + 1) in
   (random_value, next_state)
 
-(* Generate a list of 5 random integers *)
+(* Generate a list of 4 random integers *)
 let generate_guess seed =
   let rec helper seed acc =
-    if List.length acc = 5 then acc
+    if List.length acc = 4 then acc
     else
       let random_value, new_seed = lcg seed in
       helper new_seed (random_value :: acc)
