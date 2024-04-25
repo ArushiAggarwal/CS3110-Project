@@ -43,7 +43,7 @@ let rec run_guess_terminal i answer =
   else
     let guess = read_line () in
     if guess = "quit" then run_guess_terminal 0 answer
-    else if String.length guess != 5 then
+    else if String.length guess != 4 then
       let () = print_endline "Incorrect length" in
       run_guess_terminal i answer
     else if guess = answer then print_endline "You win!"
@@ -51,9 +51,9 @@ let rec run_guess_terminal i answer =
       let () = print_endline "Try again" in
       run_guess_terminal (i - 1) answer
 
-let () = print_string "Input the answer (5 digits): "
+let () = print_string "Input the answer (4 digits): "
 let answer = read_line ()
-let () = assert (verify_input answer 5)
+let () = assert (verify_input answer 4)
 
 (* run the first round (computer guess) with 12 tries *)
 let () = run_round_terminal false 12
