@@ -1,6 +1,15 @@
-How to run:
+How to download:
+Download or clone the project repository from Github: 
+https://github.com/ArushiAggarwal/CS3110-Project
 
-Download or clone the project repository from Github (link found in YAML.yaml).
+Update OPAM:
+If you do not have inline tests installed with OPAM, run the following commands
+in the terminal:
+$ opam update
+$ opam upgrade
+$ opam install ppx_inline_test
+
+How to run:
 As of now, the project is terminal-based, and is built on Dune. Open the terminal
 and navigate to CS3110-Project. Then cd into the "project_code" directory. From 
 there, run the command [dune build], then run [dune exec bin/main.exe] to run 
