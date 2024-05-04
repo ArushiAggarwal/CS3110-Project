@@ -1,7 +1,7 @@
 (* @author Arushi Aggarwal (aa2555), Petros Georgiou (pag38), Grace Wei
    (gtw25) *)
 
-(* open Project_code.Computer_output *)
+(* open Project_code.Random_guessing_algorithm *)
 
 open Set
 open Project_code.Pin
