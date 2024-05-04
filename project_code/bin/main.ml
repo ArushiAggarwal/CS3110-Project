@@ -1,7 +1,7 @@
 (* @author Arushi Aggarwal (aa2555), Petros Georgiou (pag38), Grace Wei
    (gtw25) *)
 
-(* open Project_code.Computer_output *)
+(* open Project_code.Random_guessing_algorithm *)
 
 (** [to_string lst] converts [lst] to a string of digits *)
 let rec to_string acc = function
@@ -28,7 +28,7 @@ let rec run_round_terminal ended i =
     | true -> print_endline "The computer wins the round! :)"
     | false -> (
         let () = print_string "The computer guessed: " in
-        let guess = Project_code.Computer_output.make_guess () in
+        let guess = Project_code.Random_guessing_algorithm.make_guess () in
         let () =
           print_endline (to_string "" guess);
           print_endline "Is the computer correct? yes/no/quit"
@@ -62,4 +62,4 @@ let () = print_endline "guess the code (type \"quit\" to stop)"
 (* run the second round (user guesses) with 12 tries as per the game *)
 let () =
   run_guess_terminal 12
-    (to_string "" Project_code.Computer_output.(make_guess ()))
+    (to_string "" Project_code.Random_guessing_algorithm.(make_guess ()))
