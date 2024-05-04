@@ -18,19 +18,19 @@ let test_Pin =
          ( "A guess with all correct answers" >:: fun _ ->
            assert_equal
              [| Pin.Red; Pin.Red; Pin.Red; Pin.Red |]
-             (Pin.makePins [| 1; 2; 3; 4 |] [| 1; 2; 3; 4 |]) );
+             (Pin.make_pins [| 1; 2; 3; 4 |] [| 1; 2; 3; 4 |]) );
          ( "A guess with no correct answers" >:: fun _ ->
            assert_equal
              [| Pin.Null; Pin.Null; Pin.Null; Pin.Null |]
-             (Pin.makePins [| 1; 2; 3; 4 |] [| 5; 6; 7; 8 |]) );
+             (Pin.make_pins [| 1; 2; 3; 4 |] [| 5; 6; 7; 8 |]) );
          ( "A derrangement" >:: fun _ ->
            assert_equal
              [| Pin.White; Pin.White; Pin.White; Pin.White |]
-             (Pin.makePins [| 1; 2; 3; 4 |] [| 4; 3; 2; 1 |]) );
+             (Pin.make_pins [| 1; 2; 3; 4 |] [| 4; 3; 2; 1 |]) );
          ( "A mix" >:: fun _ ->
            assert_equal
              [| Pin.Red; Pin.White; Pin.Null; Pin.Null |]
-             (Pin.makePins [| 1; 2; 3; 4 |] [| 3; 5; 8; 4 |]) );
+             (Pin.make_pins [| 1; 2; 3; 4 |] [| 3; 5; 8; 4 |]) );
        ]
 
 let _ = run_test_tt_main test_Pin

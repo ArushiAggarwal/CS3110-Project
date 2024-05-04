@@ -1,3 +1,5 @@
+open Set
+
 let random_seed = 42
 (* A random seed value that represents the intial value used to start the
    sequence of pseudorandom numbers Can change the seed value to generate
@@ -29,3 +31,20 @@ let generate_guess seed =
 
 (** Make a guess using a random integer *)
 let make_guess () = generate_guess (Random.int 1073741823)
+
+module ChoiceSet = Make (Int)
+
+let rec makechoices n acc =
+  if n = 0 then acc else makechoices (n - 1) (ChoiceSet.add n acc)
+
+let choices = makechoices 8 ChoiceSet.empty
+let otherval = 7
+
+let rec new_guess n guess guessed =
+  if n = 4 then guess
+  else
+    let ran = Random.int 7 in
+    if ChoiceSet.mem ran guessed then new_guess n guess guessed
+    else
+      let _ = guess.(n) <- ran in
+      new_guess (n + 1) guess (ChoiceSet.add ran guessed)

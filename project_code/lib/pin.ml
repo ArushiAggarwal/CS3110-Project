@@ -17,7 +17,7 @@ module Pin = struct
     | White
     | Null
 
-  let makePins arrayGuess arrayAnswer =
+  let make_pins (arrayGuess : int array) (arrayAnswer : int array) =
     let pinArray = Array.make 4 Null in
     let ind = ref 0 in
     for i = 0 to 3 do
@@ -32,4 +32,24 @@ module Pin = struct
         ind := !ind
     done;
     pinArray
+
+  let rec count_reds_help arr int acc =
+    if int = 4 then acc
+    else
+      match arr.(int) with
+      | Red -> count_reds_help arr (int + 1) (acc + 1)
+      | White | Null -> count_reds_help arr (int + 1) acc
+
+  let count_reds arr = count_reds_help arr 0 0
+
+  let rec to_string_help arr acc int =
+    if int = 4 then acc
+    else
+      match arr.(int) with
+      | Red -> to_string_help arr (acc ^ "R") (int + 1)
+      | White -> to_string_help arr (acc ^ "W") (int + 1)
+      | Null -> to_string_help arr (acc ^ "N") (int + 1)
+
+  (** [to_string arr] Converts an [arr] of all type [pin] to a string.*)
+  let to_string_pin arr = to_string_help arr "" 0
 end
