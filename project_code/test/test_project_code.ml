@@ -1,5 +1,5 @@
 open OUnit2
-open Project_code.Computer_output
+open Project_code.Random_guessing_algorithm
 
 let test_Random =
   "Test suite to ensure pseudorandom generator works with respect to seed."
