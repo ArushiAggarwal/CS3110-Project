@@ -1,4 +1,5 @@
 open List
+open Pin
 
 (* Helper functions *)
 
@@ -53,10 +54,7 @@ let knuth_algorithm () =
           |> filter (fun (_, count) -> count = min_count)
           |> map fst
         in
-        let next_guess =
-          if List.mem g s then g
-          else best_guesses |> sort_uniq Stdlib.compare |> hd
-        in
+        let next_guess = if List.mem g s then g else best_guesses in
         let response = score next_guess [ 1; 2; 3; 4 ] in
         if response = (4, 0) then (next_guess, prev_guesses @ [ next_guess ])
         else
