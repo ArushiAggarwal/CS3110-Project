@@ -1,3 +1,5 @@
+open List
+
 (* open Printf
 
    let all_codes = let f acc c1 c2 c3 c4 = let code = [c1; c2; c3; c4] in code
@@ -45,3 +47,15 @@
    aux max_int [] codes in aux codes best_guess) in aux all_codes initial_guess
 
    let () = solve_mastermind () *)
+
+(* Helper functions *)
+
+let remove_dupes lst = lst |> List.sort_uniq Stdlib.compare
+
+let combine a b =
+  let rec aux a b acc =
+    match (a, b) with
+    | [], _ | _, [] -> acc
+    | a :: at, b :: bt -> aux at bt ((a, b) :: acc)
+  in
+  aux (remove_dupes a) (remove_dupes b) []
