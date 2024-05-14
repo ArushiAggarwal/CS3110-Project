@@ -52,6 +52,8 @@ open List
 
 let remove_dupes lst = lst |> List.sort_uniq Stdlib.compare
 
+(* combine answer and guess*)
+
 let combine a b =
   let rec aux a b acc =
     match (a, b) with
@@ -61,6 +63,7 @@ let combine a b =
   aux (remove_dupes a) (remove_dupes b) []
 
 (** Accessed from chatgpt*)
+(*create all possible combinations of code*)
 
 let perms lst =
   let rec aux = function
@@ -70,3 +73,9 @@ let perms lst =
         p @ (combine [ h ] p |> map (fun (a, l) -> a :: l))
   in
   aux lst
+
+let score guess code =
+  let guess_array = Array.of_list guess in
+  let code_array = Array.of_list code in
+  ( Pin.count_reds (Pin.make_pins guess_array code_array),
+    4 - Pin.count_reds (Pin.make_pins guess_array code_array) )
