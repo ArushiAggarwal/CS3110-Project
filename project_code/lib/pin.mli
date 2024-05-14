@@ -1,6 +1,4 @@
-(** A type for setting up a pin array for feedback. *)
-
-module type Pin = sig
+module type PinType = sig
   type pin
 
   val make_pins : int array -> int array -> pin array
@@ -8,4 +6,4 @@ module type Pin = sig
   val to_string_pin : pin array -> string
 end
 
-module Pin : Pin
+module Pin : PinType
