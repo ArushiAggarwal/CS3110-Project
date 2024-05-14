@@ -59,3 +59,14 @@ let combine a b =
     | a :: at, b :: bt -> aux at bt ((a, b) :: acc)
   in
   aux (remove_dupes a) (remove_dupes b) []
+
+(** Accessed from chatgpt*)
+
+let perms lst =
+  let rec aux = function
+    | [] -> [ [] ]
+    | h :: t ->
+        let p = aux t in
+        p @ (combine [ h ] p |> map (fun (a, l) -> a :: l))
+  in
+  aux lst
