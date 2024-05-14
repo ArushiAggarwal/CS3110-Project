@@ -1,7 +1,5 @@
 open List
 
-(*https://stackoverflow.com/questions/62430071/donald-knuth-algorithm-mastermind*)
-
 (* Helper functions *)
 
 let remove_dupes lst = lst |> List.sort_uniq Stdlib.compare
@@ -34,9 +32,13 @@ let score guess code =
   ( Pin.count_reds (Pin.make_pins guess_array code_array),
     4 - Pin.count_reds (Pin.make_pins guess_array code_array) )
 
+(*https://stackoverflow.com/questions/62430071/donald-knuth-algorithm-mastermind*)
+
+(** Accessed chatgpt for calculating and comparing scores*)
+
 let knuth_algorithm () =
   (* Set of all possible codes *)
-  let all_codes = perms [ 1; 2; 3; 4; 5; 6 ] in
+  let all_codes = perms [ 1; 2; 3; 4; 5; 6; 7; 8 ] in
   let rec aux s guess prev_guesses =
     match guess with
     | [] -> failwith "No solution found"
