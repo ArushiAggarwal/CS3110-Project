@@ -1,5 +1,6 @@
 open List
 open Pin
+module PinKnuth : PinType = PinModule
 
 (* Helper functions *)
 
@@ -30,8 +31,8 @@ let perms lst =
 let score guess code =
   let guess_array = Array.of_list guess in
   let code_array = Array.of_list code in
-  ( Pin.count_reds (Pin.make_pins guess_array code_array),
-    4 - Pin.count_reds (Pin.make_pins guess_array code_array) )
+  ( PinKnuth.count_reds (PinKnuth.make_pins guess_array code_array),
+    4 - PinKnuth.count_reds (PinKnuth.make_pins guess_array code_array) )
 
 (*https://stackoverflow.com/questions/62430071/donald-knuth-algorithm-mastermind*)
 
