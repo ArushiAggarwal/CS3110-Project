@@ -26,6 +26,7 @@ let curr_screen = ref Title
 (* setting up array to store user inputs to send to backend *)
 let user_inputs = ref [] (* algorithm, player order, rounds *)
 let user_game_input = Array.make 4 0
+let game : Gamerecord.game option ref = ref None
 
 let draw_button text x y w h color text_color =
   Graphics.moveto x y;
@@ -37,7 +38,8 @@ let draw_button text x y w h color text_color =
 
 let store_in_backend lst =
   match lst with
-  | [ algo; player; rounds ] -> Gamerecord.make_game rounds player algo
+  | [ algo; player; rounds ] ->
+      Gamerecord.make_game (int_of_string rounds) player algo
   | _ -> failwith "Error with input"
 
 let draw_details () =
