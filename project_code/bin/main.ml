@@ -11,6 +11,8 @@ let orange = 0xff9e54
 let yellow = 0xfff475
 let green = 0x8bc28c
 let player_first = ref false
+let user_code_ref = ref (Array.make 4 0)
+let index_ref = ref 0
 
 (* variant type representing which window of the GUI is displayed *)
 type screen =
@@ -20,6 +22,7 @@ type screen =
   | PlayerSelection
   | RoundScreen
   | Help
+  | GetUserScreen
 
 (* mutable reference to the current screen *)
 let curr_screen = ref Title
@@ -154,45 +157,56 @@ let draw_round_selection_screen () =
   else ()
 
 let do_updates key = print_char key
+let is_valid_length code = Array.length code = 4
 
 let valid_code code =
   let rec aux seen = function
     | [] -> true
     | c :: rest -> if List.mem c seen then false else aux (c :: seen) rest
   in
-  aux [] (String.to_seq code |> List.of_seq)
+  aux [] (Array.to_list code)
 
 let rec get_user_code () =
   Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 200);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 24;
-  Graphics.draw_string "Enter your code (4 digits, no duplicates): ";
-  let user_input = read_line () in
-  if String.length user_input <> 4 || not (valid_code user_input) then (
+  Graphics.draw_string "Enter your code (4 digits, no duplicates):";
+
+  index_ref := 0;
+  while !index_ref < 4 do
+    let key = Graphics.read_key () in
+    if key >= '0' && key <= '9' then
+      let digit = Char.code key - Char.code '0' in
+      if not (Array.mem digit !user_code_ref) then (
+        !user_code_ref.(!index_ref) <- digit;
+        index_ref := !index_ref + 1)
+      else (
+        Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
+        Graphics.set_color 0xff0000;
+        Graphics.draw_string "Invalid input. Please try again.";
+        get_user_code () |> ignore;
+        Array.iteri (fun i _ -> !user_code_ref.(i) <- 0) !user_code_ref;
+        index_ref := 0)
+  done;
+
+  let valid_input =
+    is_valid_length !user_code_ref && valid_code !user_code_ref
+  in
+
+  if valid_input then ()
+  else (
     Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
     Graphics.set_color 0xff0000;
-    Graphics.draw_string "Invalid input. Please try again.";
+    Graphics.draw_string
+      "Invalid input. Code must be 4 digits with no duplicates.";
     get_user_code ())
-  else
-    Array.of_list
-      (List.map
-         (fun c -> int_of_char c - int_of_char '0')
-         (String.to_seq user_input |> List.of_seq))
-
-and valid_code code =
-  let rec aux seen = function
-    | [] -> true
-    | c :: rest -> if List.mem c seen then false else aux (c :: seen) rest
-  in
-  aux [] (String.to_seq code |> List.of_seq)
 
 let draw_game_screen () =
   draw_details ();
+  game := Some (store_in_backend (!user_inputs |> List.rev));
 
-  (* if !player_first then let user_code = get_user_code () in match
-     store_in_backend (!user_inputs |> List.rev) with | Some (algo, player,
-     rounds) -> game := Some (Gamerecord.make_game rounds algo player);
-     Gamerecord.set_answer (Option.get !game) user_code | None -> (); *)
+  if !player_first then Gamerecord.set_answer (Option.get !game) !user_code_ref
+  else ();
 
   (* background *)
   Graphics.moveto ((screen_width / 2) + 300) ((screen_height / 2) + 300);
@@ -387,6 +401,7 @@ let rec run_mastermind () =
      | PlayerSelection -> draw_player_selection_screen ()
      | RoundScreen -> draw_round_selection_screen ()
      | Algorithm -> draw_algo_screen ()
+     | GetUserScreen -> get_user_code ()
      | Game -> draw_game_screen ()
      | Help -> draw_help_screen ());
     run_mastermind ()
