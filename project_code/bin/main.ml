@@ -237,7 +237,10 @@ let draw_board () =
 
   (* white board *)
   Graphics.set_color 0xffffff;
-  Graphics.fill_rect 900 ((screen_height / 2) - 125) 400 250
+  Graphics.fill_rect 900 ((screen_height / 2) - 125) 400 250;
+  Graphics.set_color 0X685044;
+  Graphics.draw_rect 150 130 300 500;
+  Graphics.draw_rect 500 130 150 500
 
 (** draw the balls to represent the inputs *)
 let draw_circles circle_x circle_y_start circle_spacing =
@@ -269,21 +272,21 @@ let draw_circles circle_x circle_y_start circle_spacing =
 let draw_circle_texts circle_x circle_y_start circle_spacing =
   Graphics.set_color Graphics.black;
   Graphics.moveto (circle_x - 5) (circle_y_start - 12);
-  Graphics.draw_string "1";
-  Graphics.moveto (circle_x + circle_spacing - 5) (circle_y_start - 12);
-  Graphics.draw_string "2";
-  Graphics.moveto (circle_x + (2 * circle_spacing) - 5) (circle_y_start - 12);
-  Graphics.draw_string "3";
-  Graphics.moveto (circle_x - 5) (circle_y_start + circle_spacing - 12);
   Graphics.draw_string "4";
+  Graphics.moveto (circle_x + circle_spacing - 5) (circle_y_start - 12);
+  Graphics.draw_string "5";
+  Graphics.moveto (circle_x + (2 * circle_spacing) - 5) (circle_y_start - 12);
+  Graphics.draw_string "6";
+  Graphics.moveto (circle_x - 5) (circle_y_start + circle_spacing - 12);
+  Graphics.draw_string "1";
   Graphics.moveto
     (circle_x + circle_spacing - 5)
     (circle_y_start + circle_spacing - 12);
-  Graphics.draw_string "5";
+  Graphics.draw_string "2";
   Graphics.moveto
     (circle_x + (2 * circle_spacing) - 5)
     (circle_y_start + circle_spacing - 12);
-  Graphics.draw_string "6"
+  Graphics.draw_string "3"
 
 (** draw the game screen *)
 let draw_game_screen () =
@@ -345,11 +348,6 @@ let draw_algo_screen () =
   else if key = 'k' then (
     clear_graph ();
     user_inputs := "Knuth" :: !user_inputs;
-    game := Some (store_in_backend (!user_inputs |> List.rev));
-    curr_screen := to_screen)
-  else if key = 'g' then (
-    clear_graph ();
-    user_inputs := "Genetic" :: !user_inputs;
     game := Some (store_in_backend (!user_inputs |> List.rev));
     curr_screen := to_screen)
   else ()
