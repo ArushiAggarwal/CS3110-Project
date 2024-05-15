@@ -202,7 +202,11 @@ let rec get_user_code () =
       let digit = Char.code key - Char.code '0' in
       if not (Array.mem digit !user_code_ref) then (
         !user_code_ref.(!index_ref) <- digit;
-        index_ref := !index_ref + 1)
+        index_ref := !index_ref + 1;
+        Graphics.moveto
+          ((screen_width / 2) + (50 * (!index_ref - 2)))
+          (screen_height / 2);
+        Graphics.draw_string (String.make 1 key))
       else (
         Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
         Graphics.set_color 0xff0000;
@@ -269,21 +273,21 @@ let draw_circles circle_x circle_y_start circle_spacing =
 let draw_circle_texts circle_x circle_y_start circle_spacing =
   Graphics.set_color Graphics.black;
   Graphics.moveto (circle_x - 5) (circle_y_start - 12);
-  Graphics.draw_string "1";
-  Graphics.moveto (circle_x + circle_spacing - 5) (circle_y_start - 12);
-  Graphics.draw_string "2";
-  Graphics.moveto (circle_x + (2 * circle_spacing) - 5) (circle_y_start - 12);
-  Graphics.draw_string "3";
-  Graphics.moveto (circle_x - 5) (circle_y_start + circle_spacing - 12);
   Graphics.draw_string "4";
+  Graphics.moveto (circle_x + circle_spacing - 5) (circle_y_start - 12);
+  Graphics.draw_string "5";
+  Graphics.moveto (circle_x + (2 * circle_spacing) - 5) (circle_y_start - 12);
+  Graphics.draw_string "6";
+  Graphics.moveto (circle_x - 5) (circle_y_start + circle_spacing - 12);
+  Graphics.draw_string "1";
   Graphics.moveto
     (circle_x + circle_spacing - 5)
     (circle_y_start + circle_spacing - 12);
-  Graphics.draw_string "5";
+  Graphics.draw_string "2";
   Graphics.moveto
     (circle_x + (2 * circle_spacing) - 5)
     (circle_y_start + circle_spacing - 12);
-  Graphics.draw_string "6"
+  Graphics.draw_string "3"
 
 (** draw the game screen *)
 let draw_game_screen () =
@@ -312,6 +316,27 @@ let draw_game_screen () =
 (* fetch the board information from the backend *)
 (* ####################### TODO ################################ *)
 
+(** choose algorithm and move screen *)
+let choose_algo () =
+  let to_screen = if !player_first then GetUserScreen else Game in
+  let key = Graphics.read_key () in
+  if key = 'p' then (
+    clear_graph ();
+    user_inputs := "Random" :: !user_inputs;
+    game := Some (store_in_backend (!user_inputs |> List.rev));
+    curr_screen := to_screen)
+  else if key = 'k' then (
+    clear_graph ();
+    user_inputs := "Knuth" :: !user_inputs;
+    game := Some (store_in_backend (!user_inputs |> List.rev));
+    curr_screen := to_screen)
+  else if key = 'g' then (
+    clear_graph ();
+    user_inputs := "Genetic" :: !user_inputs;
+    game := Some (store_in_backend (!user_inputs |> List.rev));
+    curr_screen := to_screen)
+  else ()
+
 (** draw screen to select algorithm *)
 let draw_algo_screen () =
   draw_details ();
@@ -337,25 +362,7 @@ let draw_algo_screen () =
   draw_button "Genetic Algorithm (press 'g')"
     (start_x + (2 * (button_width + button_spacing)))
     start_y button_width button_height button_color text_color;
-
-  let to_screen = if !player_first then GetUserScreen else Game in
-  let key = Graphics.read_key () in
-  if key = 'p' then (
-    clear_graph ();
-    user_inputs := "Random" :: !user_inputs;
-    game := Some (store_in_backend (!user_inputs |> List.rev));
-    curr_screen := to_screen)
-  else if key = 'k' then (
-    clear_graph ();
-    user_inputs := "Knuth" :: !user_inputs;
-    game := Some (store_in_backend (!user_inputs |> List.rev));
-    curr_screen := to_screen)
-  else if key = 'g' then (
-    clear_graph ();
-    user_inputs := "Genetic" :: !user_inputs;
-    game := Some (store_in_backend (!user_inputs |> List.rev));
-    curr_screen := to_screen)
-  else ()
+  choose_algo ()
 
 let draw_help_screen () =
   draw_details ();
