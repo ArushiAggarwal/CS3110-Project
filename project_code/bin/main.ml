@@ -1,104 +1,126 @@
-(* @author Arushi Aggarwal (aa2555), Petros Georgiou (pag38), Grace Wei
-   (gtw25) *)
+let screen_width = 1400
+let screen_height = 750
 
-(* open Project_code.Random_guessing_algorithm *)
+type screen =
+  | Title
+  | Algorithm
+  | Game
+  | PlayerSelection
+  | RoundScreen
+  | Help
 
-open Set
-open Project_code.Pin
-module PinMain : PinType = PinModule
+let curr_screen = ref Title
 
-(**(** [to_string lst] converts [lst] to a string of digits *) let rec to_string
-   acc = function | [] -> acc | h :: t -> to_string (acc ^ string_of_int h) t
+let draw_button text x y w h color =
+  Graphics.moveto x y;
+  Graphics.set_color color;
+  Graphics.fill_rect x y w h;
+  Graphics.draw_string text
 
-   let verify_input s length = String.length s = length
+let draw_details () =
+  Graphics.set_color 0x8cd9ff;
+  Graphics.fill_rect 0 0 screen_width screen_height
 
-   (**[accept_feedback s] checks if a string is "yes", "no", or "quit". It will
-   prompt the user to reenter a string if it does not match any of those cases.
-   *) let rec accept_feedback s = match s with | "yes" | "quit" -> true | "no"
-   -> false | _ -> print_endline "Invalid feedback. Please try again";
-   accept_feedback (read_line ())
+let clear_graph () =
+  Graphics.clear_graph ();
+  draw_details ()
 
-   (** main function that runs the game *) let rec run_round_terminal ended i =
-   if i <= 0 then print_endline "The computer did not get the answer :(" else
-   match ended with | true -> print_endline "The computer wins the round! :)" |
-   false -> ( let () = print_string "The computer guessed: " in let guess =
-   Project_code.Computer_output.make_guess () in let () = print_endline
-   (to_string "" guess); print_endline "Is the computer correct? yes/no/quit" in
-   let the_input = read_line () in match accept_feedback the_input with | true
-   -> run_round_terminal true 0 | false -> run_round_terminal false (i - 1))
+let draw_board () =
+  Graphics.set_color 0x997950;
+  Graphics.fill_rect 100 100 100 400
 
-   let rec run_guess_terminal i answer = if i = 0 then print_endline ("Answer: "
-   ^ answer ^ ". Thanks for playing!") else let guess = read_line () in if guess
-   = "quit" then run_guess_terminal 0 answer else if String.length guess != 4
-   then let () = print_endline "Incorrect length" in run_guess_terminal i answer
-   else if guess = answer then print_endline "You win!" else let () =
-   print_endline "Try again" in run_guess_terminal (i - 1) answer
+let draw_title_screen () =
+  draw_details ();
+  (* Draw title screen elements *)
+  Graphics.moveto 100 200;
+  Graphics.draw_string "OCaml Mastermind";
+  draw_button "Start New Game" 300 100 50 50 Graphics.blue;
+  if Graphics.read_key () = 's' then (
+    clear_graph ();
+    curr_screen := PlayerSelection)
+  else if Graphics.read_key () = 'h' then (
+    clear_graph ();
+    curr_screen := Help)
+  else ()
 
-   let () = print_string "Input the answer (4 digits): " let answer = read_line
-   () let () = assert (verify_input answer 4)
+let draw_player_selection_screen () =
+  Graphics.moveto (screen_width / 2) (screen_height / 3);
+  Graphics.draw_string "Select your player:";
+  draw_button "Player 1" 300 100 50 50 Graphics.blue;
+  draw_button "Player 2" 300 200 50 50 Graphics.blue;
+  if Graphics.read_key () = '1' then (
+    clear_graph ();
+    curr_screen := RoundScreen)
+  else if Graphics.read_key () = '2' then (
+    clear_graph ();
+    curr_screen := RoundScreen)
+  else ()
 
-   (* run the first round (computer guess) with 12 tries *) let () =
-   run_round_terminal false 12 let () = print_endline "guess the code (type
-   \"quit\" to stop)"
+let draw_round_selection_screen () =
+  Graphics.moveto (screen_width / 2) (screen_height / 3);
+  Graphics.draw_string "Select number of rounds:";
+  let button_width = 50 in
+  let button_height = 50 in
+  let button_spacing = 100 in
+  let start_x = (screen_width / 2) - (button_spacing * 2) in
+  let start_y = screen_height / 2 in
+  for i = 1 to 5 do
+    let x = start_x + ((i - 1) * button_spacing) in
+    let y = start_y in
+    draw_button (string_of_int i) x y button_width button_height Graphics.blue
+  done;
+  let key = Graphics.read_key () in
+  if key = '1' || key = '2' || key = '3' || key = '4' || key = '5' then (
+    clear_graph ();
+    curr_screen := Algorithm)
+  else ()
 
-   (* run the second round (user guesses) with 12 tries as per the game *) let
-   () = run_guess_terminal 12 (to_string ""
-   Project_code.Computer_output.(make_guess ())) *)
+let draw_algo_screen () =
+  (* Draw algorithm screen elements *)
+  Graphics.moveto (screen_width / 2) (screen_height / 3 * 2);
+  Graphics.draw_string "Choose an Algorithm to play against!";
+  draw_button "Knuth Algorithm" 300 100 50 50 Graphics.blue;
+  draw_button "Genetic Algorithm" 300 100 50 50 Graphics.blue;
+  if Graphics.read_key () = 'g' then (
+    clear_graph ();
+    curr_screen := Game)
+  else ()
 
-let rec to_string_help arr acc int =
-  if int = 4 then acc
-  else to_string_help arr (acc ^ string_of_int arr.(int)) (int + 1)
+let draw_game_screen () = draw_board ()
+(* fetch the board information from the backend *)
 
-let to_string2 arr = to_string_help arr "" 0
+let draw_help_screen () =
+  Graphics.moveto (screen_width / 2) (screen_height / 3 * 2);
+  Graphics.draw_string "Help!";
 
-module ChoiceSet = Make (Int)
-
-let rec string_to_guess str n arr =
-  if n = 4 then arr
-  else
-    let _ = arr.(n) <- int_of_string (String.make 1 str.[n]) in
-    string_to_guess str (n + 1) arr
-
-let check_reds arr = PinMain.count_reds arr = 4
-
-let rec check_duplicates str set1 set2 n =
-  if n = 4 then true
-  else
-    let x = String.make 1 str.[n] in
-    if
-      ChoiceSet.mem (int_of_string x) set1
-      || ChoiceSet.mem (int_of_string x) set2 = false
-    then false
-    else check_duplicates str (ChoiceSet.add (int_of_string x) set1) set2 (n + 1)
-
-let get_feedback (guess : int array) (answer : int array) =
-  PinMain.make_pins guess answer
-
-let rec makechoices n acc =
-  if n = -1 then acc else makechoices (n - 1) (ChoiceSet.add n acc)
-
-let choices = makechoices 7 ChoiceSet.empty
-
-let rec user_run n answer =
-  if n = 0 then
-    print_string
-      ("Sorry :( The answer\n    was " ^ to_string2 answer ^ ". Thanks I guess")
-  else
-    let guess = read_line () in
-    if String.length guess != 4 then
-      let _ = print_string "Invalid length\n" in
-      user_run n answer
-    else if check_duplicates guess ChoiceSet.empty choices 0 = false then
-      let _ = print_string "Invalid characters/no duplicates\n" in
-      user_run n answer
-    else
-      let arr = string_to_guess guess 0 [| 0; 0; 0; 0 |] in
-      let _ = print_string (to_string2 arr) in
-      let pins = get_feedback arr answer in
-      let _ = print_string (PinMain.to_string_pin pins ^ "\n") in
-      if check_reds pins then print_string "You win!"
-      else user_run (n - 1) answer
+let rec run_mastermind () =
+  Graphics.open_graph
+    (" " ^ string_of_int screen_width ^ "x" ^ string_of_int screen_height);
+  match !curr_screen with
+  | Title ->
+      draw_title_screen ();
+      run_mastermind ()
+  | PlayerSelection ->
+      draw_player_selection_screen ();
+      run_mastermind ()
+  | RoundScreen ->
+      draw_round_selection_screen ();
+      run_mastermind ()
+  | Algorithm ->
+      draw_algo_screen ();
+      run_mastermind ()
+  | Game ->
+      draw_game_screen ();
+      run_mastermind ()
+  | Help ->
+      draw_help_screen ();
+      run_mastermind ()
 
 let () =
-  let _ = print_string "Welcome lol\n" in
-  user_run 10 [| 0; 4; 5; 1 |]
+  Graphics.open_graph
+    (" " ^ string_of_int screen_width ^ "x" ^ string_of_int screen_height);
+  draw_details ();
+  ignore (Graphics.read_key ());
+  Graphics.close_graph ()
+
+let () = run_mastermind ()
