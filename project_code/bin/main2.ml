@@ -5,6 +5,8 @@ type screen =
   | Title
   | Algorithm
   | Game
+  | PlayerSelection
+  | RoundScreen
 
 let curr_screen = ref Title
 
@@ -32,7 +34,17 @@ let draw_title_screen () =
   Graphics.moveto 100 200;
   Graphics.draw_string "OCaml Mastermind";
   draw_button "Start New Game" 300 100 50 50 Graphics.blue;
-  if Graphics.read_key () = 's' then curr_screen := Algorithm else ()
+  if Graphics.read_key () = 's' then curr_screen := PlayerSelection else ()
+
+  let draw_player_selection_screen () =
+    clear_graph ();
+    Graphics.moveto (screen_width / 2) (screen_height / 3);
+    Graphics.draw_string "Select your player:";
+    draw_button "Player 1" 300 100 50 50 Graphics.blue;
+    draw_button "Player 2" 300 200 50 50 Graphics.blue;
+    if Graphics.read_key () = '1' then curr_screen := Game else
+    if Graphics.read_key () = '2' then curr_screen := Game else ()
+  
 
 let draw_algo_screen () =
   Graphics.clear_graph ();
