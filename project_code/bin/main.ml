@@ -91,7 +91,7 @@ let draw_game_screen () = draw_board ()
 
 let draw_help_screen () =
   Graphics.moveto (screen_width / 2) (screen_height / 3 * 2);
-  Graphics.draw_string "Help!";
+  Graphics.draw_string "Help!"
 
 let rec run_mastermind () =
   Graphics.open_graph
