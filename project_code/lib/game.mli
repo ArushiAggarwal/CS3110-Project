@@ -1,12 +1,12 @@
 type game_record = {
   game_board : int array array;
   pin_board : int array array;
-  mutable answer : int array;
-  mutable round_number : int;
   total_rounds : int;
   algorithm : string;
   player : string;
+  mutable round_number : int;
   mutable turn_number : int;
+  mutable answer : int array;
 }
 
 module type Gameboard = sig
