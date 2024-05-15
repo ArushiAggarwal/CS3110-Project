@@ -297,9 +297,6 @@ let draw_algo_screen () =
   draw_button "Knuth Algorithm (press 'k')"
     (start_x + button_width + button_spacing)
     start_y button_width button_height button_color text_color;
-  draw_button "Genetic Algorithm (press 'g')"
-    (start_x + (2 * (button_width + button_spacing)))
-    start_y button_width button_height button_color text_color;
 
   let key = Graphics.read_key () in
   if key = 'p' then (
@@ -309,10 +306,6 @@ let draw_algo_screen () =
   else if key = 'k' then (
     clear_graph ();
     user_inputs := "Knuth" :: !user_inputs;
-    curr_screen := Game)
-  else if key = 'g' then (
-    clear_graph ();
-    user_inputs := "Genetic" :: !user_inputs;
     curr_screen := Game)
   else ()
 
