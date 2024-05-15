@@ -3,12 +3,12 @@ open Pin
 type game_record = {
   game_board : int array array;
   pin_board : int array array;
-  mutable answer : int array;
-  mutable round_number : int;
   total_rounds : int;
   algorithm : string;
   player : string;
+  mutable round_number : int;
   mutable turn_number : int;
+  mutable answer : int array;
 }
 
 module type Gameboard = sig
@@ -47,7 +47,7 @@ module type Gameboard = sig
   (** [clear_board game] resets all values in [game] for the next round *)
 end
 
-module GameRecord : Gameboard = struct
+module Gamerecord : Gameboard = struct
   (* represents the playing board *)
   type game = game_record
 
@@ -58,12 +58,12 @@ module GameRecord : Gameboard = struct
     {
       game_board = Array.init 12 (fun _ -> Array.init 4 (fun _ -> 0));
       pin_board = Array.init 12 (fun _ -> Array.init 4 (fun _ -> 0));
-      answer = Array.make 4 0;
-      round_number = 0;
       total_rounds = rounds;
       algorithm = algo;
       player;
+      round_number = 0;
       turn_number = 0;
+      answer = Array.make 4 0;
     }
 
   (** [get_round game] returns the number of rounds played. *)
@@ -112,4 +112,6 @@ module GameRecord : Gameboard = struct
 
   (** [set_answer game] sets the answer in [game] for the round *)
   let set_answer game answer = game.answer <- answer
+
+  (* let check_feedback feedback guess = let real_feedback *)
 end
