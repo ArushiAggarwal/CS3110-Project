@@ -5,6 +5,7 @@ module type PinType = sig
   val count_reds : pin array -> int
   val to_string_pin : pin array -> string
   val to_int_array : pin array -> int array
+  val all_colors : pin array -> int array
 end
 
 (** This is a module implementation for an array of pins, which are indicative
@@ -50,16 +51,28 @@ module PinModule : PinType = struct
     done;
     pinArray
 
-  (** [count_reds arr] counts the number of [Red] constructors in [arr]. *)
-  let rec count_reds_help arr int acc =
-    if int = 4 then acc
-    else
-      match arr.(int) with
-      | Red -> count_reds_help arr (int + 1) (acc + 1)
-      | White | Null -> count_reds_help arr (int + 1) acc
+  (** [all_colors arr] takes a pin array [arr] and returns a 3 size array of the
+      multiplicity of each color. [0] -> [Red] [1] -> [White] [2] -> [Null]*)
+  let all_colors arr =
+    let acc = Array.make 3 0 in
+    for i = 0 to 4 do
+      match arr.(i) with
+      | Red -> acc.(0) <- acc.(0) + 1
+      | White -> acc.(1) <- acc.(1) + 1
+      | Null -> acc.(2) <- acc.(2) + 1
+    done;
+    acc
 
   (** [count_reds arr] counts the number of [Red] constructors in [arr]. *)
-  let count_reds arr = count_reds_help arr 0 0
+  let count_reds arr = (all_colors arr).(0)
+
+  (** [count_whites arr] counts the number of [White] constructors in [arr]. *)
+
+  let count_reds arr = (all_colors arr).(1)
+
+  (** [count_nulls arr] counts the number of [Nulls] constructors in [arr]. *)
+
+  let count_nulls arr = (all_colors arr).(2)
 
   let rec to_string_help arr acc int =
     if int = 4 then acc
