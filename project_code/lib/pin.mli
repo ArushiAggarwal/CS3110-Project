@@ -6,4 +6,4 @@ module type PinType = sig
   val to_string_pin : pin array -> string
 end
 
-module Pin : PinType
+module PinModule : PinType

@@ -5,6 +5,7 @@
 
 open Set
 open Project_code.Pin
+module PinMain : PinType = PinModule
 
 (**(** [to_string lst] converts [lst] to a string of digits *) let rec to_string
    acc = function | [] -> acc | h :: t -> to_string (acc ^ string_of_int h) t
@@ -58,7 +59,7 @@ let rec string_to_guess str n arr =
     let _ = arr.(n) <- int_of_string (String.make 1 str.[n]) in
     string_to_guess str (n + 1) arr
 
-let check_reds arr = Pin.count_reds arr = 4
+let check_reds arr = PinMain.count_reds arr = 4
 
 let rec check_duplicates str set1 set2 n =
   if n = 4 then true
@@ -71,7 +72,7 @@ let rec check_duplicates str set1 set2 n =
     else check_duplicates str (ChoiceSet.add (int_of_string x) set1) set2 (n + 1)
 
 let get_feedback (guess : int array) (answer : int array) =
-  Pin.make_pins guess answer
+  PinMain.make_pins guess answer
 
 let rec makechoices n acc =
   if n = -1 then acc else makechoices (n - 1) (ChoiceSet.add n acc)
@@ -94,7 +95,7 @@ let rec user_run n answer =
       let arr = string_to_guess guess 0 [| 0; 0; 0; 0 |] in
       let _ = print_string (to_string2 arr) in
       let pins = get_feedback arr answer in
-      let _ = print_string (Pin.to_string_pin pins ^ "\n") in
+      let _ = print_string (PinMain.to_string_pin pins ^ "\n") in
       if check_reds pins then print_string "You win!"
       else user_run (n - 1) answer
 

@@ -19,7 +19,7 @@ end
     For instance, if the guess was [[1,2,3,4]], and the answer was [[7,2,5,3]],
     the players would receive the pins [[Red, White, Null, Null]]*)
 
-module Pin : PinType = struct
+module PinModule : PinType = struct
   (** [pin] represents a progress mark for a guess with respect to answer. [Red]
       means a color is in the right place and in the answer. [White] means a
       color is in the answer but not in the right place. [Null] means that the
