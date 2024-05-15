@@ -37,7 +37,7 @@ let draw_button text x y w h color text_color =
 
 let store_in_backend lst =
   match lst with
-  | [ (algo, player, rounds) ] -> Gamerecord.make_game rounds player algo
+  | [ algo; player; rounds ] -> Gamerecord.make_game rounds player algo
   | _ -> failwith "Error with input"
 
 let draw_details () =
@@ -110,7 +110,7 @@ let draw_player_selection_screen () =
     curr_screen := RoundScreen)
   else if key = '2' then (
     clear_graph ();
-    user_inputs := "player" :: !user_inputs;
+    user_inputs := "computer" :: !user_inputs;
     curr_screen := RoundScreen)
   else ()
 
@@ -141,6 +141,7 @@ let draw_round_selection_screen () =
   let key = Graphics.read_key () in
   if key = '1' || key = '2' || key = '3' || key = '4' || key = '5' then (
     clear_graph ();
+    user_inputs := String.make 1 key :: !user_inputs;
     curr_screen := Algorithm)
   else ()
 
@@ -227,12 +228,15 @@ let draw_algo_screen () =
   let key = Graphics.read_key () in
   if key = 'p' then (
     clear_graph ();
+    user_inputs := "Random" :: !user_inputs;
     curr_screen := Game)
   else if key = 'k' then (
     clear_graph ();
+    user_inputs := "Knuth" :: !user_inputs;
     curr_screen := Game)
   else if key = 'g' then (
     clear_graph ();
+    user_inputs := "Genetic" :: !user_inputs;
     curr_screen := Game)
   else ()
 
