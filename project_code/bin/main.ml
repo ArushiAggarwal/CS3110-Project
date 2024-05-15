@@ -10,6 +10,7 @@ let red = 0xe8503f
 let orange = 0xff9e54
 let yellow = 0xfff475
 let green = 0x8bc28c
+let player_first = ref false
 
 (* variant type representing which window of the GUI is displayed *)
 type screen =
@@ -41,6 +42,16 @@ let store_in_backend lst =
   | [ algo; player; rounds ] ->
       Gamerecord.make_game (int_of_string rounds) player algo
   | _ -> failwith "Error with input"
+
+let store_in_backend lst =
+  match lst with
+  | [ algo; player; rounds ] -> Some (algo, player, int_of_string rounds)
+  | _ ->
+      Graphics.moveto ((screen_width / 2) - 250) ((screen_height / 2) + 200);
+      Graphics.set_color 0xff0000;
+      Graphics.set_text_size 24;
+      Graphics.draw_string "Error: Invalid input format.";
+      None
 
 let draw_details () =
   Graphics.set_color 0xf9dec9;
@@ -109,10 +120,12 @@ let draw_player_selection_screen () =
   if key = '1' then (
     clear_graph ();
     user_inputs := "player" :: !user_inputs;
+    player_first := true;
     curr_screen := RoundScreen)
   else if key = '2' then (
     clear_graph ();
     user_inputs := "computer" :: !user_inputs;
+    player_first := false;
     curr_screen := RoundScreen)
   else ()
 
@@ -149,56 +162,100 @@ let draw_round_selection_screen () =
 
 let do_updates key = print_char key
 
+let valid_code code =
+  let rec aux seen = function
+    | [] -> true
+    | c :: rest -> if List.mem c seen then false else aux (c :: seen) rest
+  in
+  aux [] (String.to_seq code |> List.of_seq)
+
+let rec get_user_code () =
+  Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 200);
+  Graphics.set_color 0x3a405a;
+  Graphics.set_text_size 24;
+  Graphics.draw_string "Enter your code (4 digits, no duplicates): ";
+  let user_input = read_line () in
+  if String.length user_input <> 4 || not (valid_code user_input) then (
+    Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
+    Graphics.set_color 0xff0000;
+    Graphics.draw_string "Invalid input. Please try again.";
+    get_user_code ())
+  else
+    Array.of_list
+      (List.map
+         (fun c -> int_of_char c - int_of_char '0')
+         (String.to_seq user_input |> List.of_seq))
+
+and valid_code code =
+  let rec aux seen = function
+    | [] -> true
+    | c :: rest -> if List.mem c seen then false else aux (c :: seen) rest
+  in
+  aux [] (String.to_seq code |> List.of_seq)
+
 let draw_game_screen () =
   draw_details ();
 
-  (* background *)
-  Graphics.moveto ((screen_width / 2) + 300) ((screen_height / 2) + 300);
-  Graphics.set_color 0x3a405a;
-  Graphics.set_text_size 48;
-  Graphics.draw_string "Play Game!";
+  if !player_first then
+    let user_code = get_user_code () in
+    match store_in_backend (!user_inputs |> List.rev) with
+    | Some (algo, player, rounds) ->
+        game := Some (Gamerecord.make_game rounds algo player);
+        Gamerecord.set_answer (Option.get !game) user_code
+    | None ->
+        ();
 
-  (* brown board*)
-  Graphics.set_color 0xb9998a;
-  Graphics.fill_rect 100 80 600 600;
-  Graphics.set_color 0x685044;
-  Graphics.draw_rect 100 80 600 600;
+        (* background *)
+        Graphics.moveto ((screen_width / 2) + 300) ((screen_height / 2) + 300);
+        Graphics.set_color 0x3a405a;
+        Graphics.set_text_size 48;
+        Graphics.draw_string "Play Game!";
 
-  (* white board *)
-  Graphics.set_color 0xffffff;
-  Graphics.fill_rect 900 ((screen_height / 2) - 125) 400 250;
+        (* brown board*)
+        Graphics.set_color 0xb9998a;
+        Graphics.fill_rect 100 80 600 600;
+        Graphics.set_color 0x685044;
+        Graphics.draw_rect 100 80 600 600;
 
-  Graphics.set_color 0x000000;
-  let circle_radius = 25 in
-  let circle_x = 1000 in
-  let circle_y_start = (screen_height / 2) - 75 in
-  let circle_spacing = 100 in
+        (* white board *)
+        Graphics.set_color 0xffffff;
+        Graphics.fill_rect 900 ((screen_height / 2) - 125) 400 250;
 
-  Graphics.set_color purple;
-  Graphics.fill_circle circle_x circle_y_start circle_radius;
-  Graphics.set_color pink;
-  Graphics.fill_circle (circle_x + circle_spacing) circle_y_start circle_radius;
-  Graphics.set_color orange;
-  Graphics.fill_circle
-    (circle_x + (2 * circle_spacing))
-    circle_y_start circle_radius;
+        Graphics.set_color 0x000000;
+        let circle_radius = 25 in
+        let circle_x = 1000 in
+        let circle_y_start = (screen_height / 2) - 75 in
+        let circle_spacing = 100 in
 
-  (* Draw the second row of circles *)
-  Graphics.set_color yellow;
-  Graphics.fill_circle circle_x (circle_y_start + circle_spacing) circle_radius;
-  Graphics.set_color green;
-  Graphics.fill_circle
-    (circle_x + circle_spacing)
-    (circle_y_start + circle_spacing)
-    circle_radius;
-  Graphics.set_color red;
-  Graphics.fill_circle
-    (circle_x + (2 * circle_spacing))
-    (circle_y_start + circle_spacing)
-    circle_radius;
+        Graphics.set_color purple;
+        Graphics.fill_circle circle_x circle_y_start circle_radius;
+        Graphics.set_color pink;
+        Graphics.fill_circle
+          (circle_x + circle_spacing)
+          circle_y_start circle_radius;
+        Graphics.set_color orange;
+        Graphics.fill_circle
+          (circle_x + (2 * circle_spacing))
+          circle_y_start circle_radius;
 
-  let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
-  do_updates key
+        (* Draw the second row of circles *)
+        Graphics.set_color yellow;
+        Graphics.fill_circle circle_x
+          (circle_y_start + circle_spacing)
+          circle_radius;
+        Graphics.set_color green;
+        Graphics.fill_circle
+          (circle_x + circle_spacing)
+          (circle_y_start + circle_spacing)
+          circle_radius;
+        Graphics.set_color red;
+        Graphics.fill_circle
+          (circle_x + (2 * circle_spacing))
+          (circle_y_start + circle_spacing)
+          circle_radius;
+
+        let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
+        do_updates key
 
 (* fetch the board information from the backend *)
 
