@@ -9,7 +9,7 @@ type screen =
   | RoundScreen
   | Help
 
-let curr_screen = ref Title
+let curr_screen = ref Game
 
 let draw_button text x y w h color text_color =
   Graphics.moveto x y;
@@ -157,7 +157,45 @@ let draw_algo_screen () =
     curr_screen := Game)
   else ()
 
-let draw_game_screen () = draw_board ()
+let draw_game_screen () =
+  draw_details ();
+
+  Graphics.moveto ((screen_width / 2) + 300) ((screen_height / 2) + 300);
+  Graphics.set_color 0x3a405a;
+  Graphics.set_text_size 48;
+  Graphics.draw_string "Play Game!";
+
+  Graphics.set_color 0x685044;
+  Graphics.draw_rect 100 80 600 600;
+  Graphics.set_color 0xb9998a;
+  Graphics.fill_rect 100 80 600 600;
+
+  Graphics.set_color 0xffffff;
+  Graphics.fill_rect 750 80 400 600;
+
+  Graphics.set_color 0x000000;
+  let circle_radius = 25 in
+  let circle_x = 800 in
+  let circle_y_start = 150 in
+  let circle_spacing = 100 in
+
+  Graphics.fill_circle circle_x circle_y_start circle_radius;
+  Graphics.fill_circle (circle_x + circle_spacing) circle_y_start circle_radius;
+  Graphics.fill_circle
+    (circle_x + (2 * circle_spacing))
+    circle_y_start circle_radius;
+
+  (* Draw the second row of circles *)
+  Graphics.fill_circle circle_x (circle_y_start + circle_spacing) circle_radius;
+  Graphics.fill_circle
+    (circle_x + circle_spacing)
+    (circle_y_start + circle_spacing)
+    circle_radius;
+  Graphics.fill_circle
+    (circle_x + (2 * circle_spacing))
+    (circle_y_start + circle_spacing)
+    circle_radius
+
 (* fetch the board information from the backend *)
 
 let draw_help_screen () =
