@@ -178,8 +178,8 @@ let draw_game_screen () =
 
   Graphics.set_color 0x000000;
   let circle_radius = 25 in
-  let circle_x = 800 in
-  let circle_y_start = 150 in
+  let circle_x = 910 in
+  let circle_y_start = (screen_height / 2) - 115 in
   let circle_spacing = 100 in
 
   Graphics.fill_circle circle_x circle_y_start circle_radius;
