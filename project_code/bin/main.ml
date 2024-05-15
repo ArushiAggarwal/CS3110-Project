@@ -160,18 +160,21 @@ let draw_algo_screen () =
 let draw_game_screen () =
   draw_details ();
 
+  (* background *)
   Graphics.moveto ((screen_width / 2) + 300) ((screen_height / 2) + 300);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 48;
   Graphics.draw_string "Play Game!";
 
-  Graphics.set_color 0x685044;
-  Graphics.draw_rect 100 80 600 600;
+  (* brown board*)
   Graphics.set_color 0xb9998a;
   Graphics.fill_rect 100 80 600 600;
+  Graphics.set_color 0x685044;
+  Graphics.draw_rect 100 80 600 600;
 
+  (* white board *)
   Graphics.set_color 0xffffff;
-  Graphics.fill_rect 750 80 400 600;
+  Graphics.fill_rect 900 ((screen_height / 2) - 125) 400 250;
 
   Graphics.set_color 0x000000;
   let circle_radius = 25 in
