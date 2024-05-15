@@ -1,6 +1,16 @@
+(* @author *)
+
+(* global variables *)
 let screen_width = 1400
 let screen_height = 750
+let purple = 0x6667ab
+let pink = 0xf18aad
+let red = 0xe8503f
+let orange = 0xff9e54
+let yellow = 0xfff475
+let green = 0x8bc28c
 
+(* variant type representing which window of the GUI is displayed *)
 type screen =
   | Title
   | Algorithm
@@ -9,19 +19,19 @@ type screen =
   | RoundScreen
   | Help
 
-let curr_screen = ref Game
-let purple = 0x6667ab
-let pink = 0xf18aad
-let red = 0xe8503f
-let orange = 0xff9e54
-let yellow = 0xfff475
-let green = 0x8bc28c
+(* mutable reference to the current screen *)
+let curr_screen = ref Title
+
+(* setting up array to store user inputs to send to backend *)
+let user_inputs = [] (* algorithm, player order, rounds *)
+let user_game_input = Array.make 4 0
 
 let draw_button text x y w h color text_color =
   Graphics.moveto x y;
   Graphics.set_color color;
   Graphics.fill_rect x y w h;
   Graphics.set_color text_color;
+  Graphics.set_text_size 24;
   Graphics.draw_string text
 
 let draw_details () =
@@ -126,42 +136,7 @@ let draw_round_selection_screen () =
     curr_screen := Algorithm)
   else ()
 
-let draw_algo_screen () =
-  draw_details ();
-
-  Graphics.moveto ((screen_width / 2) - 25) ((screen_height / 2) + 125);
-  Graphics.set_color 0x3a405a;
-  Graphics.set_text_size 48;
-  Graphics.draw_string "Choose an Algorithm to play against!";
-
-  let button_width = 200 in
-  let button_height = 50 in
-  let button_spacing = 50 in
-  let start_x = (screen_width / 2) - (button_width + button_spacing) in
-  let start_y = screen_height / 2 in
-  let button_color = 0xe9afa3 in
-  let text_color = 0x3a405a in
-
-  draw_button "Pseudo Randomizer (press 'p')" start_x start_y button_width
-    button_height button_color text_color;
-  draw_button "Knuth Algorithm (press 'k')"
-    (start_x + button_width + button_spacing)
-    start_y button_width button_height button_color text_color;
-  draw_button "Genetic Algorithm (press 'g')"
-    (start_x + (2 * (button_width + button_spacing)))
-    start_y button_width button_height button_color text_color;
-
-  let key = Graphics.read_key () in
-  if key = 'p' then (
-    clear_graph ();
-    curr_screen := Game)
-  else if key = 'k' then (
-    clear_graph ();
-    curr_screen := Game)
-  else if key = 'g' then (
-    clear_graph ();
-    curr_screen := Game)
-  else ()
+let do_updates key = print_char key
 
 let draw_game_screen () =
   draw_details ();
@@ -209,9 +184,49 @@ let draw_game_screen () =
   Graphics.fill_circle
     (circle_x + (2 * circle_spacing))
     (circle_y_start + circle_spacing)
-    circle_radius
+    circle_radius;
+
+  let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
+  do_updates key
 
 (* fetch the board information from the backend *)
+
+let draw_algo_screen () =
+  draw_details ();
+
+  Graphics.moveto ((screen_width / 2) - 25) ((screen_height / 2) + 125);
+  Graphics.set_color 0x3a405a;
+  Graphics.set_text_size 48;
+  Graphics.draw_string "Choose an Algorithm to play against!";
+
+  let button_width = 200 in
+  let button_height = 50 in
+  let button_spacing = 50 in
+  let start_x = (screen_width / 2) - (button_width + button_spacing) in
+  let start_y = screen_height / 2 in
+  let button_color = 0xe9afa3 in
+  let text_color = 0x3a405a in
+
+  draw_button "Pseudo Randomizer (press 'p')" start_x start_y button_width
+    button_height button_color text_color;
+  draw_button "Knuth Algorithm (press 'k')"
+    (start_x + button_width + button_spacing)
+    start_y button_width button_height button_color text_color;
+  draw_button "Genetic Algorithm (press 'g')"
+    (start_x + (2 * (button_width + button_spacing)))
+    start_y button_width button_height button_color text_color;
+
+  let key = Graphics.read_key () in
+  if key = 'p' then (
+    clear_graph ();
+    curr_screen := Game)
+  else if key = 'k' then (
+    clear_graph ();
+    curr_screen := Game)
+  else if key = 'g' then (
+    clear_graph ();
+    curr_screen := Game)
+  else ()
 
 let draw_help_screen () =
   draw_details ();
@@ -290,30 +305,28 @@ let draw_help_screen () =
   else ()
 
 let rec run_mastermind () =
-  Graphics.open_graph
-    (" " ^ string_of_int screen_width ^ "x" ^ string_of_int screen_height);
-  match !curr_screen with
-  | Title ->
-      draw_title_screen ();
-      run_mastermind ()
-  | PlayerSelection ->
-      draw_player_selection_screen ();
-      run_mastermind ()
-  | RoundScreen ->
-      draw_round_selection_screen ();
-      run_mastermind ()
-  | Algorithm ->
-      draw_algo_screen ();
-      run_mastermind ()
-  | Game ->
-      draw_game_screen ();
-      run_mastermind ()
-  | Help ->
-      draw_help_screen ();
-      run_mastermind ()
-
-(* let () = Graphics.open_graph (" " ^ string_of_int screen_width ^ "x" ^
-   string_of_int screen_height); draw_details (); ignore (Graphics.read_key ());
-   Graphics.close_graph () *)
+  try
+    Graphics.open_graph
+      (" " ^ string_of_int screen_width ^ "x" ^ string_of_int screen_height);
+    match !curr_screen with
+    | Title ->
+        draw_title_screen ();
+        run_mastermind ()
+    | PlayerSelection ->
+        draw_player_selection_screen ();
+        run_mastermind ()
+    | RoundScreen ->
+        draw_round_selection_screen ();
+        run_mastermind ()
+    | Algorithm ->
+        draw_algo_screen ();
+        run_mastermind ()
+    | Game ->
+        draw_game_screen ();
+        run_mastermind ()
+    | Help ->
+        draw_help_screen ();
+        run_mastermind ()
+  with exn -> print_endline "Thanks for playing!"
 
 let () = run_mastermind ()
