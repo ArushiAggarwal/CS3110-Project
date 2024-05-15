@@ -202,7 +202,11 @@ let rec get_user_code () =
       let digit = Char.code key - Char.code '0' in
       if not (Array.mem digit !user_code_ref) then (
         !user_code_ref.(!index_ref) <- digit;
-        index_ref := !index_ref + 1)
+        index_ref := !index_ref + 1;
+        Graphics.moveto
+          ((screen_width / 2) + (50 * (!index_ref - 2)))
+          (screen_height / 2);
+        Graphics.draw_string (String.make 1 key))
       else (
         Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
         Graphics.set_color 0xff0000;
@@ -314,6 +318,27 @@ let draw_game_screen () =
 
 (* fetch the board information from the backend *)
 (* ####################### TODO ################################ *)
+
+(** choose algorithm and move screen *)
+let choose_algo () =
+  let to_screen = if !player_first then GetUserScreen else Game in
+  let key = Graphics.read_key () in
+  if key = 'p' then (
+    clear_graph ();
+    user_inputs := "Random" :: !user_inputs;
+    game := Some (store_in_backend (!user_inputs |> List.rev));
+    curr_screen := to_screen)
+  else if key = 'k' then (
+    clear_graph ();
+    user_inputs := "Knuth" :: !user_inputs;
+    game := Some (store_in_backend (!user_inputs |> List.rev));
+    curr_screen := to_screen)
+  else if key = 'g' then (
+    clear_graph ();
+    user_inputs := "Genetic" :: !user_inputs;
+    game := Some (store_in_backend (!user_inputs |> List.rev));
+    curr_screen := to_screen)
+  else ()
 
 (** draw screen to select algorithm *)
 let draw_algo_screen () =
