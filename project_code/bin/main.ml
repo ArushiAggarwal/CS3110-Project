@@ -35,7 +35,6 @@ let draw_title_screen () =
 
   Graphics.moveto ((screen_width / 2) - 25) ((screen_height / 2) + 125);
   Graphics.set_color 0x3a405a;
-  (* Set text color to hex code *)
   Graphics.set_text_size 100000;
   Graphics.draw_string "MASTERMIND";
 
@@ -46,16 +45,11 @@ let draw_title_screen () =
   let button_color1 = 0xaec5eb in
   let button_color2 = 0xe9afa3 in
   let text_color = 0x3a405a in
-  (* A nice blue color *)
   draw_button "Start" button_x button_y button_width button_height button_color1
     text_color;
   draw_button "Help" button_x
     (button_y + button_height + 50)
     button_width button_height button_color2 text_color;
-
-  (* Handle user input *)
-
-  (* Handle user input *)
   let key = Graphics.read_key () in
   if key = 's' then (
     clear_graph ();
@@ -66,32 +60,59 @@ let draw_title_screen () =
   else ()
 
 let draw_player_selection_screen () =
-  Graphics.moveto (screen_width / 2) (screen_height / 3);
+  draw_details ();
+
+  Graphics.moveto ((screen_width / 2) - 25) ((screen_height / 2) + 125);
+  Graphics.set_color 0x3a405a;
+  Graphics.set_text_size 48;
   Graphics.draw_string "Select your player:";
-  draw_button "Player 1" 300 100 50 50 Graphics.blue Graphics.blue;
-  draw_button "Player 2" 300 200 50 50 Graphics.blue Graphics.blue;
-  if Graphics.read_key () = '1' then (
+
+  let button_x = (screen_width / 2) - 100 in
+  let button_y = (screen_height / 2) - 100 in
+  let button_width = 200 in
+  let button_height = 50 in
+  let button_color1 = 0xaec5eb in
+  let button_color2 = 0xe9afa3 in
+  let text_color = 0x3a405a in
+
+  draw_button "Player 1" button_x button_y button_width button_height
+    button_color1 text_color;
+  draw_button "Player 2"
+    (button_x + button_width + 50)
+    button_y button_width button_height button_color2 text_color;
+
+  let key = Graphics.read_key () in
+  if key = '1' then (
     clear_graph ();
     curr_screen := RoundScreen)
-  else if Graphics.read_key () = '2' then (
+  else if key = '2' then (
     clear_graph ();
     curr_screen := RoundScreen)
   else ()
 
 let draw_round_selection_screen () =
-  Graphics.moveto (screen_width / 2) (screen_height / 3);
+  draw_details ();
+
+  Graphics.moveto ((screen_width / 2) - 25) ((screen_height / 2) + 125);
+  Graphics.set_color 0x3a405a;
+  Graphics.set_text_size 48;
   Graphics.draw_string "Select number of rounds:";
-  let button_width = 50 in
+
+  let button_width = 100 in
   let button_height = 50 in
-  let button_spacing = 100 in
+  let button_spacing = 50 in
   let start_x = (screen_width / 2) - (button_spacing * 2) in
   let start_y = screen_height / 2 in
+  let button_color = 0xaec5eb in
+  let text_color = 0x3a405a in
+
   for i = 1 to 5 do
-    let x = start_x + ((i - 1) * button_spacing) in
+    let x = start_x + ((i - 1) * (button_width + button_spacing)) in
     let y = start_y in
-    draw_button (string_of_int i) x y button_width button_height Graphics.blue
-      Graphics.blue
+    draw_button (string_of_int i) x y button_width button_height button_color
+      text_color
   done;
+
   let key = Graphics.read_key () in
   if key = '1' || key = '2' || key = '3' || key = '4' || key = '5' then (
     clear_graph ();
@@ -99,12 +120,38 @@ let draw_round_selection_screen () =
   else ()
 
 let draw_algo_screen () =
-  (* Draw algorithm screen elements *)
-  Graphics.moveto (screen_width / 2) (screen_height / 3 * 2);
+  draw_details ();
+
+  Graphics.moveto ((screen_width / 2) - 25) ((screen_height / 2) + 125);
+  Graphics.set_color 0x3a405a;
+  Graphics.set_text_size 48;
   Graphics.draw_string "Choose an Algorithm to play against!";
-  draw_button "Knuth Algorithm" 300 100 50 50 Graphics.blue Graphics.blue;
-  draw_button "Genetic Algorithm" 300 100 50 50 Graphics.blue Graphics.blue;
-  if Graphics.read_key () = 'g' then (
+
+  let button_width = 200 in
+  let button_height = 50 in
+  let button_spacing = 50 in
+  let start_x = (screen_width / 2) - (button_width + button_spacing) in
+  let start_y = screen_height / 2 in
+  let button_color = 0xe9afa3 in
+  let text_color = 0x3a405a in
+
+  draw_button "Pseudo Randomizer" start_x start_y button_width button_height
+    button_color text_color;
+  draw_button "Knuth Algorithm"
+    (start_x + button_width + button_spacing)
+    start_y button_width button_height button_color text_color;
+  draw_button "Genetic Algorithm"
+    (start_x + (2 * (button_width + button_spacing)))
+    start_y button_width button_height button_color text_color;
+
+  let key = Graphics.read_key () in
+  if key = 'p' then (
+    clear_graph ();
+    curr_screen := Game)
+  else if key = 'k' then (
+    clear_graph ();
+    curr_screen := Game)
+  else if key = 'g' then (
     clear_graph ();
     curr_screen := Game)
   else ()
