@@ -42,8 +42,8 @@ let test_knuth =
          ("Test correct base case answer"
          >::
          let () = print_endline "hi" in
-         let solution, _ = knuth_algorithm [ 1; 1; 2; 2 ] in
-         fun _ -> assert_equal [ 1; 1; 2; 2 ] solution);
+         let solution, _ = knuth_algorithm [ 1; 2; 3; 4 ] in
+         fun _ -> assert_equal [ 1; 2; 3; 4 ] solution);
          ("Test other answer"
          >::
          let () = print_endline "hi" in
