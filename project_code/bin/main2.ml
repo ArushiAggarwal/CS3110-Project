@@ -34,7 +34,13 @@ let draw_title_screen () =
   Graphics.moveto 100 200;
   Graphics.draw_string "OCaml Mastermind";
   draw_button "Start New Game" 300 100 50 50 Graphics.blue;
-  if Graphics.read_key () = 's' then curr_screen := PlayerSelection else ()
+  if Graphics.read_key () = 's' then (
+    clear_graph ();
+    curr_screen := PlayerSelection)
+  else if Graphics.read_key () = 'h' then (
+    clear_graph ();
+    curr_screen := Help)
+  else ()
 
 let draw_player_selection_screen () =
   Graphics.moveto (screen_width / 2) (screen_height / 3);
@@ -61,7 +67,7 @@ let draw_round_selection_screen () =
     draw_button (string_of_int i) x y button_width button_height Graphics.blue;
     if Graphics.read_key () = Char.chr (i + Char.code '0') then (
       clear_graph ();
-      curr_screen := Game)
+      curr_screen := Algorithm)
     else ()
   done
 
@@ -82,10 +88,7 @@ let draw_game_screen () =
   draw_board ()
 (* fetch the board information from the backend *)
 
-let draw_help_screen () =
-  Graphics.clear_graph ();
-  draw_details ();
-  draw_board ()
+let draw_help_screen () = draw_board ()
 
 let rec run_mastermind () =
   Graphics.open_graph
@@ -93,6 +96,12 @@ let rec run_mastermind () =
   match !curr_screen with
   | Title ->
       draw_title_screen ();
+      run_mastermind ()
+  | PlayerSelection ->
+      draw_player_selection_screen ();
+      run_mastermind ()
+  | RoundScreen ->
+      draw_round_selection_screen ();
       run_mastermind ()
   | Algorithm ->
       draw_algo_screen ();
