@@ -65,13 +65,16 @@ let draw_board () =
   Graphics.set_color 0x997950;
   Graphics.fill_rect 100 100 100 400
 
-let draw_title_screen () =
-  draw_details ();
-
+let draw_title_text () =
   Graphics.moveto ((screen_width / 2) - 25) ((screen_height / 2) + 125);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 100000;
-  Graphics.draw_string "OCAML MASTERMIND";
+  Graphics.draw_string "OCAML MASTERMIND"
+
+let draw_title_screen () =
+  draw_details ();
+
+  draw_title_text ();
 
   let button_x = (screen_width / 2) - 100 in
   let button_y = (screen_height / 2) - 100 in
@@ -196,66 +199,76 @@ and valid_code code =
 let draw_game_screen () =
   draw_details ();
 
-  if !player_first then
-    let user_code = get_user_code () in
-    match store_in_backend (!user_inputs |> List.rev) with
-    | Some (algo, player, rounds) ->
-        game := Some (Gamerecord.make_game rounds algo player);
-        Gamerecord.set_answer (Option.get !game) user_code
-    | None ->
-        ();
+  (* if !player_first then let user_code = get_user_code () in match
+     store_in_backend (!user_inputs |> List.rev) with | Some (algo, player,
+     rounds) -> game := Some (Gamerecord.make_game rounds algo player);
+     Gamerecord.set_answer (Option.get !game) user_code | None -> (); *)
 
-        (* background *)
-        Graphics.moveto ((screen_width / 2) + 300) ((screen_height / 2) + 300);
-        Graphics.set_color 0x3a405a;
-        Graphics.set_text_size 48;
-        Graphics.draw_string "Play Game!";
+  (* background *)
+  Graphics.moveto ((screen_width / 2) + 300) ((screen_height / 2) + 300);
+  Graphics.set_color 0x3a405a;
+  Graphics.set_text_size 48;
+  Graphics.draw_string "Play Game!";
 
-        (* brown board*)
-        Graphics.set_color 0xb9998a;
-        Graphics.fill_rect 100 80 600 600;
-        Graphics.set_color 0x685044;
-        Graphics.draw_rect 100 80 600 600;
+  (* brown board*)
+  Graphics.set_color 0xb9998a;
+  Graphics.fill_rect 100 80 600 600;
+  Graphics.set_color 0x685044;
+  Graphics.draw_rect 100 80 600 600;
 
-        (* white board *)
-        Graphics.set_color 0xffffff;
-        Graphics.fill_rect 900 ((screen_height / 2) - 125) 400 250;
+  (* white board *)
+  Graphics.set_color 0xffffff;
+  Graphics.fill_rect 900 ((screen_height / 2) - 125) 400 250;
 
-        Graphics.set_color 0x000000;
-        let circle_radius = 25 in
-        let circle_x = 1000 in
-        let circle_y_start = (screen_height / 2) - 75 in
-        let circle_spacing = 100 in
+  Graphics.set_color 0x000000;
+  let circle_radius = 25 in
+  let circle_x = 1000 in
+  let circle_y_start = (screen_height / 2) - 75 in
+  let circle_spacing = 100 in
 
-        Graphics.set_color purple;
-        Graphics.fill_circle circle_x circle_y_start circle_radius;
-        Graphics.set_color pink;
-        Graphics.fill_circle
-          (circle_x + circle_spacing)
-          circle_y_start circle_radius;
-        Graphics.set_color orange;
-        Graphics.fill_circle
-          (circle_x + (2 * circle_spacing))
-          circle_y_start circle_radius;
+  Graphics.set_color purple;
+  Graphics.fill_circle circle_x circle_y_start circle_radius;
+  Graphics.set_color pink;
+  Graphics.fill_circle (circle_x + circle_spacing) circle_y_start circle_radius;
+  Graphics.set_color orange;
+  Graphics.fill_circle
+    (circle_x + (2 * circle_spacing))
+    circle_y_start circle_radius;
 
-        (* Draw the second row of circles *)
-        Graphics.set_color yellow;
-        Graphics.fill_circle circle_x
-          (circle_y_start + circle_spacing)
-          circle_radius;
-        Graphics.set_color green;
-        Graphics.fill_circle
-          (circle_x + circle_spacing)
-          (circle_y_start + circle_spacing)
-          circle_radius;
-        Graphics.set_color red;
-        Graphics.fill_circle
-          (circle_x + (2 * circle_spacing))
-          (circle_y_start + circle_spacing)
-          circle_radius;
+  (* Draw the second row of circles *)
+  Graphics.set_color yellow;
+  Graphics.fill_circle circle_x (circle_y_start + circle_spacing) circle_radius;
+  Graphics.set_color green;
+  Graphics.fill_circle
+    (circle_x + circle_spacing)
+    (circle_y_start + circle_spacing)
+    circle_radius;
+  Graphics.set_color red;
+  Graphics.fill_circle
+    (circle_x + (2 * circle_spacing))
+    (circle_y_start + circle_spacing)
+    circle_radius;
 
-        let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
-        do_updates key
+  Graphics.set_color Graphics.black;
+  Graphics.moveto (circle_x - 5) (circle_y_start - 12);
+  Graphics.draw_string "1";
+  Graphics.moveto (circle_x + circle_spacing - 5) (circle_y_start - 12);
+  Graphics.draw_string "2";
+  Graphics.moveto (circle_x + (2 * circle_spacing) - 5) (circle_y_start - 12);
+  Graphics.draw_string "3";
+  Graphics.moveto (circle_x - 5) (circle_y_start + circle_spacing - 12);
+  Graphics.draw_string "4";
+  Graphics.moveto
+    (circle_x + circle_spacing - 5)
+    (circle_y_start + circle_spacing - 12);
+  Graphics.draw_string "5";
+  Graphics.moveto
+    (circle_x + (2 * circle_spacing) - 5)
+    (circle_y_start + circle_spacing - 12);
+  Graphics.draw_string "6";
+
+  let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
+  do_updates key
 
 (* fetch the board information from the backend *)
 
@@ -377,27 +390,16 @@ let draw_help_screen () =
 
 let rec run_mastermind () =
   try
-    Graphics.open_graph
-      (" " ^ string_of_int screen_width ^ "x" ^ string_of_int screen_height);
-    match !curr_screen with
-    | Title ->
-        draw_title_screen ();
-        run_mastermind ()
-    | PlayerSelection ->
-        draw_player_selection_screen ();
-        run_mastermind ()
-    | RoundScreen ->
-        draw_round_selection_screen ();
-        run_mastermind ()
-    | Algorithm ->
-        draw_algo_screen ();
-        run_mastermind ()
-    | Game ->
-        draw_game_screen ();
-        run_mastermind ()
-    | Help ->
-        draw_help_screen ();
-        run_mastermind ()
+    (Graphics.open_graph
+       (" " ^ string_of_int screen_width ^ "x" ^ string_of_int screen_height);
+     match !curr_screen with
+     | Title -> draw_title_screen ()
+     | PlayerSelection -> draw_player_selection_screen ()
+     | RoundScreen -> draw_round_selection_screen ()
+     | Algorithm -> draw_algo_screen ()
+     | Game -> draw_game_screen ()
+     | Help -> draw_help_screen ());
+    run_mastermind ()
   with exn -> print_endline "Thanks for playing!"
 
 let () = run_mastermind ()
