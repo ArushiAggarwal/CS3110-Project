@@ -43,16 +43,6 @@ let store_in_backend lst =
       Gamerecord.make_game (int_of_string rounds) player algo
   | _ -> failwith "Error with input"
 
-let store_in_backend lst =
-  match lst with
-  | [ algo; player; rounds ] -> Some (algo, player, int_of_string rounds)
-  | _ ->
-      Graphics.moveto ((screen_width / 2) - 250) ((screen_height / 2) + 200);
-      Graphics.set_color 0xff0000;
-      Graphics.set_text_size 24;
-      Graphics.draw_string "Error: Invalid input format.";
-      None
-
 let draw_details () =
   Graphics.set_color 0xf9dec9;
   Graphics.fill_rect 0 0 screen_width screen_height
