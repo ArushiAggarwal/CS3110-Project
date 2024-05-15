@@ -30,7 +30,6 @@ let draw_board () =
   Graphics.fill_rect 100 100 100 400
 
 let draw_title_screen () =
-  clear_graph ();
   (* Draw title screen elements *)
   Graphics.moveto 100 200;
   Graphics.draw_string "OCaml Mastermind";
@@ -38,23 +37,44 @@ let draw_title_screen () =
   if Graphics.read_key () = 's' then curr_screen := PlayerSelection else ()
 
 let draw_player_selection_screen () =
-  clear_graph ();
   Graphics.moveto (screen_width / 2) (screen_height / 3);
   Graphics.draw_string "Select your player:";
   draw_button "Player 1" 300 100 50 50 Graphics.blue;
   draw_button "Player 2" 300 200 50 50 Graphics.blue;
-  if Graphics.read_key () = '1' then curr_screen := Game
-  else if Graphics.read_key () = '2' then curr_screen := Game
+  if Graphics.read_key () = '1' then curr_screen := RoundScreen
+  else if Graphics.read_key () = '2' then (
+    clear_graph ();
+    curr_screen := RoundScreen)
   else ()
 
+let draw_round_selection_screen () =
+  Graphics.moveto (screen_width / 2) (screen_height / 3);
+  Graphics.draw_string "Select number of rounds:";
+  let button_width = 50 in
+  let button_height = 50 in
+  let button_spacing = 100 in
+  let start_x = (screen_width / 2) - (button_spacing * 2) in
+  let start_y = screen_height / 2 in
+  for i = 1 to 5 do
+    let x = start_x + ((i - 1) * button_spacing) in
+    let y = start_y in
+    draw_button (string_of_int i) x y button_width button_height Graphics.blue;
+    if Graphics.read_key () = Char.chr (i + Char.code '0') then (
+      clear_graph ();
+      curr_screen := Game)
+    else ()
+  done
+
 let draw_algo_screen () =
-  Graphics.clear_graph ();
   (* Draw algorithm screen elements *)
   Graphics.moveto (screen_width / 2) (screen_height / 3 * 2);
   Graphics.draw_string "Choose an Algorithm to play against!";
   draw_button "Knuth Algorithm" 300 100 50 50 Graphics.blue;
   draw_button "Genetic Algorithm" 300 100 50 50 Graphics.blue;
-  if Graphics.read_key () = 'g' then curr_screen := Game else ()
+  if Graphics.read_key () = 'g' then (
+    clear_graph ();
+    curr_screen := Game)
+  else ()
 
 let draw_game_screen () =
   Graphics.clear_graph ();
