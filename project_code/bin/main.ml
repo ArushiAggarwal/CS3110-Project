@@ -65,13 +65,16 @@ let draw_board () =
   Graphics.set_color 0x997950;
   Graphics.fill_rect 100 100 100 400
 
-let draw_title_screen () =
-  draw_details ();
-
+let draw_title_text () =
   Graphics.moveto ((screen_width / 2) - 25) ((screen_height / 2) + 125);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 100000;
-  Graphics.draw_string "OCAML MASTERMIND";
+  Graphics.draw_string "OCAML MASTERMIND"
+
+let draw_title_screen () =
+  draw_details ();
+
+  draw_title_text ();
 
   let button_x = (screen_width / 2) - 100 in
   let button_y = (screen_height / 2) - 100 in
@@ -387,27 +390,16 @@ let draw_help_screen () =
 
 let rec run_mastermind () =
   try
-    Graphics.open_graph
-      (" " ^ string_of_int screen_width ^ "x" ^ string_of_int screen_height);
-    match !curr_screen with
-    | Title ->
-        draw_title_screen ();
-        run_mastermind ()
-    | PlayerSelection ->
-        draw_player_selection_screen ();
-        run_mastermind ()
-    | RoundScreen ->
-        draw_round_selection_screen ();
-        run_mastermind ()
-    | Algorithm ->
-        draw_algo_screen ();
-        run_mastermind ()
-    | Game ->
-        draw_game_screen ();
-        run_mastermind ()
-    | Help ->
-        draw_help_screen ();
-        run_mastermind ()
+    (Graphics.open_graph
+       (" " ^ string_of_int screen_width ^ "x" ^ string_of_int screen_height);
+     match !curr_screen with
+     | Title -> draw_title_screen ()
+     | PlayerSelection -> draw_player_selection_screen ()
+     | RoundScreen -> draw_round_selection_screen ()
+     | Algorithm -> draw_algo_screen ()
+     | Game -> draw_game_screen ()
+     | Help -> draw_help_screen ());
+    run_mastermind ()
   with exn -> print_endline "Thanks for playing!"
 
 let () = run_mastermind ()
