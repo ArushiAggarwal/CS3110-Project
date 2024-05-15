@@ -9,7 +9,7 @@ type screen =
   | RoundScreen
   | Help
 
-let curr_screen = ref Title
+let curr_screen = ref Game
 
 let draw_button text x y w h color text_color =
   Graphics.moveto x y;
@@ -157,7 +157,18 @@ let draw_algo_screen () =
     curr_screen := Game)
   else ()
 
-let draw_game_screen () = draw_board ()
+let draw_game_screen () =
+  draw_details ();
+
+  Graphics.moveto ((screen_width / 2) + 300) ((screen_height / 2) + 300);
+  Graphics.set_color 0x3a405a;
+  Graphics.set_text_size 48;
+  Graphics.draw_string "Play Game!";
+
+  Graphics.set_color 0x997950;
+  (* x y width hieght*)
+  Graphics.fill_rect 100 80 600 600
+
 (* fetch the board information from the backend *)
 
 let draw_help_screen () =
