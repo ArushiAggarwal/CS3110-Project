@@ -56,8 +56,10 @@ let knuth_algorithm answer =
           |> map fst
         in
         let next_guess = if List.mem g s then g else best_guesses in
-        let response = score next_guess [ 1; 2; 3; 4 ] in
-        if response = (4, 0) then (next_guess, prev_guesses @ [ next_guess ])
+        let response = score next_guess answer in
+        if response = (4, 0) then (
+          print_endline "we did it :D";
+          (next_guess, prev_guesses @ [ next_guess ]))
         else
           let s' = s |> filter (fun code -> score next_guess code = response) in
           aux s' rest (prev_guesses @ [ next_guess ])
