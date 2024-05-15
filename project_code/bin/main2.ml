@@ -7,6 +7,7 @@ type screen =
   | Game
   | PlayerSelection
   | RoundScreen
+  | Help
 
 let curr_screen = ref Title
 
@@ -36,15 +37,15 @@ let draw_title_screen () =
   draw_button "Start New Game" 300 100 50 50 Graphics.blue;
   if Graphics.read_key () = 's' then curr_screen := PlayerSelection else ()
 
-  let draw_player_selection_screen () =
-    clear_graph ();
-    Graphics.moveto (screen_width / 2) (screen_height / 3);
-    Graphics.draw_string "Select your player:";
-    draw_button "Player 1" 300 100 50 50 Graphics.blue;
-    draw_button "Player 2" 300 200 50 50 Graphics.blue;
-    if Graphics.read_key () = '1' then curr_screen := Game else
-    if Graphics.read_key () = '2' then curr_screen := Game else ()
-  
+let draw_player_selection_screen () =
+  clear_graph ();
+  Graphics.moveto (screen_width / 2) (screen_height / 3);
+  Graphics.draw_string "Select your player:";
+  draw_button "Player 1" 300 100 50 50 Graphics.blue;
+  draw_button "Player 2" 300 200 50 50 Graphics.blue;
+  if Graphics.read_key () = '1' then curr_screen := Game
+  else if Graphics.read_key () = '2' then curr_screen := Game
+  else ()
 
 let draw_algo_screen () =
   Graphics.clear_graph ();
@@ -61,8 +62,10 @@ let draw_game_screen () =
   draw_board ()
 (* fetch the board information from the backend *)
 
-(* let draw_help_screen () = Graphics.clear_graph (); draw_details ();
-   draw_board () *)
+let draw_help_screen () =
+  Graphics.clear_graph ();
+  draw_details ();
+  draw_board ()
 
 let rec run_mastermind () =
   Graphics.open_graph
@@ -77,10 +80,15 @@ let rec run_mastermind () =
   | Game ->
       draw_game_screen ();
       run_mastermind ()
-(* | Help -> draw_help_screen (); run_mastermind () *)
+  | Help ->
+      draw_help_screen ();
+      run_mastermind ()
 
-(* let () = Graphics.open_graph (" " ^ string_of_int screen_width ^ "x" ^
-   string_of_int screen_height); draw_details (); ignore (Graphics.read_key ());
-   Graphics.close_graph () *)
+let () =
+  Graphics.open_graph
+    (" " ^ string_of_int screen_width ^ "x" ^ string_of_int screen_height);
+  draw_details ();
+  ignore (Graphics.read_key ());
+  Graphics.close_graph ()
 
 let () = run_mastermind ()
