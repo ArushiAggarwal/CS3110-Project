@@ -36,7 +36,7 @@ let draw_title_screen () =
   Graphics.moveto ((screen_width / 2) - 25) ((screen_height / 2) + 125);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 100000;
-  Graphics.draw_string "MASTERMIND";
+  Graphics.draw_string "OCAML MASTERMIND";
 
   let button_x = (screen_width / 2) - 100 in
   let button_y = (screen_height / 2) - 100 in
@@ -207,7 +207,7 @@ let draw_help_screen () =
   Graphics.moveto ((screen_width / 2) - 550) ((screen_height / 2) + 200);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 48;
-  Graphics.draw_string "Help";
+  Graphics.draw_string "Rules of OCaml Mastermind";
 
   let button_x = (screen_width / 2) + 200 in
   let button_y = (screen_height / 2) + 200 in
@@ -220,51 +220,56 @@ let draw_help_screen () =
 
   let text_x = 50 in
   let text_y = (screen_height / 2) + 100 in
-  (* let text_width = screen_width - 100 in let text_height = 200 in *)
+  let text_width = screen_width - 100 in
+  let text_height = 13 * 30 in
   Graphics.set_color 0x3a405a;
-  (* Graphics.draw_rect text_x text_y text_width text_height; *)
+  Graphics.draw_rect text_x (text_y - (12 * 30) + 15) text_width text_height;
   Graphics.set_text_size 20;
   Graphics.moveto (text_x + 10) (text_y + 10);
   Graphics.draw_string
-    "1. The player will decide in advance how many games they will play, and \
+    "1. Press keys to advance through the game. The keys shown on the buttons \
+     correspond to keys that need to be pressed.";
+  Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
+  Graphics.draw_string
+    "2. The player will decide in advance how many games they will play, and \
      each game consists of two rounds.";
   Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
   Graphics.draw_string
-    "2. In each round, the player will either becomes the codemaker or the \
+    "3. In each round, the player will either becomes the codemaker or the \
      codebreaker.";
   Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
   Graphics.draw_string
-    "3. The codemaker chooses a pattern of four code pegs to be the answer.";
+    "4. The codemaker chooses a pattern of four code pegs to be the answer.";
   Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
   Graphics.draw_string
-    "4. The codebreaker tries to guess the pattern, in both order and color, \
+    "5. The codebreaker tries to guess the pattern, in both order and color, \
      within eight to twelve turns.";
   Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
   Graphics.draw_string
-    "5. Each guess is made by typing a sequence of four numbers. ";
+    "6. Each guess is made by typing a sequence of four numbers. ";
   Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
   Graphics.draw_string
-    "6. No duplicates are allowed in neither the answer nor the guesses.";
+    "7. No duplicates are allowed in neither the answer nor the guesses.";
   Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
   Graphics.draw_string
-    "7. Once placed, the codemaker provides feedback by entering feedback \
+    "8. Once placed, the codemaker provides feedback by entering feedback \
      (using the digits 2, 1, 0 in that order), which will show up as pegs in \
      the small holes of the row with the guess.";
   Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
   Graphics.draw_string
-    "8. A colored key peg is placed for each code peg from the guess which is \
+    "9. A colored key peg is placed for each code peg from the guess which is \
      correct in both color and position.";
   Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
   Graphics.draw_string
-    "9. A white key peg indicates a code peg that belongs in the solution, but \
-     is incorrectly positioned.";
+    "10. A white key peg indicates a code peg that belongs in the solution, \
+     but is incorrectly positioned.";
   Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
   Graphics.draw_string
-    "10. Once feedback is provided, another guess is made; guesses and \
+    "11. Once feedback is provided, another guess is made; guesses and \
      feedback continue to alternate until either the codebreaker guesses \
      correctly, or all rows on the decoding board are full.";
   Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
-  Graphics.draw_string "11. The winner is the one who wins the most rounds";
+  Graphics.draw_string "12. The winner is the one who wins the most rounds";
 
   let key = Graphics.read_key () in
   if key = 's' then (
