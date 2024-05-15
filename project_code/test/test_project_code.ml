@@ -1,6 +1,6 @@
 open OUnit2
 open Project_code.Random_guessing_algorithm
-open Project_code.PinModule
+open Project_code.Pin
 
 let test_Random =
   "Test suite to ensure pseudorandom generator works with respect to seed."
