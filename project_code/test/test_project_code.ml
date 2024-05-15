@@ -16,21 +16,21 @@ let test_Pin =
    a guess with respect to the answer."
   >::: [
          ( "A guess with all correct answers" >:: fun _ ->
-           assert_equal
-             [| Pin.Red; Pin.Red; Pin.Red; Pin.Red |]
-             (Pin.make_pins [| 1; 2; 3; 4 |] [| 1; 2; 3; 4 |]) );
+           assert_equal "RRRR"
+             (Pin.to_string_pin
+                (Pin.make_pins [| 1; 2; 3; 4 |] [| 1; 2; 3; 4 |])) );
          ( "A guess with no correct answers" >:: fun _ ->
-           assert_equal
-             [| Pin.Null; Pin.Null; Pin.Null; Pin.Null |]
-             (Pin.make_pins [| 1; 2; 3; 4 |] [| 5; 6; 7; 8 |]) );
+           assert_equal "NNNN"
+             (Pin.to_string_pin
+                (Pin.make_pins [| 1; 2; 3; 4 |] [| 5; 6; 7; 8 |])) );
          ( "A derrangement" >:: fun _ ->
-           assert_equal
-             [| Pin.White; Pin.White; Pin.White; Pin.White |]
-             (Pin.make_pins [| 1; 2; 3; 4 |] [| 4; 3; 2; 1 |]) );
+           assert_equal "WWWW"
+             (Pin.to_string_pin
+                (Pin.make_pins [| 1; 2; 3; 4 |] [| 4; 3; 2; 1 |])) );
          ( "A mix" >:: fun _ ->
-           assert_equal
-             [| Pin.Red; Pin.White; Pin.Null; Pin.Null |]
-             (Pin.make_pins [| 1; 2; 3; 4 |] [| 3; 5; 8; 4 |]) );
+           assert_equal "RWNN"
+             (Pin.to_string_pin
+                (Pin.make_pins [| 1; 2; 3; 4 |] [| 3; 5; 8; 4 |])) );
        ]
 
 let _ = run_test_tt_main test_Pin
