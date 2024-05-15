@@ -1,7 +1,5 @@
 open Pin
-open Random_guessing_algorithm
-open Donald_knuth_algorithm
-open Random
+(* open Random_guessing_algorithm open Donald_knuth_algorithm open Random *)
 
 type game_record = {
   game_board : int array array;
