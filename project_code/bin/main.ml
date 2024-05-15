@@ -165,9 +165,36 @@ let draw_game_screen () =
   Graphics.set_text_size 48;
   Graphics.draw_string "Play Game!";
 
-  Graphics.set_color 0x997950;
-  (* x y width hieght*)
-  Graphics.fill_rect 100 80 600 600
+  Graphics.set_color 0x685044;
+  Graphics.draw_rect 100 80 600 600;
+  Graphics.set_color 0xb9998a;
+  Graphics.fill_rect 100 80 600 600;
+
+  Graphics.set_color 0xffffff;
+  Graphics.fill_rect 750 80 400 600;
+
+  Graphics.set_color 0x000000;
+  let circle_radius = 25 in
+  let circle_x = 800 in
+  let circle_y_start = 150 in
+  let circle_spacing = 100 in
+
+  Graphics.fill_circle circle_x circle_y_start circle_radius;
+  Graphics.fill_circle (circle_x + circle_spacing) circle_y_start circle_radius;
+  Graphics.fill_circle
+    (circle_x + (2 * circle_spacing))
+    circle_y_start circle_radius;
+
+  (* Draw the second row of circles *)
+  Graphics.fill_circle circle_x (circle_y_start + circle_spacing) circle_radius;
+  Graphics.fill_circle
+    (circle_x + circle_spacing)
+    (circle_y_start + circle_spacing)
+    circle_radius;
+  Graphics.fill_circle
+    (circle_x + (2 * circle_spacing))
+    (circle_y_start + circle_spacing)
+    circle_radius
 
 (* fetch the board information from the backend *)
 
