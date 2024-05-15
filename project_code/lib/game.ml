@@ -1,5 +1,6 @@
 open Pin
-(* open Random_guessing_algorithm open Donald_knuth_algorithm open Random *)
+open Random_guessing_algorithm
+open Donald_knuth_algorithm
 
 type game_record = {
   game_board : int array array;
@@ -116,7 +117,11 @@ module Gamerecord : Gameboard = struct
 
   (* let check_feedback feedback guess = let real_feedback *)
 
-  (**let computer_run (answer : int list) algo = if algo = "p" then (answer,
-     generate_guess random_seed) else if algo = "k" then (answer,
-     knuth_algorithm answer)*)
+  let update_computer_board game i =
+    if game.algorithm = "p" then
+      let guess = generate_guess 42 in
+      update_game game (Array.of_list guess)
+    else if game.algorithm = "k" then
+      let guess = knuth_algorithm (Array.to_list game.answer) in
+      update_game game (Array.of_list (fst guess))
 end
