@@ -10,6 +10,12 @@ type screen =
   | Help
 
 let curr_screen = ref Game
+let purple = 0x6667ab
+let pink = 0xf18aad
+let red = 0xe8503f
+let orange = 0xff9e54
+let yellow = 0xfff475
+let green = 0x8bc28c
 
 let draw_button text x y w h color text_color =
   Graphics.moveto x y;
@@ -178,22 +184,28 @@ let draw_game_screen () =
 
   Graphics.set_color 0x000000;
   let circle_radius = 25 in
-  let circle_x = 910 in
-  let circle_y_start = (screen_height / 2) - 115 in
+  let circle_x = 1000 in
+  let circle_y_start = (screen_height / 2) - 75 in
   let circle_spacing = 100 in
 
+  Graphics.set_color purple;
   Graphics.fill_circle circle_x circle_y_start circle_radius;
+  Graphics.set_color pink;
   Graphics.fill_circle (circle_x + circle_spacing) circle_y_start circle_radius;
+  Graphics.set_color orange;
   Graphics.fill_circle
     (circle_x + (2 * circle_spacing))
     circle_y_start circle_radius;
 
   (* Draw the second row of circles *)
+  Graphics.set_color yellow;
   Graphics.fill_circle circle_x (circle_y_start + circle_spacing) circle_radius;
+  Graphics.set_color green;
   Graphics.fill_circle
     (circle_x + circle_spacing)
     (circle_y_start + circle_spacing)
     circle_radius;
+  Graphics.set_color red;
   Graphics.fill_circle
     (circle_x + (2 * circle_spacing))
     (circle_y_start + circle_spacing)
@@ -300,11 +312,8 @@ let rec run_mastermind () =
       draw_help_screen ();
       run_mastermind ()
 
-let () =
-  Graphics.open_graph
-    (" " ^ string_of_int screen_width ^ "x" ^ string_of_int screen_height);
-  draw_details ();
-  ignore (Graphics.read_key ());
-  Graphics.close_graph ()
+(* let () = Graphics.open_graph (" " ^ string_of_int screen_width ^ "x" ^
+   string_of_int screen_height); draw_details (); ignore (Graphics.read_key ());
+   Graphics.close_graph () *)
 
 let () = run_mastermind ()
