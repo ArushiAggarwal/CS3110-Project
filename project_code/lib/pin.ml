@@ -4,6 +4,7 @@ module type PinType = sig
   val make_pins : int array -> int array -> pin array
   val count_reds : pin array -> int
   val to_string_pin : pin array -> string
+  val to_int_array : pin array -> int array
 end
 
 (** This is a module implementation for an array of pins, which are indicative
@@ -49,6 +50,7 @@ module PinModule : PinType = struct
     done;
     pinArray
 
+  (** [count_reds arr] counts the number of [Red] constructors in [arr]. *)
   let rec count_reds_help arr int acc =
     if int = 4 then acc
     else
@@ -67,6 +69,14 @@ module PinModule : PinType = struct
       | White -> to_string_help arr (acc ^ "W") (int + 1)
       | Null -> to_string_help arr (acc ^ "N") (int + 1)
 
-  (** [to_string_pin arr] Converts an [arr] of all type [pin] to a string.*)
+  (** [to_string_pin arr] converts an [arr] of all type [pin] to a string.*)
   let to_string_pin arr = to_string_help arr "" 0
+
+  (** [pin_to_int pin] converts [pin] to an int. *)
+  let pin_to_int = function
+    | Red -> 2
+    | White -> 1
+    | Null -> 0
+
+  let to_int_array arr = Array.map pin_to_int arr
 end
