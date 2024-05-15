@@ -11,7 +11,7 @@ val perms : 'a list -> 'a list list
 val score : int list -> int list -> int * int
 (** [score] Scores a guess against a code in the Mastermind game. *)
 
-val knuth_algorithm : unit -> int list * int list list
+val knuth_algorithm : int list -> int list * int list list
 (** [knuth_algorithm] Implements the Knuth algorithm for solving the Mastermind
     game. It returns a pair `(solution, prev_guesses)`, where `solution` is the
     solved code, and `prev_guesses` is a list of all guesses made to reach the

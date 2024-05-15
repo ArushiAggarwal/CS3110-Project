@@ -38,14 +38,14 @@ let score guess code =
 
 (** Accessed chatgpt for calculating and comparing scores*)
 
-let knuth_algorithm () =
+let knuth_algorithm answer =
   (* Set of all possible codes *)
   let all_codes = perms [ 1; 2; 3; 4; 5; 6; 7; 8 ] in
   let rec aux s guess prev_guesses =
     match guess with
     | [] -> failwith "No solution found"
     | g :: rest ->
-        let score_counts = all_codes |> map (fun code -> score g code) in
+        let score_counts = all_codes |> map (fun _ -> score g answer) in
         let min_count =
           List.fold_left min max_int
             (List.map (fun (_, count) -> count) score_counts)
@@ -63,5 +63,3 @@ let knuth_algorithm () =
           aux s' rest (prev_guesses @ [ next_guess ])
   in
   aux all_codes [ [ 1; 1; 2; 2 ] ] []
-
-let solution, prev_guesses = knuth_algorithm ()
