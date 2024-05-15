@@ -21,10 +21,11 @@
    if i <= 0 then print_endline "The computer did not get the answer :(" else
    match ended with | true -> print_endline "The computer wins the round! :)" |
    false -> ( let () = print_string "The computer guessed: " in let guess =
-   Project_code.Computer_output.make_guess () in let () = print_endline
-   (to_string "" guess); print_endline "Is the computer correct? yes/no/quit" in
-   let the_input = read_line () in match accept_feedback the_input with | true
-   -> run_round_terminal true 0 | false -> run_round_terminal false (i - 1))
+   Project_code.Random_guessing_algorithm.make_guess () in let () =
+   print_endline (to_string "" guess); print_endline "Is the computer correct?
+   yes/no/quit" in let the_input = read_line () in match accept_feedback
+   the_input with | true -> run_round_terminal true 0 | false ->
+   run_round_terminal false (i - 1))
 
    let rec run_guess_terminal i answer = if i = 0 then print_endline ("Answer: "
    ^ answer ^ ". Thanks for playing!") else let guess = read_line () in if guess
@@ -42,7 +43,7 @@
 
    (* run the second round (user guesses) with 12 tries as per the game *) let
    () = run_guess_terminal 12 (to_string ""
-   Project_code.Computer_output.(make_guess ())) *)
+   Project_code.Random_guessing_algorithm.(make_guess ())) *)
 
    let rec to_string_help arr acc int = if int = 4 then acc else to_string_help
    arr (acc ^ string_of_int arr.(int)) (int + 1)

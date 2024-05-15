@@ -1,4 +1,5 @@
 (* @author *)
+open Project_code.Game
 
 (* global variables *)
 let screen_width = 1400
@@ -23,7 +24,7 @@ type screen =
 let curr_screen = ref Title
 
 (* setting up array to store user inputs to send to backend *)
-let user_inputs = [] (* algorithm, player order, rounds *)
+let user_inputs = ref [] (* algorithm, player order, rounds *)
 let user_game_input = Array.make 4 0
 
 let draw_button text x y w h color text_color =
@@ -33,6 +34,11 @@ let draw_button text x y w h color text_color =
   Graphics.set_color text_color;
   Graphics.set_text_size 24;
   Graphics.draw_string text
+
+let store_in_backend lst =
+  match lst with
+  | [ (algo, player, rounds) ] -> Gamerecord.make_game rounds player algo
+  | _ -> failwith "Error with input"
 
 let draw_details () =
   Graphics.set_color 0xf9dec9;
@@ -100,9 +106,11 @@ let draw_player_selection_screen () =
   let key = Graphics.read_key () in
   if key = '1' then (
     clear_graph ();
+    user_inputs := "player" :: !user_inputs;
     curr_screen := RoundScreen)
   else if key = '2' then (
     clear_graph ();
+    user_inputs := "player" :: !user_inputs;
     curr_screen := RoundScreen)
   else ()
 
@@ -113,7 +121,7 @@ let draw_round_selection_screen () =
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 48;
   Graphics.draw_string
-    "Select number of rounds (press the coresponding numebr): ";
+    "Select number of rounds (press the corresponding number): ";
 
   let button_width = 100 in
   let button_height = 50 in

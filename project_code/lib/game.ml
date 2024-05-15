@@ -47,7 +47,7 @@ module type Gameboard = sig
   (** [clear_board game] resets all values in [game] for the next round *)
 end
 
-module GameRecord : Gameboard = struct
+module Gamerecord : Gameboard = struct
   (* represents the playing board *)
   type game = game_record
 

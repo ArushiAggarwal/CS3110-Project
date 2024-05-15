@@ -44,3 +44,5 @@ module type Gameboard = sig
   val clear_board : game -> unit
   (** [clear_board game] resets all values in [game] for the next round *)
 end
+
+module Gamerecord : Gameboard
