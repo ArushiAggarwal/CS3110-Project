@@ -107,16 +107,25 @@ module PinModule : PinType = struct
     else if c = 'W' || c = 'w' then White
     else Null
 
+  let rec check_chars str n l =
+    if n = String.length str then true
+    else if List.mem str.[n] l then check_chars str (n + 1) l
+    else false
+
   (** [check_validation str guess answer] converts a [str] with
       'r','w','n','R','W','N' characters into a pin array, asserting it indeed
       matches with the pin algorithm set up, based on [guess] and [answer]. *)
   let check_validation str guess answer =
-    let pin_array1 = Array.make 4 Null in
-    for i = 0 to 3 do
-      pin_array1.(i) <- char_to_pin str.[i]
-    done;
-    let pin_array2 = make_pins guess answer in
-    pin_array1 = pin_array2
+    if String.length str != 4 then false
+    else if check_chars str 0 [ 'R'; 'r'; 'W'; 'w'; 'N'; 'n' ] = false then
+      false
+    else
+      let pin_array1 = Array.make 4 Null in
+      for i = 0 to 3 do
+        pin_array1.(i) <- char_to_pin str.[i]
+      done;
+      let pin_array2 = make_pins guess answer in
+      pin_array1 = pin_array2
 
   (* grace is using this in main *)
   let rec list_to_string = function
