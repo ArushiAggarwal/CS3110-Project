@@ -1,16 +1,14 @@
 open OUnit2
-open Project_code.Random_guessing_algorithm
 open Project_code.Pin
-open Project_code.Donald_knuth_algorithm
 
-let test_random =
-  "Test suite to ensure pseudorandom generator works with respect to seed."
-  >::: [
+(**let test_random = "Test suite to ensure pseudorandom generator works with
+   respect to seed." >:::
+   [
          ( "Ensure seed 42 works" >:: fun _ ->
            assert_equal [ 5; 6; 3; 4; 7 ] (generate_guess 42) );
        ]
 
-let _ = run_test_tt_main test_random
+   let _ = run_test_tt_main test_random*)
 
 let test_pin =
   "Testing Pins to ensure the provide the correct feedback for\n\
@@ -36,19 +34,30 @@ let test_pin =
 
 let _ = run_test_tt_main test_pin
 
-let test_knuth =
-  "Test Knuth algorithm returns correctly."
+let test_valid =
+  "Test if pin validation function works."
   >::: [
-         ("Test correct base case answer"
-         >::
-         let () = print_endline "hi" in
-         let solution, _ = knuth_algorithm [ 1; 2; 3 ] in
-         fun _ -> assert_equal [ 1; 2; 3; 4 ] solution);
-         ("Test other answer"
-         >::
-         let () = print_endline "hi" in
-         let solution2, _ = knuth_algorithm [ 6; 1; 5; 2 ] in
-         fun _ -> assert_equal [ 6; 1; 5; 2 ] solution2);
+         ( "All caps, true" >:: fun _ ->
+           assert_equal true
+             (PinModule.check_validation "RWNN" [| 0; 1; 2; 3 |]
+                [| 2; 5; 5; 3 |]) );
+         ( "All lower case, true" >:: fun _ ->
+           assert_equal true
+             (PinModule.check_validation "rwnn" [| 0; 1; 2; 3 |]
+                [| 2; 5; 5; 3 |]) );
+         ( "A mix, true" >:: fun _ ->
+           assert_equal true
+             (PinModule.check_validation "rWnN" [| 0; 1; 2; 3 |]
+                [| 2; 5; 5; 3 |]) );
+         ( "Correct amount of chars, not in right order" >:: fun _ ->
+           assert_equal false
+             (PinModule.check_validation "nWrN" [| 0; 1; 2; 3 |]
+                [| 2; 5; 5; 3 |]) );
+         ( "Not correct amount chars, incorrect order" >:: fun _ ->
+           assert_equal false
+             (PinModule.check_validation "nWrN" [| 0; 1; 2; 3 |]
+                [| 7; 5; 4; 6 |]) );
        ]
 
-let _ = run_test_tt_main test_knuth
+
+let

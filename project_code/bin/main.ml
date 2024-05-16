@@ -1,5 +1,6 @@
 (* @author *)
 open Project_code.Game
+open Project_code.Pin
 
 (* global variables *)
 let screen_width = 1400
@@ -27,6 +28,14 @@ type screen =
   | RoundScreen
   | Help
   | GetUserScreen
+
+let map_int_to_color i =
+  if i = 1 then yellow
+  else if i = 2 then green
+  else if i = 3 then red
+  else if i = 4 then purple
+  else if i = 5 then pink
+  else orange
 
 (* mutable reference to the current screen *)
 let curr_screen = ref Title
@@ -331,11 +340,6 @@ let choose_algo () =
   else if key = 'k' then (
     clear_graph ();
     user_inputs := "Knuth" :: !user_inputs;
-    game := Some (store_in_backend (!user_inputs |> List.rev));
-    curr_screen := to_screen)
-  else if key = 'g' then (
-    clear_graph ();
-    user_inputs := "Genetic" :: !user_inputs;
     game := Some (store_in_backend (!user_inputs |> List.rev));
     curr_screen := to_screen)
   else ()
