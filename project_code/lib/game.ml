@@ -51,9 +51,12 @@ module type Gameboard = sig
   val clear_board : game -> unit
   (** [clear_board game] resets all values in [game] for the next round *)
 
-  val update_computer_board : game -> int -> unit
+  val update_computer_board : game -> int -> int array
   (** [update_computer_board] updates the board with the pins and feedback *)
 
+  val check_feedback : string -> game -> bool
+  (** [check_feedback feedback game] checks that the user feedback for the last
+      round of the game is correct *)
   val int_array_to_string : int array -> string
   (** [int_array_to_string] converts int array to string*)
 end
@@ -87,6 +90,12 @@ module Gamerecord : Gameboard = struct
       Array.set board.game_board board.turn_number guess;
       print_endline (string_of_int board.turn_number))
     else ()
+
+  (** [get_latest_guess game] returns the row of the latest guess in [game]'s
+      game board *)
+  let get_latest_guess game =
+    let ind = game.turn_number in
+    game.game_board.(ind)
 
   (** [update_feedback game guess] updates the next empty row of the [game] pin
       board with the calculated feedback array based on [guess] *)
@@ -125,7 +134,8 @@ module Gamerecord : Gameboard = struct
   (** [set_answer game] sets the answer in [game] for the round *)
   let set_answer game answer = game.answer <- answer
 
-  (** [set_computer_answer game] sets the answer in [game] for the round *)
+  (** [check_feedback feedback game] checks that the user feedback for the last
+      round of the game is correct *)
   let set_computer_answer game = game.answer <- Array.of_list (make_guess ())
 
   let get_latest_guess game =
@@ -136,11 +146,6 @@ module Gamerecord : Gameboard = struct
     let guess = get_latest_guess game in
     PinModule.check_validation feedback guess game.answer
 
-  (* let update_computer_board game = if game.algorithm = "p" then let guess =
-     generate_guess 42 in update_board game (Array.of_list guess) else if
-     game.algorithm = "k" then let guess = knuth_algorithm (Array.to_list
-     game.answer) in update_board game (Array.of_list (fst guess)) *)
-
   let update_computer_board game i =
     if (* Player made the code first *)
        game.algorithm = "Random" then (
@@ -149,14 +154,14 @@ module Gamerecord : Gameboard = struct
       print_endline "generating guess";
       let guess_array = Array.of_list guess in
       update_board game guess_array;
-      update_feedback game guess_array)
+      guess_array)
     else if game.algorithm = "Knuth" then (
       let guess = make_guess () in
       print_endline "generating guess";
       let guess_array = Array.of_list guess in
       update_board game guess_array;
-      update_feedback game guess_array)
-    else ()
+      guess_array)
+    else failwith "Error"
 
   let int_array_to_string arr =
     let result = ref "" in
