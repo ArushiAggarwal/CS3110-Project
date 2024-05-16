@@ -140,7 +140,7 @@ module Gamerecord : Gameboard = struct
   let set_computer_answer game = game.answer <- Array.of_list (make_guess ())
 
   let get_latest_guess game =
-    let ind = game.turn_number - 1 in
+    let ind = game.turn_number in
     game.game_board.(ind)
 
   let check_feedback feedback game =
