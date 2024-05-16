@@ -1,12 +1,17 @@
-(* @author *)
+(* @author Arushi Aggarwal (aa2555), Grace Wei (gtw25), Petros Georgiou
+   (pag238)*)
 open Project_code.Game
 open Project_code.Pin
 
 (* global variables *)
+
+(** [screen_width] is the width of the game screen. *)
 let screen_width = 1400
+
+(** [screen_height] is the height of the game screen *)
 let screen_height = 750
 
-(* colors *)
+(* colors for the pins *)
 let purple = 0x6667ab
 let pink = 0xf18aad
 let red = 0xe8503f
@@ -15,40 +20,56 @@ let yellow = 0xfff475
 let green = 0x8bc28c
 
 (* values *)
+
+(** [player_first] is a mutable reference that stores whether the player goes
+    first or not. *)
 let player_first = ref false
+
+(** [user_code_ref] is a mutable reference that stores the user's input code. *)
 let user_code_ref = ref (Array.make 4 0)
+
+(** [user_feedback_ref] is a mutable reference that stores the user's feedback. *)
 let user_feedback_ref = ref (Array.make 4 "")
+
+(** [index_ref] is a mutable reference that keeps track of the index *)
 let index_ref = ref 0
 
-(* variant type representing which window of the GUI is displayed *)
+(** [screen] variant type representing which window of the GUI is displayed *)
 type screen =
   | Title
   | Algorithm
   | Game
   | PlayerSelection
-  (* | RoundScreen *)
   | Help
   | GetUserScreen
 
+(** [map_int_to_color i] is a function that maps an integer [i] to a
+    corresponding color code for the game board. *)
 let map_int_to_color i =
   if i = 1 then yellow
   else if i = 2 then green
   else if i = 3 then red
   else if i = 4 then purple
-  else if i = 5 then pink (* else if i = 0 then 0x685044 *)
+  else if i = 5 then pink
   else if i = 6 then orange
   else 0x685044
 
+(** [map_feedback_to_color i] maps an integer [i] to a corresponding color code
+    for the feedback. *)
 let map_feedback_to_color i =
   if i = 0 then 0xff0000 else if i = 1 then 0xffffff else 0x685044
 
+(** [map_feedback_to_string i] maps an integer [i] to a corresponding string
+    representation ("r", "w", or "n") for feedback. *)
 let map_feedback_to_string i = if i = 0 then "r" else if i = 1 then "w" else "n"
 
-(* mutable reference to the current screen *)
+(** [curr_screen] is mutable reference to the current screen *)
 let curr_screen = ref Title
 
-(* setting up array to store user inputs to send to backend *)
-let user_inputs = ref [] (* algorithm, player order *)
+(** [user_inputs] is a mutable reference that stores the user's inputs, such as
+    the algorithm and player order. *)
+let user_inputs = ref []
+
 let game : Gamerecord.game option ref = ref None
 
 (** draw a button containing [text] at position ([x], [y]), with [color] and

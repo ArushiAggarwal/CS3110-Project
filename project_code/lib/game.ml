@@ -142,6 +142,7 @@ module Gamerecord : Gameboard = struct
     game.round_number <- game.round_number + 1;
     set_answer game [| 0; 0; 0; 0 |]
 
+  (** [set_computer_answer game] sets the answer in [game] for the round *)
   let set_computer_answer game = game.answer <- Array.of_list (make_guess ())
 
   (** [check_feedback feedback game] checks that the user feedback for the last
@@ -155,6 +156,7 @@ module Gamerecord : Gameboard = struct
   let get_latest_feedback game guess =
     PinModule.to_int_array (PinModule.make_pins guess game.answer)
 
+  (** [update_computer_board] updates the board with the pins and feedback *)
   let update_computer_board game =
     if (* Player made the code first *)
        game.algorithm = "Random" then (
@@ -163,6 +165,8 @@ module Gamerecord : Gameboard = struct
       update_board game guess_array;
       guess_array)
     else failwith "Error"
+
+  (** [int_array_to_string] converts int array to string*)
 
   let int_array_to_string arr =
     let result = ref "" in
@@ -174,6 +178,8 @@ module Gamerecord : Gameboard = struct
       arr;
     !result
 
+  (** [give_motivation] returns a message based on the feedback and counts of
+      the pins*)
   let give_motivation game guess =
     let a = PinModule.count_reds (PinModule.make_pins guess game.answer) in
     let b = PinModule.count_whites (PinModule.make_pins guess game.answer) in
