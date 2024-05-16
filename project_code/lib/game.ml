@@ -79,6 +79,7 @@ module Gamerecord : Gameboard = struct
   let update_board board guess =
     if board.turn_number < 12 then (
       Array.set board.game_board board.turn_number guess;
+      print_endline (string_of_int board.turn_number);
       board.turn_number <- board.turn_number + 1)
     else ()
 

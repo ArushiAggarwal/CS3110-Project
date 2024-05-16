@@ -9,7 +9,7 @@ let random_seed = 42
 let () = Random.self_init ()
 
 (* Generate a random integer between 1 and len. Requires len > 1 *)
-let max_value = 9
+let max_value = 6
 (* A maximum value of 9 with assuming the integers are between 0 and 9 *)
 
 (* Linear Congruential Generator (LCG) for pseudorandom number generation *)
@@ -25,7 +25,8 @@ let generate_guess seed =
     if List.length acc = 4 then acc
     else
       let random_value, new_seed = lcg seed in
-      helper new_seed (random_value :: acc)
+      if List.mem random_value acc then helper new_seed acc
+      else helper new_seed ((random_value + 1) :: acc)
   in
   helper seed []
 
@@ -43,7 +44,7 @@ let otherval = 7
 let rec new_guess n guess guessed =
   if n = 4 then guess
   else
-    let ran = Random.int 7 in
+    let ran = Random.int 6 + 1 in
     if ChoiceSet.mem ran guessed then new_guess n guess guessed
     else
       let _ = guess.(n) <- ran in

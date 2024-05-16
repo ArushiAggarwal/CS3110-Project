@@ -35,7 +35,7 @@ let map_int_to_color i =
   else if i = 2 then green
   else if i = 3 then red
   else if i = 4 then purple
-  else if i = 5 then pink
+  else if i = 5 then pink (* else if i = 0 then 0x685044 *)
   else orange
 
 (* mutable reference to the current screen *)
