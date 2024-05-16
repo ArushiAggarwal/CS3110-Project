@@ -360,8 +360,34 @@ let draw_game_screen () =
   draw_circles circle_x circle_y_start circle_spacing;
   draw_circle_texts circle_x circle_y_start circle_spacing;
 
-  (* fetch the board information from the backend *)
-  (* ####################### TODO ################################ *)
+  Gamerecord.update_computer_board (Option.get !game)
+    (Gamerecord.get_round (Option.get !game));
+
+  let board = Gamerecord.show_board (Option.get !game) in
+  (* let row = Gamerecord.get_round (Option.get !game) in *)
+  Array.iteri
+    (fun j lst ->
+      Array.iteri
+        (fun i value ->
+          let x = 150 + (i * 50) in
+          let y = 130 + (j * 25) in
+          Graphics.set_color (map_int_to_color value);
+          Graphics.fill_circle x y 10)
+        lst)
+    board;
+
+  let pin_board = Gamerecord.show_pins (Option.get !game) in
+  Array.iteri
+    (fun j lst ->
+      Array.iteri
+        (fun i value ->
+          let x = 550 + (i * 50) in
+          let y = 130 + (j * 50) in
+          Graphics.set_color (map_int_to_color value);
+          Graphics.fill_circle x y 5)
+        lst)
+    pin_board;
+
   let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
   do_updates key
 
