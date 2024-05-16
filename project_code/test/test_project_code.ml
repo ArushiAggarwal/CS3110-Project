@@ -1,6 +1,7 @@
 open OUnit2
 open Project_code.Pin
 open Project_code.Game
+open Project_code.Random_guessing_algorithm
 
 let test_pin =
   "Testing Pins to ensure the provide the correct feedback for\n\
@@ -226,8 +227,34 @@ let test_clear_board =
            assert_equal test_board_again test_board );
        ]
 
+(** [list_test] creates different testing cases for the various check and parts
+    of the pesudo randomzier algorithm and does the validation *)
+let list_test seed =
+  let result = make_guess () in
+  let is_valid_guess lst =
+    List.length lst = 4
+    && List.for_all (fun x -> x >= 1 && x <= 6) lst
+    && List.length (List.sort_uniq compare lst) = 4
+  in
+  is_valid_guess result
+
+(** [list_generator] generates arbitrary lists between 1 to 6 . *)
+let list_generator =
+  QCheck2.Gen.(
+    map (fun l -> List.sort_uniq compare l) (list_repeat 4 (int_range 1 7)))
+
+(** [many_random_tests] generates 1000 random tests. Each is based on random
+    values in the list. Each list is passed to [list_test] to do the checking *)
+let many_random_tests =
+  QCheck2.Test.make ~count:1000 ~name:"random guess tests" list_generator
+    ~print:QCheck.Print.int list_test
+
+(** [ounit_rnd_test] is a single OUnit test that runs all the random tests in
+    [many_random_tests]. If any one of those fails, the entire OUnit test fails. *)
+let ounit_rnd_test = QCheck_runner.to_ounit2_test many_random_tests
+
 let suite =
-  "test all cases"
+  a "test all cases"
   >::: [
          test_pin;
          test_valid;
@@ -237,6 +264,7 @@ let suite =
          test_make_game;
          test_update_game;
          test_clear_board;
+         ounit_rnd_test;
        ]
 
 let _ = run_test_tt_main suite
