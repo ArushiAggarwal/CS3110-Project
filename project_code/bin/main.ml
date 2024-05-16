@@ -637,7 +637,7 @@ let draw_algo_screen () =
   choose_algo ()
 
 let draw_instruction text_x text_y text =
-  Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
+  Graphics.moveto text_x text_y;
   Graphics.draw_string text
 
 let draw_help_screen () =
