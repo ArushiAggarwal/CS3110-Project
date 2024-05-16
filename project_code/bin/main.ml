@@ -108,14 +108,14 @@ let clear_graph () =
   Graphics.clear_graph ();
   draw_details ()
 
+(**************************** TITLE SCREEN **********************************)
+
 (** draw the text on the title screen *)
 let draw_title_text () =
-  Graphics.moveto ((screen_width / 2) - 25) ((screen_height / 2) + 125);
+  Graphics.moveto ((screen_width / 2) - 50) ((screen_height / 2) + 125);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 100000;
   Graphics.draw_string "OCAML MASTERMIND"
-
-(*Accessed flower code from chatgpt 05/15/23*)
 
 (** draw the start and help buttons on the title screen *)
 let draw_title_buttons () =
@@ -132,7 +132,9 @@ let draw_title_buttons () =
     (button_y + button_height + 50)
     button_width button_height button_color2 text_color
 
-(* Draws a petal*)
+(* Accessed flower code from chatgpt 05/15/23 *)
+
+(** Draws a petal*)
 let draw_petal x y petal_radius petal_color =
   Graphics.set_color petal_color;
   Graphics.fill_circle x y petal_radius
@@ -154,7 +156,7 @@ let make_petal flower_center_x flower_center_y flower_radius petal_index
   in
   (petal_x, petal_y, petal_colors.(petal_index))
 
-(* Draws the petals *)
+(** Draws the petals *)
 let draw_petals flower_center_x flower_center_y flower_radius petal_colors =
   Graphics.set_color 0xFFD700;
   Graphics.fill_circle flower_center_x flower_center_y 20;
@@ -165,7 +167,7 @@ let draw_petals flower_center_x flower_center_y flower_radius petal_colors =
     draw_petal petal_x petal_y 25 petal_color
   done
 
-(*draws the flower*)
+(** Draws flower 1 with coordinates *)
 let draw_flower1 () =
   let flower_center_x = screen_width - 150 in
   let flower_center_y = screen_height / 2 in
@@ -173,6 +175,7 @@ let draw_flower1 () =
   let petal_colors = [| 0xFF69B4; 0xFF69B4; 0xFF69B4; 0xFF69B4; 0xFF69B4 |] in
   draw_petals flower_center_x flower_center_y flower_radius petal_colors
 
+(** Draws flower 2 with coordinates *)
 let draw_flower2 () =
   let flower_center_x = 125 in
   let flower_center_y = (screen_height / 2) + 200 in
@@ -180,6 +183,7 @@ let draw_flower2 () =
   let petal_colors = [| 0xFFA07A; 0xFFA07A; 0xFFA07A; 0xFFA07A; 0xFFA07A |] in
   draw_petals flower_center_x flower_center_y flower_radius petal_colors
 
+(** Draws flower 3 with coordinates *)
 let draw_flower3 () =
   let flower_center_x = 200 in
   let flower_center_y = (screen_height / 2) - 200 in
@@ -187,6 +191,7 @@ let draw_flower3 () =
   let petal_colors = [| 0xDC143C; 0xDC143C; 0xDC143C; 0xDC143C; 0xDC143C |] in
   draw_petals flower_center_x flower_center_y flower_radius petal_colors
 
+(** Draws flower 4 with coordinates *)
 let draw_flower4 () =
   let flower_center_x = 1000 in
   let flower_center_y = (screen_height / 2) - 300 in
@@ -194,6 +199,7 @@ let draw_flower4 () =
   let petal_colors = [| 0xB22222; 0xB22222; 0xB22222; 0xB22222; 0xB22222 |] in
   draw_petals flower_center_x flower_center_y flower_radius petal_colors
 
+(** Draws flower 5 with coordinates *)
 let draw_flower5 () =
   let flower_center_x = 1150 in
   let flower_center_y = (screen_height / 2) + 250 in
@@ -201,18 +207,8 @@ let draw_flower5 () =
   let petal_colors = [| 0xFF1493; 0xFF1493; 0xFF1493; 0xFF1493; 0xFF1493 |] in
   draw_petals flower_center_x flower_center_y flower_radius petal_colors
 
-(** draw the title screen *)
-let draw_title_screen () =
-  draw_details ();
-  draw_title_text ();
-  draw_title_buttons ();
-  draw_flower1 ();
-  draw_flower2 ();
-  draw_flower3 ();
-  draw_flower4 ();
-  draw_flower5 ();
-
-  let key = Graphics.read_key () in
+(** Take action based on user key pressed on title screen *)
+let process_title_key key =
   if key = 's' then (
     clear_graph ();
     curr_screen := PlayerSelection)
@@ -224,6 +220,22 @@ let draw_title_screen () =
     Graphics.close_graph ();
     exit 0)
   else ()
+
+(** Draw the title screen *)
+let draw_title_screen () =
+  draw_details ();
+  draw_title_text ();
+  draw_title_buttons ();
+  draw_flower1 ();
+  draw_flower2 ();
+  draw_flower3 ();
+  draw_flower4 ();
+  draw_flower5 ();
+
+  let key = Graphics.read_key () in
+  process_title_key key
+
+(**************************** PLAYER SCREEN **********************************)
 
 (** draw text and buttons on player screen *)
 let draw_player_text_and_buttons () =
@@ -269,26 +281,7 @@ let draw_player_selection_screen () =
     exit 0)
   else ()
 
-(* let draw_round_buttons () = let button_width = 100 in let button_height = 50
-   in let button_spacing = 50 in let start_x = (screen_width / 2) - (3 *
-   (button_spacing * 2)) in let start_y = screen_height / 2 in let button_color
-   = 0xaec5eb in let text_color = 0x3a405a in
-
-   for i = 1 to 5 do let x = start_x + ((i - 1) * (button_width +
-   button_spacing)) in let y = start_y in draw_button (string_of_int i) x y
-   button_width button_height button_color text_color done
-
-   let draw_round_selection_screen () = draw_details ();
-
-   Graphics.moveto ((screen_width / 2) - 150) ((screen_height / 2) + 125);
-   Graphics.set_color 0x3a405a; Graphics.set_text_size 48; Graphics.draw_string
-   "Select number of rounds (press the corresponding number): ";
-
-   draw_round_buttons ();
-
-   let key = Graphics.read_key () in if key = '1' || key = '2' || key = '3' ||
-   key = '4' || key = '5' then ( clear_graph (); user_inputs := String.make 1
-   key :: !user_inputs; curr_screen := Algorithm) else () *)
+(************************ USER INPUT SCREEN **********************************)
 
 (** [is_valid_length code] checks that [code] is of the correct length *)
 let is_valid_length code = Array.length code = 4
@@ -301,15 +294,13 @@ let valid_code code =
   in
   aux [] (Array.to_list code)
 
-(* * get the answer from the user *)
-
+(** Get the answer from the user *)
 let rec get_user_code () =
   Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 200);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 24;
   Graphics.draw_string "Enter your code (4 digits, no duplicates):";
   index_ref := 0;
-
   let rec input_loop () =
     if !index_ref < 4 then
       let key = Graphics.read_key () in
@@ -353,7 +344,9 @@ let rec get_user_code () =
   in
   input_loop ()
 
-(** draw the boards for the game and balls *)
+(**************************** GAME SCREEN **********************************)
+
+(** Draw the boards for the game and balls *)
 let draw_board () =
   (* brown board*)
   Graphics.set_color 0xb9998a;
@@ -378,9 +371,11 @@ let draw_circles circle_x circle_y_start circle_spacing =
   Graphics.set_color orange;
   Graphics.fill_circle
     (circle_x + (2 * circle_spacing))
-    circle_y_start circle_radius;
+    circle_y_start circle_radius
 
+let draw_second_row circle_x circle_y_start circle_spacing =
   (* Draw the second row of circles *)
+  let circle_radius = 25 in
   Graphics.set_color yellow;
   Graphics.fill_circle circle_x (circle_y_start + circle_spacing) circle_radius;
   Graphics.set_color green;
@@ -454,39 +449,34 @@ let draw_feedback_string key =
   Graphics.set_color Graphics.black;
   Graphics.draw_string (String.make 1 key)
 
+let address_key_feedback key =
+  if key = 'r' || key = 'w' || key = 'n' then (
+    !user_feedback_ref.(!index_ref) <- String.make 1 key;
+    index_ref := !index_ref + 1;
+    Graphics.moveto
+      ((screen_width / 4 * 3) + (50 * (!index_ref - 2)))
+      (screen_height / 4);
+    Graphics.set_color Graphics.black;
+    Graphics.draw_string (String.make 1 key))
+  else if key = 'q' then (
+    print_endline "Thanks for playing!";
+    Graphics.close_graph ();
+    exit 0)
+
 (* get user input based for a guess *)
 let get_feedback key guess =
-  if key = 'r' || key = 'w' || key = 'n' then draw_feedback_string key else ();
+  if key = 'q' then (
+    print_endline "Thanks for playing!";
+    Graphics.close_graph ();
+    exit 0)
+  else if key = 'r' || key = 'w' || key = 'n' then draw_feedback_string key
+  else ();
   while (*key <> 's' &&*) !index_ref < 4 do
     if !index_ref < 4 then
       let key = Graphics.read_key () in
-      if key = 'r' || key = 'w' || key = 'n' then (
-        !user_feedback_ref.(!index_ref) <- String.make 1 key;
-        index_ref := !index_ref + 1;
-        Graphics.moveto
-          ((screen_width / 4 * 3) + (50 * (!index_ref - 2)))
-          (screen_height / 4);
-        Graphics.set_color Graphics.black;
-        Graphics.draw_string (String.make 1 key))
-      else if key = 'q' then (
-        print_endline "Thanks for playing!";
-        Graphics.close_graph ();
-        exit 0)
+      address_key_feedback key
   done;
   move_feedback_on guess
-
-(* let get_user_guess key = while key <> 's' do if !index_ref < 4 then ( let key
-   = Graphics.read_key () in if key >= '0' && key <= '9' then
-   !user_feedback_ref.(!index_ref) <- String.make 1 key; index_ref := !index_ref
-   + 1; Graphics.moveto ((screen_width / 2) + (50 * (!index_ref - 2)))
-   (screen_height / 2); Graphics.set_color Graphics.black; Graphics.draw_string
-   (String.make 1 key)) done; index_ref := 0 *)
-
-let draw_invalid_guess () =
-  Graphics.moveto ((screen_width / 4 * 3) - 100) ((screen_height / 4) - 40);
-  Graphics.set_color Graphics.red;
-  Graphics.draw_string
-    "Invalid input. Code must be 4 digits with no duplicates."
 
 let draw_motivation () =
   Graphics.moveto ((screen_width / 4 * 3) - 100) ((screen_height / 4) - 40);
@@ -494,6 +484,20 @@ let draw_motivation () =
   Graphics.draw_string
     (Gamerecord.give_motivation (Option.get !game) !user_code_ref);
   Graphics.set_color Graphics.black
+
+let address_valid_input () =
+  Gamerecord.update_board (Option.get !game) !user_code_ref;
+  Gamerecord.update_feedback (Option.get !game) !user_code_ref;
+  index_ref := 0;
+  draw_motivation ();
+  Unix.sleep 1;
+  Array.iteri (fun i _ -> !user_code_ref.(i) <- 0) !user_code_ref
+
+let draw_invalid_guess () =
+  Graphics.moveto ((screen_width / 4 * 3) - 100) ((screen_height / 4) - 40);
+  Graphics.set_color Graphics.red;
+  Graphics.draw_string
+    "Invalid input. Code must be 4 digits with no duplicates."
 
 (** [get_user_guess ()] gets the user's guess input, validates it, and updates
     the game board and feedback accordingly. *)
@@ -514,26 +518,36 @@ let rec get_user_guess () =
       else (
         draw_invalid_guess ();
         get_user_guess ())
+    else if key = 'q' then (
+      print_endline "Thanks for playing!";
+      Graphics.close_graph ();
+      exit 0)
     else get_user_guess ()
   else
     let valid_input =
       is_valid_length !user_code_ref && valid_code !user_code_ref
     in
-    if valid_input then (
-      Gamerecord.update_board (Option.get !game) !user_code_ref;
-      Gamerecord.update_feedback (Option.get !game) !user_code_ref;
-      index_ref := 0;
-      draw_motivation ();
-      Unix.sleep 1;
-      Array.iteri (fun i _ -> !user_code_ref.(i) <- 0) !user_code_ref)
+    if valid_input then address_valid_input ()
     else (
       draw_invalid_guess ();
       Array.iteri (fun i _ -> !user_code_ref.(i) <- 0) !user_code_ref;
       index_ref := 0;
       get_user_guess ())
 
-(*************************** GRACE TODO ****************************)
-let do_updates key guess = if !player_first then get_feedback key guess else ()
+let draw_message_text () =
+  let text = "Thanks for playing!" in
+  Graphics.moveto
+    ((screen_width / 2) - (String.length text * 12))
+    (screen_height / 2);
+  Graphics.draw_string text;
+  let text = "press 'q' to quit" in
+  Graphics.moveto
+    ((screen_width / 2) - (String.length text * 12))
+    ((screen_height / 2) - 50);
+  Graphics.draw_string text;
+  let text = "press 'm' to return to the menu" in
+  Graphics.moveto ((screen_width / 2) - 50) ((screen_height / 2) - 50);
+  Graphics.draw_string text
 
 let draw_message_box message =
   let rect_x = (screen_width / 2) - 1000 in
@@ -548,19 +562,7 @@ let draw_message_box message =
     ((screen_width / 2) - (String.length message * 12))
     ((screen_height / 2) + 25);
   Graphics.draw_string message;
-  let text = "Thanks for playing!" in
-  Graphics.moveto
-    ((screen_width / 2) - (String.length text * 12))
-    (screen_height / 2);
-  Graphics.draw_string text;
-  let text = "press 'q' to quit" in
-  Graphics.moveto
-    ((screen_width / 2) - (String.length text * 12))
-    ((screen_height / 2) - 50);
-  Graphics.draw_string text;
-  let text = "press 'm' to return to the menu" in
-  Graphics.moveto ((screen_width / 2) - 50) ((screen_height / 2) - 50);
-  Graphics.draw_string text
+  draw_message_text ()
 
 (** [win_condition game] checks if the player or computer wins based on the
     current state of the game. *)
@@ -610,37 +612,7 @@ let paint_board () =
         lst)
     pin_board
 
-(** draw the game screen *)
-let draw_game_screen () =
-  draw_details ();
-
-  (* background test *)
-  Graphics.moveto ((screen_width / 4 * 3) + 20) ((screen_height / 2) + 300);
-  Graphics.set_color 0x3a405a;
-  Graphics.set_text_size 48;
-  Graphics.draw_string "Play Game!";
-
-  draw_board ();
-  Graphics.set_color 0x000000;
-  let circle_x = 1000 in
-  let circle_y_start = (screen_height / 2) - 50 in
-  let circle_spacing = 100 in
-  draw_circles circle_x circle_y_start circle_spacing;
-  draw_circle_texts circle_x circle_y_start circle_spacing;
-
-  if !player_first then (
-    (* Player makes the code first *)
-    let guess = Gamerecord.update_computer_board (Option.get !game) in
-    paint_board ();
-    let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
-    do_updates key guess)
-  else (
-    (* Computer makes the code first *)
-    paint_board ();
-    get_user_guess ());
-
-  paint_board ();
-
+let check_win () =
   if win_condition (Option.get !game) then
     let key = Graphics.read_key () in
     if key = 'q' then (
@@ -654,10 +626,44 @@ let draw_game_screen () =
     else ()
   else ()
 
+let draw_circle_inputs () =
+  Graphics.set_color 0x000000;
+  let circle_x = 1000 in
+  let circle_y_start = (screen_height / 2) - 50 in
+  let circle_spacing = 100 in
+  draw_circles circle_x circle_y_start circle_spacing;
+  draw_second_row circle_x circle_y_start circle_spacing;
+  draw_circle_texts circle_x circle_y_start circle_spacing
+
+let player_guesses () =
+  let guess = Gamerecord.update_computer_board (Option.get !game) in
+  paint_board ();
+  let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
+  if !player_first then get_feedback key guess else ()
+
+(** draw the game screen *)
+let draw_game_screen () =
+  draw_details ();
+  Graphics.moveto ((screen_width / 4 * 3) + 20) ((screen_height / 2) + 300);
+  Graphics.set_color 0x3a405a;
+  Graphics.set_text_size 48;
+  Graphics.draw_string "Play Game!";
+
+  draw_board ();
+  draw_circle_inputs ();
+
+  if !player_first then player_guesses () (* Player makes the code first *)
+  else (
+    (* Computer makes the code first *)
+    paint_board ();
+    get_user_guess ());
+  paint_board ();
+  check_win ()
+
 (* in the main file *)
 
 (** choose algorithm and move screen *)
-let choose_algo () =
+let move_algo () =
   let to_screen = if !player_first then GetUserScreen else Game in
   let key = Graphics.read_key () in
   if key = 'p' then (
@@ -679,7 +685,6 @@ let choose_algo () =
 (** draw screen to select algorithm *)
 let draw_algo_screen () =
   draw_details ();
-
   Graphics.moveto ((screen_width / 2) - 150) ((screen_height / 2) + 125);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 48;
@@ -696,12 +701,22 @@ let draw_algo_screen () =
 
   draw_button "I'm ready to win! (press 'p')" start_x start_y button_width
     button_height button_color text_color;
-
-  choose_algo ()
+  move_algo ()
 
 let draw_instruction text_x text_y text =
   Graphics.moveto text_x text_y;
   Graphics.draw_string text
+
+let address_help_keys () =
+  let key = Graphics.read_key () in
+  if key = 's' then (
+    clear_graph ();
+    curr_screen := Title)
+  else if key = 'q' then (
+    print_endline "Thanks for playing!";
+    Graphics.close_graph ();
+    exit 0)
+  else ()
 
 let draw_help_screen () =
   draw_details ();
@@ -773,18 +788,9 @@ let draw_help_screen () =
   Graphics.draw_string
     "12. If the codebreaker guessed the code, they win, otherwise the \
      codemaker wins.";
+  address_help_keys ()
 
-  let key = Graphics.read_key () in
-  if key = 's' then (
-    clear_graph ();
-    curr_screen := Title)
-  else if key = 'q' then (
-    print_endline "Thanks for playing!";
-    Graphics.close_graph ();
-    exit 0)
-  else ()
-
-(* *)
+(** run main game *)
 let rec run_mastermind () =
   try
     (Graphics.open_graph
