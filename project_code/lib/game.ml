@@ -79,8 +79,7 @@ module Gamerecord : Gameboard = struct
   let update_board board guess =
     if board.turn_number < 12 then (
       Array.set board.game_board board.turn_number guess;
-      print_endline (string_of_int board.turn_number);
-      board.turn_number <- board.turn_number + 1)
+      print_endline (string_of_int board.turn_number))
     else ()
 
   (** [update_feedback game guess] updates the next empty row of the [game] pin
@@ -89,8 +88,9 @@ module Gamerecord : Gameboard = struct
     let feedback =
       PinModule.to_int_array (PinModule.make_pins guess game.answer)
     in
-    if game.turn_number < 12 then
-      Array.set game.pin_board game.turn_number feedback
+    if game.turn_number < 12 then (
+      Array.set game.pin_board game.turn_number feedback;
+      game.turn_number <- game.turn_number + 1)
     else ()
 
   (** [update_game game guess] updates the values of [game] based on the user's
