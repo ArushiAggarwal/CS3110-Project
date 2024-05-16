@@ -36,7 +36,8 @@ let map_int_to_color i =
   else if i = 3 then red
   else if i = 4 then purple
   else if i = 5 then pink (* else if i = 0 then 0x685044 *)
-  else orange
+  else if i = 6 then orange
+  else 0x685044
 
 (* mutable reference to the current screen *)
 let curr_screen = ref Title
