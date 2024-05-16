@@ -1,5 +1,6 @@
 module type PinType = sig
   type pin
+  (* type pin *)
 
   val make_pins : int array -> int array -> pin array
   (** [make_pins array_guess array_answer] Takes an an [int array] of

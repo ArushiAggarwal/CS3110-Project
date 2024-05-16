@@ -127,7 +127,7 @@ module PinModule : PinType = struct
       let pin_array2 = make_pins guess answer in
       pin_array1 = pin_array2
 
-  (* grace is using this in main *)
+  (* using this in main *)
   let rec list_to_string = function
     | [] -> ""
     | h :: t -> h ^ list_to_string t
