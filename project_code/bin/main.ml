@@ -70,6 +70,7 @@ let curr_screen = ref Title
     the algorithm and player order. *)
 let user_inputs = ref []
 
+(** [game] create ref game*)
 let game : Gamerecord.game option ref = ref None
 
 (** draw a button containing [text] at position ([x], [y]), with [color] and
@@ -83,12 +84,13 @@ let draw_button text x y w h color text_color =
   Graphics.draw_string text
 
 (** [store_in_backend lst] takes a list containing details about the game and
-    creates an instance of Gameboard *)
+    creates an instance of Gameboard. *)
 let store_in_backend lst =
   match lst with
   | [ player; algo ] -> Gamerecord.make_game 1 algo player
   | _ -> failwith "Error with input"
 
+(** [reset_game] resets global varaible. *)
 let reset_game () =
   user_inputs := [];
   player_first := false;
