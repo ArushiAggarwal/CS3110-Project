@@ -93,6 +93,7 @@ let test_valid1 =
              (PinModule.check_validation "nWrN" [| 0; 1; 2; 3 |]
                 [| 2; 5; 5; 3 |]) );
        ]
+
 (** [test_valid2] generates some other niche test cases the user might input. *)
 let test_valid2 =
   "Other test cases for validity"
@@ -108,10 +109,12 @@ let test_valid2 =
          ( "Features incorrect char" >:: fun _ ->
            assert_equal false
              (PinModule.check_validation "nWrP" [| 0; 1; 2; 3 |]
-                [| 7; 5; 4; 6 |]) ); ]
+                [| 7; 5; 4; 6 |]) );
+       ]
 
-let test_valid3 = 
-  "Some final test cases for validity" >::: [
+let test_valid3 =
+  "Some final test cases for validity"
+  >::: [
          ( "Empty string" >:: fun _ ->
            assert_equal false
              (PinModule.check_validation "" [| 0; 1; 2; 3 |] [| 7; 5; 4; 6 |])
