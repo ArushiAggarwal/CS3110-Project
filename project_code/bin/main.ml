@@ -1,5 +1,6 @@
 (* @author *)
 open Project_code.Game
+open Project_code.Pin
 
 (* global variables *)
 let screen_width = 1400
@@ -310,10 +311,29 @@ let draw_circle_texts circle_x circle_y_start circle_spacing =
    Graphics.fill_circle (map_int_to_color guess.(j)); Graphics.set_color
    guess.(j); done; *)
 
-(* let move_feedback_on () = let feedback = !user_feedback_ref in Game.che *)
+let move_feedback_on guess =
+  index_ref := 0;
+  let feedback = !user_feedback_ref in
+  let () =
+    if
+      Gamerecord.check_feedback
+        (PinModule.list_to_string (Array.to_list feedback))
+        (Option.get !game)
+    then Unix.sleepf 0.2
+    else (
+      Graphics.moveto ((screen_width / 4 * 3) - 100) ((screen_height / 4) - 40);
+      Graphics.set_color Graphics.red;
+      Graphics.draw_string
+        "That feedback was incorrect! The correct feedback was: ";
+      Graphics.moveto ((screen_width / 4 * 3) - 100) ((screen_height / 4) - 20);
+      (* draw the to string *)
+      Graphics.set_color Graphics.black)
+  in
+  Unix.sleepf 1.;
+  Gamerecord.update_feedback (Option.get !game) guess
 
 (* get user input based for a guess *)
-let get_feedback key =
+let get_feedback key guess =
   if key = 'r' || key = 'w' || key = 'n' then (
     !user_feedback_ref.(!index_ref) <- String.make 1 key;
     index_ref := !index_ref + 1;
@@ -323,7 +343,7 @@ let get_feedback key =
     Graphics.set_color Graphics.black;
     Graphics.draw_string (String.make 1 key))
   else ();
-  while key <> 's' && !index_ref < 4 do
+  while (*key <> 's' &&*) !index_ref < 4 do
     if !index_ref < 4 then
       let key = Graphics.read_key () in
       if key = 'r' || key = 'w' || key = 'n' then (
@@ -335,7 +355,7 @@ let get_feedback key =
         Graphics.set_color Graphics.black;
         Graphics.draw_string (String.make 1 key))
   done;
-  index_ref := 0
+  move_feedback_on guess
 
 let get_user_guess key =
   while key <> 's' do
@@ -353,7 +373,7 @@ let get_user_guess key =
   index_ref := 0
 
 (*################# GRACE TODO ################################ *)
-let do_updates key = if !player_first then get_feedback key else ()
+let do_updates key guess = if !player_first then get_feedback key guess else ()
 
 let draw_message_box message =
   let rect_x = (screen_width / 2) - 1000 in
@@ -409,8 +429,10 @@ let draw_game_screen () =
   draw_circles circle_x circle_y_start circle_spacing;
   draw_circle_texts circle_x circle_y_start circle_spacing;
 
-  Gamerecord.update_computer_board (Option.get !game)
-    (Gamerecord.get_turn (Option.get !game));
+  let guess =
+    Gamerecord.update_computer_board (Option.get !game)
+      (Gamerecord.get_turn (Option.get !game))
+  in
 
   let board = Gamerecord.show_board (Option.get !game) in
   (* let row = Gamerecord.get_round (Option.get !game) in *)
@@ -438,7 +460,7 @@ let draw_game_screen () =
     pin_board;
 
   let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
-  do_updates key;
+  do_updates key guess;
 
   if win_condition (Option.get !game) then
     let key = Graphics.read_key () in
@@ -590,6 +612,6 @@ let rec run_mastermind () =
    | Game -> draw_game_screen ()
    | Help -> draw_help_screen ());
   run_mastermind ()
-(* with exn -> print_endline "Thanks for playing!" *)
+(* with exn -> match exn with | Iprint_endline "Thanks for playing!" *)
 
 let () = run_mastermind ()

@@ -7,6 +7,7 @@ module type PinType = sig
   val all_colors : pin array -> int array
   val check_validation : string -> int array -> int array -> bool
   val to_int_array : pin array -> int array
+  val list_to_string : string list -> string
 end
 
 (** This is a module implementation for an array of pins, which are indicative
@@ -116,4 +117,9 @@ module PinModule : PinType = struct
     done;
     let pin_array2 = make_pins guess answer in
     pin_array1 = pin_array2
+
+  (* grace is using this in main *)
+  let rec list_to_string = function
+    | [] -> ""
+    | h :: t -> h ^ list_to_string t
 end
