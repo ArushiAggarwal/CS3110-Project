@@ -1,6 +1,6 @@
 open OUnit2
 open Project_code.Pin
-open Project_code.Game
+(* open Project_code.Game *)
 
 (**let test_random = "Test suite to ensure pseudorandom generator works with
    respect to seed." >:::
