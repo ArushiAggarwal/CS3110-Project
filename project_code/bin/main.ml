@@ -29,6 +29,10 @@ type screen =
   | Help
   | GetUserScreen
 
+<<<<<<< HEAD
+=======
+(* [map_int_to_color] mapping int to color *)
+>>>>>>> e53742d3a61a51c0eff76c258ef7a044034e5959
 let map_int_to_color i =
   if i = 1 then yellow
   else if i = 2 then green
@@ -197,48 +201,52 @@ let valid_code code =
   in
   aux [] (Array.to_list code)
 
-(** get the answer from the user *)
+(* * get the answer from the user *)
+
 let rec get_user_code () =
   Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 200);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 24;
   Graphics.draw_string "Enter your code (4 digits, no duplicates):";
-
   index_ref := 0;
-  while !index_ref < 4 do
-    let key = Graphics.read_key () in
-    if key >= '0' && key <= '9' then
-      let digit = Char.code key - Char.code '0' in
-      if not (Array.mem digit !user_code_ref) then (
-        !user_code_ref.(!index_ref) <- digit;
-        index_ref := !index_ref + 1;
-        Graphics.moveto
-          ((screen_width / 2) + (50 * (!index_ref - 2)))
-          (screen_height / 2);
-        Graphics.draw_string (String.make 1 key))
+
+  let rec input_loop () =
+    if !index_ref < 4 then
+      let key = Graphics.read_key () in
+      if key >= '0' && key <= '9' then
+        let digit = Char.code key - Char.code '0' in
+        if not (Array.mem digit !user_code_ref) then (
+          !user_code_ref.(!index_ref) <- digit;
+          index_ref := !index_ref + 1;
+          Graphics.moveto
+            ((screen_width / 2) + (50 * (!index_ref - 2)))
+            (screen_height / 2);
+          Graphics.set_color Graphics.black;
+          Graphics.draw_string (String.make 1 key);
+          input_loop ())
+        else (
+          Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
+          Graphics.set_color Graphics.red;
+          Graphics.draw_string "Invalid input. Please try again.";
+          input_loop ())
+      else input_loop ()
+    else
+      let valid_input =
+        is_valid_length !user_code_ref && valid_code !user_code_ref
+      in
+      if valid_input then (
+        Gamerecord.set_answer (Option.get !game) !user_code_ref;
+        curr_screen := Game)
       else (
         Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
-        Graphics.set_color 0xff0000;
-        Graphics.draw_string "Invalid input. Please try again.";
-        get_user_code () |> ignore;
+        Graphics.set_color Graphics.red;
+        Graphics.draw_string
+          "Invalid input. Code must be 4 digits with no duplicates.";
         Array.iteri (fun i _ -> !user_code_ref.(i) <- 0) !user_code_ref;
-        index_ref := 0)
-  done;
-
-  let valid_input =
-    is_valid_length !user_code_ref && valid_code !user_code_ref
+        index_ref := 0;
+        get_user_code ())
   in
-  print_endline "we are here";
-
-  if valid_input then (
-    Gamerecord.set_answer (Option.get !game) !user_code_ref;
-    curr_screen := Game)
-  else (
-    Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
-    Graphics.set_color 0xff0000;
-    Graphics.draw_string
-      "Invalid input. Code must be 4 digits with no duplicates.";
-    get_user_code ())
+  input_loop ()
 
 (** draw the boards for the game and balls *)
 let draw_board () =
@@ -301,6 +309,10 @@ let draw_circle_texts circle_x circle_y_start circle_spacing =
     (circle_y_start + circle_spacing - 12);
   Graphics.draw_string "3"
 
+(* let draw_guess_pin guess i = let x = ref 170 in for j = 0 to 4 do
+   Graphics.fill_circle (map_int_to_color guess.(j)); Graphics.set_color
+   guess.(j); done; *)
+
 (** draw the game screen *)
 let draw_game_screen () =
   draw_details ();
@@ -321,6 +333,34 @@ let draw_game_screen () =
   let circle_spacing = 100 in
   draw_circles circle_x circle_y_start circle_spacing;
   draw_circle_texts circle_x circle_y_start circle_spacing;
+
+  Gamerecord.update_computer_board (Option.get !game)
+    (Gamerecord.get_round (Option.get !game));
+
+  let board = Gamerecord.show_board (Option.get !game) in
+  (* let row = Gamerecord.get_round (Option.get !game) in *)
+  Array.iteri
+    (fun j lst ->
+      Array.iteri
+        (fun i value ->
+          let x = 150 + (i * 50) in
+          let y = 130 + (j * 25) in
+          Graphics.set_color (map_int_to_color value);
+          Graphics.fill_circle x y 10)
+        lst)
+    board;
+
+  let pin_board = Gamerecord.show_pins (Option.get !game) in
+  Array.iteri
+    (fun j lst ->
+      Array.iteri
+        (fun i value ->
+          let x = 550 + (i * 50) in
+          let y = 130 + (j * 50) in
+          Graphics.set_color (map_int_to_color value);
+          Graphics.fill_circle x y 5)
+        lst)
+    pin_board;
 
   let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
   do_updates key
