@@ -188,48 +188,52 @@ let valid_code code =
   in
   aux [] (Array.to_list code)
 
-(** get the answer from the user *)
+(* * get the answer from the user *)
+
 let rec get_user_code () =
   Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 200);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 24;
   Graphics.draw_string "Enter your code (4 digits, no duplicates):";
-
   index_ref := 0;
-  while !index_ref < 4 do
-    let key = Graphics.read_key () in
-    if key >= '0' && key <= '9' then
-      let digit = Char.code key - Char.code '0' in
-      if not (Array.mem digit !user_code_ref) then (
-        !user_code_ref.(!index_ref) <- digit;
-        index_ref := !index_ref + 1;
-        Graphics.moveto
-          ((screen_width / 2) + (50 * (!index_ref - 2)))
-          (screen_height / 2);
-        Graphics.draw_string (String.make 1 key))
+
+  let rec input_loop () =
+    if !index_ref < 4 then
+      let key = Graphics.read_key () in
+      if key >= '0' && key <= '9' then
+        let digit = Char.code key - Char.code '0' in
+        if not (Array.mem digit !user_code_ref) then (
+          !user_code_ref.(!index_ref) <- digit;
+          index_ref := !index_ref + 1;
+          Graphics.moveto
+            ((screen_width / 2) + (50 * (!index_ref - 2)))
+            (screen_height / 2);
+          Graphics.set_color Graphics.black;
+          Graphics.draw_string (String.make 1 key);
+          input_loop ())
+        else (
+          Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
+          Graphics.set_color Graphics.red;
+          Graphics.draw_string "Invalid input. Please try again.";
+          input_loop ())
+      else input_loop ()
+    else
+      let valid_input =
+        is_valid_length !user_code_ref && valid_code !user_code_ref
+      in
+      if valid_input then (
+        Gamerecord.set_answer (Option.get !game) !user_code_ref;
+        curr_screen := Game)
       else (
         Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
-        Graphics.set_color 0xff0000;
-        Graphics.draw_string "Invalid input. Please try again.";
-        get_user_code () |> ignore;
+        Graphics.set_color Graphics.red;
+        Graphics.draw_string
+          "Invalid input. Code must be 4 digits with no duplicates.";
         Array.iteri (fun i _ -> !user_code_ref.(i) <- 0) !user_code_ref;
-        index_ref := 0)
-  done;
-
-  let valid_input =
-    is_valid_length !user_code_ref && valid_code !user_code_ref
+        index_ref := 0;
+        get_user_code ())
   in
-  print_endline "we are here";
-
-  if valid_input then (
-    Gamerecord.set_answer (Option.get !game) !user_code_ref;
-    curr_screen := Game)
-  else (
-    Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
-    Graphics.set_color 0xff0000;
-    Graphics.draw_string
-      "Invalid input. Code must be 4 digits with no duplicates.";
-    get_user_code ())
+  input_loop ()
 
 (** draw the boards for the game and balls *)
 let draw_board () =
