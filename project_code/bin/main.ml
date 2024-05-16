@@ -637,7 +637,7 @@ let draw_algo_screen () =
   choose_algo ()
 
 let draw_instruction text_x text_y text =
-  Graphics.moveto text_x text_y;
+  Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
   Graphics.draw_string text
 
 let draw_help_screen () =
@@ -664,7 +664,7 @@ let draw_help_screen () =
   Graphics.set_color 0x3a405a;
   Graphics.draw_rect text_x (text_y - (12 * 30) + 15) text_width text_height;
   Graphics.set_text_size 20;
-  draw_instruction (text_x + 10) text_y
+  draw_instruction (text_x + 10) (text_y + 10)
     "1. Press keys to advance through the game. The keys shown on the buttons \
      correspond to keys that need to be pressed.";
   draw_instruction (text_x + 10)
