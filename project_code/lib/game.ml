@@ -57,8 +57,13 @@ module type Gameboard = sig
   val check_feedback : string -> game -> bool
   (** [check_feedback feedback game] checks that the user feedback for the last
       round of the game is correct *)
+
   val int_array_to_string : int array -> string
   (** [int_array_to_string] converts int array to string*)
+
+  val get_latest_feedback : game -> int array -> int array
+  (** [get_latest_guess game] returns the row of the latest guess in [game]'s
+      feedback board *)
 end
 
 module Gamerecord : Gameboard = struct
@@ -80,14 +85,14 @@ module Gamerecord : Gameboard = struct
       answer = Array.make 4 0;
     }
 
-  (** [get_round game] returns the number of rounds played. *)
+  (** [get_turn game] returns the number of rounds played. *)
   let get_turn game : int = game.turn_number
 
   (** [update_board game guess] updates the next empty row of the [game] board
       with the guess array. *)
   let update_board board guess =
     if board.turn_number < 12 then (
-      Array.set board.game_board board.turn_number guess;
+      Array.set board.game_board board.turn_number (Array.copy guess);
       print_endline (string_of_int board.turn_number))
     else ()
 
@@ -135,17 +140,18 @@ module Gamerecord : Gameboard = struct
     game.round_number <- game.round_number + 1;
     set_answer game [| 0; 0; 0; 0 |]
 
-  (** [check_feedback feedback game] checks that the user feedback for the last
-      round of the game is correct *)
   let set_computer_answer game = game.answer <- Array.of_list (make_guess ())
 
-  let get_latest_guess game =
-    let ind = game.turn_number in
-    game.game_board.(ind)
-
+  (** [check_feedback feedback game] checks that the user feedback for the last
+      round of the game is correct *)
   let check_feedback feedback game =
     let guess = get_latest_guess game in
     PinModule.check_validation feedback guess game.answer
+
+  (** [get_latest_guess game] returns the row of the latest guess in [game]'s
+      feedback board *)
+  let get_latest_feedback game guess =
+    PinModule.to_int_array (PinModule.make_pins guess game.answer)
 
   let update_computer_board game i =
     if (* Player made the code first *)

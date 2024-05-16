@@ -1,7 +1,7 @@
 (* @author *)
 open Project_code.Game
 open Project_code.Pin
-open Project_code.Random_guessing_algorithm
+(* open Project_code.Random_guessing_algorithm *)
 
 (* global variables *)
 let screen_width = 1400
@@ -42,6 +42,8 @@ let map_int_to_color i =
 
 let map_feedback_to_color i =
   if i = 0 then 0xff0000 else if i = 1 then 0xffffff else 0x685044
+
+let map_feedback_to_string i = if i = 0 then "r" else if i = 1 then "w" else "n"
 
 (* mutable reference to the current screen *)
 let curr_screen = ref Title
@@ -122,9 +124,11 @@ let draw_player_text_and_buttons () =
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 48;
   Graphics.draw_string "Select your player:";
+  Graphics.moveto ((screen_width / 2) - 75) ((screen_height / 2) + 100);
+  Graphics.draw_string "(Player 1 means you start as the codemaker)";
 
-  let button_x = (screen_width / 2) - 100 in
-  let button_y = (screen_height / 2) - 100 in
+  let button_x = (screen_width / 2) - 150 in
+  let button_y = (screen_height / 2) - 50 in
   let button_width = 200 in
   let button_height = 50 in
   let button_color1 = 0xaec5eb in
@@ -158,7 +162,7 @@ let draw_round_buttons () =
   let button_width = 100 in
   let button_height = 50 in
   let button_spacing = 50 in
-  let start_x = (screen_width / 2) - (button_spacing * 2) in
+  let start_x = (screen_width / 2) - (3 * (button_spacing * 2)) in
   let start_y = screen_height / 2 in
   let button_color = 0xaec5eb in
   let text_color = 0x3a405a in
@@ -173,7 +177,7 @@ let draw_round_buttons () =
 let draw_round_selection_screen () =
   draw_details ();
 
-  Graphics.moveto ((screen_width / 2) - 25) ((screen_height / 2) + 125);
+  Graphics.moveto ((screen_width / 2) - 150) ((screen_height / 2) + 125);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 48;
   Graphics.draw_string
@@ -312,6 +316,19 @@ let draw_circle_texts circle_x circle_y_start circle_spacing =
    Graphics.fill_circle (map_int_to_color guess.(j)); Graphics.set_color
    guess.(j); done; *)
 
+let draw_incorrect_feedback guess =
+  Graphics.moveto ((screen_width / 4 * 3) - 100) ((screen_height / 4) - 40);
+  Graphics.set_color Graphics.red;
+  Graphics.draw_string "That feedback was incorrect! The correct feedback was: ";
+  Graphics.moveto ((screen_width / 4 * 3) - 50) ((screen_height / 4) - 70);
+  Graphics.draw_string
+    (PinModule.list_to_string
+       (Array.to_list
+          (Array.map map_feedback_to_string
+             (Gamerecord.get_latest_feedback (Option.get !game) guess))));
+  (* draw the to string *)
+  Graphics.set_color Graphics.black
+
 let move_feedback_on guess =
   index_ref := 0;
   let feedback = !user_feedback_ref in
@@ -321,29 +338,23 @@ let move_feedback_on guess =
         (PinModule.list_to_string (Array.to_list feedback))
         (Option.get !game)
     then Unix.sleepf 0.2
-    else (
-      Graphics.moveto ((screen_width / 4 * 3) - 100) ((screen_height / 4) - 40);
-      Graphics.set_color Graphics.red;
-      Graphics.draw_string
-        "That feedback was incorrect! The correct feedback was: ";
-      Graphics.moveto ((screen_width / 4 * 3) - 100) ((screen_height / 4) - 20);
-      (* draw the to string *)
-      Graphics.set_color Graphics.black)
+    else draw_incorrect_feedback guess
   in
   Unix.sleepf 1.;
   Gamerecord.update_feedback (Option.get !game) guess
 
+let draw_feedback_string key =
+  !user_feedback_ref.(!index_ref) <- String.make 1 key;
+  index_ref := !index_ref + 1;
+  Graphics.moveto
+    ((screen_width / 4 * 3) + (50 * (!index_ref - 2)))
+    (screen_height / 4);
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string (String.make 1 key)
+
 (* get user input based for a guess *)
 let get_feedback key guess =
-  if key = 'r' || key = 'w' || key = 'n' then (
-    !user_feedback_ref.(!index_ref) <- String.make 1 key;
-    index_ref := !index_ref + 1;
-    Graphics.moveto
-      ((screen_width / 4 * 3) + (50 * (!index_ref - 2)))
-      (screen_height / 4);
-    Graphics.set_color Graphics.black;
-    Graphics.draw_string (String.make 1 key))
-  else ();
+  if key = 'r' || key = 'w' || key = 'n' then draw_feedback_string key else ();
   while (*key <> 's' &&*) !index_ref < 4 do
     if !index_ref < 4 then
       let key = Graphics.read_key () in
@@ -365,6 +376,12 @@ let get_feedback key guess =
    (screen_height / 2); Graphics.set_color Graphics.black; Graphics.draw_string
    (String.make 1 key)) done; index_ref := 0 *)
 
+let draw_invalid_guess () =
+  Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
+  Graphics.set_color Graphics.red;
+  Graphics.draw_string
+    "Invalid input. Code must be 4 digits with no duplicates."
+
 (** [get_user_guess ()] gets the user's guess input, validates it, and updates
     the game board and feedback accordingly. *)
 let rec get_user_guess () =
@@ -382,9 +399,7 @@ let rec get_user_guess () =
         Graphics.draw_string (String.make 1 key);
         get_user_guess ())
       else (
-        Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
-        Graphics.set_color Graphics.red;
-        Graphics.draw_string "Invalid input. Please try again.";
+        draw_invalid_guess ();
         get_user_guess ())
     else get_user_guess ()
   else
@@ -394,12 +409,10 @@ let rec get_user_guess () =
     if valid_input then (
       Gamerecord.update_board (Option.get !game) !user_code_ref;
       Gamerecord.update_feedback (Option.get !game) !user_code_ref;
-      index_ref := 0)
+      index_ref := 0;
+      Array.iteri (fun i _ -> !user_code_ref.(i) <- 0) !user_code_ref)
     else (
-      Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
-      Graphics.set_color Graphics.red;
-      Graphics.draw_string
-        "Invalid input. Code must be 4 digits with no duplicates.";
+      draw_invalid_guess ();
       Array.iteri (fun i _ -> !user_code_ref.(i) <- 0) !user_code_ref;
       index_ref := 0;
       get_user_guess ())
@@ -426,7 +439,7 @@ let draw_message_box message =
 let win_condition game =
   let board = Gamerecord.show_pins game in
   let is_all_red row = Array.for_all (fun x -> x = 0) row in
-  let is_any_non_red row = Array.exists (fun x -> x <> 0) row in
+  (* let is_any_non_red row = Array.exists (fun x -> x <> 0) row in *)
   if Gamerecord.get_turn game = 12 then
     if !player_first then
       if Array.exists is_all_red board then (
@@ -435,7 +448,7 @@ let win_condition game =
       else (
         draw_message_box "Player Wins!";
         true)
-    else if Array.exists is_any_non_red board then (
+    else if Array.exists is_all_red board then (
       draw_message_box "Player Wins!";
       true)
     else (
@@ -449,8 +462,8 @@ let paint_board () =
     (fun j lst ->
       Array.iteri
         (fun i value ->
-          let x = 150 + (i * 50) in
-          let y = 130 + (j * 30) in
+          let x = 170 + (i * 70) in
+          let y = 150 + (j * 40) in
           Graphics.set_color (map_int_to_color value);
           Graphics.fill_circle x y 10)
         lst)
@@ -461,8 +474,8 @@ let paint_board () =
     (fun j lst ->
       Array.iteri
         (fun i value ->
-          let x = 550 + (i * 50) in
-          let y = 130 + (j * 30) in
+          let x = 520 + (i * 30) in
+          let y = 150 + (j * 40) in
           Graphics.set_color (map_feedback_to_color value);
           Graphics.fill_circle x y 5)
         lst)
@@ -473,7 +486,7 @@ let draw_game_screen () =
   draw_details ();
 
   (* background test *)
-  Graphics.moveto ((screen_width / 2) + 300) ((screen_height / 2) + 300);
+  Graphics.moveto ((screen_width / 4 * 3) + 20) ((screen_height / 2) + 300);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 48;
   Graphics.draw_string "Play Game!";
@@ -481,7 +494,7 @@ let draw_game_screen () =
   draw_board ();
   Graphics.set_color 0x000000;
   let circle_x = 1000 in
-  let circle_y_start = (screen_height / 2) - 75 in
+  let circle_y_start = (screen_height / 2) - 50 in
   let circle_spacing = 100 in
   draw_circles circle_x circle_y_start circle_spacing;
   draw_circle_texts circle_x circle_y_start circle_spacing;
@@ -498,17 +511,17 @@ let draw_game_screen () =
   else (
     (* Computer makes the code first *)
     paint_board ();
-    Gamerecord.set_computer_answer (Option.get !game);
-    print_endline
-      ("Computer's answer: "
-      ^ Gamerecord.int_array_to_string (Option.get !game).answer);
     get_user_guess ());
 
   paint_board ();
 
   if win_condition (Option.get !game) then
     let key = Graphics.read_key () in
-    if key = 'q' then exit 0 else clear_graph ()
+    if key = 'q' then exit 0
+    else if !player_first && key = 's' then (
+      clear_graph ();
+      player_first := not !player_first)
+    else ()
   else ()
 
 (* in the main file *)
@@ -521,6 +534,12 @@ let choose_algo () =
     clear_graph ();
     user_inputs := "Random" :: !user_inputs;
     game := Some (store_in_backend (!user_inputs |> List.rev));
+    print_endline (Option.get !game).player;
+    if (Option.get !game).player = "computer" then (
+      Gamerecord.set_computer_answer (Option.get !game);
+      print_endline
+        ("Computer's answer: "
+        ^ Gamerecord.int_array_to_string (Option.get !game).answer));
     curr_screen := to_screen)
   else if key = 'k' then (
     clear_graph ();
@@ -552,19 +571,7 @@ let draw_algo_screen () =
     (start_x + button_width + button_spacing)
     start_y button_width button_height button_color text_color;
 
-  let to_screen = if !player_first then GetUserScreen else Game in
-  let key = Graphics.read_key () in
-  if key = 'p' then (
-    clear_graph ();
-    user_inputs := "Random" :: !user_inputs;
-    game := Some (store_in_backend (!user_inputs |> List.rev));
-    curr_screen := to_screen)
-  else if key = 'k' then (
-    clear_graph ();
-    user_inputs := "Knuth" :: !user_inputs;
-    game := Some (store_in_backend (!user_inputs |> List.rev));
-    curr_screen := to_screen)
-  else ()
+  choose_algo ()
 
 let draw_help_screen () =
   draw_details ();
