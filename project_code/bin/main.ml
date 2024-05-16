@@ -311,6 +311,9 @@ let draw_circle_texts circle_x circle_y_start circle_spacing =
    Graphics.fill_circle (map_int_to_color guess.(j)); Graphics.set_color
    guess.(j); done; *)
 
+let move_feedback_on () = 
+  let feedback = !user_feedback_ref in 
+
 (* get user input based for a guess *)
 let get_feedback key =
   if key = 'r' || key = 'w' || key = 'n' then (
@@ -323,16 +326,16 @@ let get_feedback key =
     Graphics.draw_string (String.make 1 key))
   else ();
   while key <> 's' && !index_ref < 4 do
-    if !index_ref < 4 then (
+    if !index_ref < 4 then
       let key = Graphics.read_key () in
-      if key = 'r' || key = 'w' || key = 'n' then
+      if key = 'r' || key = 'w' || key = 'n' then (
         !user_feedback_ref.(!index_ref) <- String.make 1 key;
-      index_ref := !index_ref + 1;
-      Graphics.moveto
-        ((screen_width / 4 * 3) + (50 * (!index_ref - 2)))
-        (screen_height / 4);
-      Graphics.set_color Graphics.black;
-      Graphics.draw_string (String.make 1 key))
+        index_ref := !index_ref + 1;
+        Graphics.moveto
+          ((screen_width / 4 * 3) + (50 * (!index_ref - 2)))
+          (screen_height / 4);
+        Graphics.set_color Graphics.black;
+        Graphics.draw_string (String.make 1 key))
   done;
   index_ref := 0
 
@@ -357,9 +360,6 @@ let do_updates key = if !player_first then get_feedback key else ()
 (** draw the game screen *)
 let draw_game_screen () =
   draw_details ();
-
-  (* if !player_first then Gamerecord.set_answer (Option.get !game)
-     !user_code_ref else (); *)
 
   (* background test *)
   Graphics.moveto ((screen_width / 2) + 300) ((screen_height / 2) + 300);

@@ -119,7 +119,17 @@ module Gamerecord : Gameboard = struct
   (** [set_answer game] sets the answer in [game] for the round *)
   let set_answer game answer = game.answer <- answer
 
-  (* let check_feedback feedback guess = let real_feedback *)
+  let index_of_last_row game =
+    let ind = Array.find_index (fun x -> Array.mem 3) game.game_board in
+    if ind = None then 12 else Option.get ind
+
+  let get_latest_guess game =
+    let ind = index_of_last_row game in
+    game.game_board.(ind)
+
+  let check_feedback feedback game =
+    let guess = get_latest_guess game in
+    PinModule.check_validation feedback guess game.answer
 
   (* let update_computer_board game = if game.algorithm = "p" then let guess =
      generate_guess 42 in update_board game (Array.of_list guess) else if

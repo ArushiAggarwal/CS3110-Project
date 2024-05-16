@@ -26,7 +26,7 @@ let generate_guess seed =
     else
       let random_value, new_seed = lcg seed in
       if List.mem random_value acc then helper new_seed acc
-      else helper new_seed ((random_value + 1) :: acc)
+      else helper new_seed (random_value :: acc)
   in
   helper seed []
 
