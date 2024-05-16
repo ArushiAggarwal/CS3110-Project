@@ -28,6 +28,15 @@ type screen =
   | Help
   | GetUserScreen
 
+(* [map_int_to_color] mapping int to color *)
+let map_int_to_color i =
+  if i = 1 then yellow
+  else if i = 2 then green
+  else if i = 3 then red
+  else if i = 4 then purple
+  else if i = 5 then pink
+  else orange
+
 (* mutable reference to the current screen *)
 let curr_screen = ref Title
 
@@ -295,6 +304,33 @@ let draw_circle_texts circle_x circle_y_start circle_spacing =
     (circle_x + (2 * circle_spacing) - 5)
     (circle_y_start + circle_spacing - 12);
   Graphics.draw_string "3"
+
+(* let draw_guess_pin guess i = let x = ref 170 in for j = 0 to 4 do
+   Graphics.fill_circle (map_int_to_color guess.(j)); Graphics.set_color
+   guess.(j); done; *)
+
+
+let get_feedback () = 
+  if !index_ref < 4 then
+    let key = Graphics.read_key () in
+    if key >= '0' && key <= '9' then
+      let digit = Char.code key - Char.code '0' in
+      if not (Array.mem digit !user_code_ref) then (
+        !user_code_ref.(!index_ref) <- digit;
+        index_ref := !index_ref + 1;
+        Graphics.moveto
+          ((screen_width / 2) + (50 * (!index_ref - 2)))
+          (screen_height / 2);
+        Graphics.set_color Graphics.black;
+        Graphics.draw_string (String.make 1 key);
+        input_loop ())
+      else (
+        Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
+        Graphics.set_color Graphics.red;
+        Graphics.draw_string "Invalid input. Please try again.";
+        input_loop ())
+    else input_loop ()
+  else
 
 (** draw the game screen *)
 let draw_game_screen () =

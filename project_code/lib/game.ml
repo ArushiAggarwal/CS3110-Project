@@ -75,8 +75,8 @@ module Gamerecord : Gameboard = struct
       with the guess array. *)
   let update_board board guess =
     if board.turn_number < 12 then (
-      board.turn_number <- board.turn_number + 1;
-      Array.set board.game_board board.turn_number guess)
+      Array.set board.game_board board.turn_number guess;
+      board.turn_number <- board.turn_number + 1)
     else ()
 
   (** [update_feedback game guess] updates the next empty row of the [game] pin
@@ -124,8 +124,8 @@ module Gamerecord : Gameboard = struct
   let update_computer_board game i =
     if game.algorithm = "p" then
       let guess = generate_guess 42 in
-      update_game game (Array.of_list guess)
+      update_board game (Array.of_list guess)
     else if game.algorithm = "k" then
       let guess = knuth_algorithm (Array.to_list game.answer) in
-      update_game game (Array.of_list (fst guess))
+      update_board game (Array.of_list (fst guess))
 end
