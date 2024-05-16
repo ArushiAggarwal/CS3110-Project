@@ -29,10 +29,7 @@ type screen =
   | Help
   | GetUserScreen
 
-<<<<<<< HEAD
-=======
 (* [map_int_to_color] mapping int to color *)
->>>>>>> e53742d3a61a51c0eff76c258ef7a044034e5959
 let map_int_to_color i =
   if i = 1 then yellow
   else if i = 2 then green
@@ -65,7 +62,7 @@ let store_in_backend lst =
   match lst with
   | [ player; rounds; algo ] ->
       print_endline ("rounds" ^ rounds);
-      Gamerecord.make_game (int_of_string rounds) algo player
+      Gamerecord.make_game (int_of_string rounds) player algo
   | _ -> failwith "Error with input"
 
 (** draw the background *)
@@ -334,12 +331,8 @@ let draw_game_screen () =
   draw_circles circle_x circle_y_start circle_spacing;
   draw_circle_texts circle_x circle_y_start circle_spacing;
 
-  print_endline "before";
-
   Gamerecord.update_computer_board (Option.get !game)
     (Gamerecord.get_round (Option.get !game));
-
-  print_endline "after";
 
   let board = Gamerecord.show_board (Option.get !game) in
   (* let row = Gamerecord.get_round (Option.get !game) in *)
@@ -347,8 +340,8 @@ let draw_game_screen () =
     (fun j lst ->
       Array.iteri
         (fun i value ->
-          let x = 200 + (i * 50) in
-          let y = 160 + (j * 25) in
+          let x = 150 + (i * 50) in
+          let y = 130 + (j * 25) in
           Graphics.set_color (map_int_to_color value);
           Graphics.fill_circle x y 10)
         lst)
