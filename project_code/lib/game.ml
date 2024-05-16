@@ -119,12 +119,8 @@ module Gamerecord : Gameboard = struct
   (** [set_answer game] sets the answer in [game] for the round *)
   let set_answer game answer = game.answer <- answer
 
-  let index_of_last_row game =
-    let ind = Array.find_index (fun x -> Array.mem 3) game.game_board in
-    if ind = None then 12 else Option.get ind
-
   let get_latest_guess game =
-    let ind = index_of_last_row game in
+    let ind = game.turn_number - 1 in
     game.game_board.(ind)
 
   let check_feedback feedback game =

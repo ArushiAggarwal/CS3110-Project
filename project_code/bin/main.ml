@@ -310,8 +310,7 @@ let draw_circle_texts circle_x circle_y_start circle_spacing =
    Graphics.fill_circle (map_int_to_color guess.(j)); Graphics.set_color
    guess.(j); done; *)
 
-let move_feedback_on () = 
-  let feedback = !user_feedback_ref in 
+(* let move_feedback_on () = let feedback = !user_feedback_ref in Game.che *)
 
 (* get user input based for a guess *)
 let get_feedback key =
