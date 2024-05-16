@@ -16,7 +16,7 @@ let max_value = 5
 (* Citation: https://rosettacode.org/wiki/Linear_congruential_generator *)
 let lcg state =
   let next_state = ((1103515245 * state) + 1234) mod (1 lsl 31) in
-  let random_value = next_state mod (max_value + 1) in
+  let random_value = next_state mod max_value in
   (random_value, next_state)
 
 (* Generate a list of 4 random integers *)
@@ -25,7 +25,6 @@ let generate_guess seed =
     if List.length acc = 4 then acc
     else
       let random_value, new_seed = lcg seed in
-      print_endline ("Generated random value: " ^ string_of_int random_value);
       if List.mem random_value acc then helper new_seed acc
       else helper new_seed (random_value :: acc)
   in
