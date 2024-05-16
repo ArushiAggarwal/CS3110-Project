@@ -464,16 +464,15 @@ let draw_message_box message =
 let win_condition game =
   let board = Gamerecord.show_pins game in
   let is_all_red row = Array.for_all (fun x -> x = 0) row in
-  (* let is_any_non_red row = Array.exists (fun x -> x <> 0) row in *)
-  if Gamerecord.get_turn game = 12 then
-    if !player_first then
-      if Array.exists is_all_red board then (
-        draw_message_box "Computer Wins!";
-        true)
-      else (
-        draw_message_box "Player Wins!";
-        true)
-    else if Array.exists is_all_red board then (
+  if Array.exists is_all_red board then
+    if !player_first then (
+      draw_message_box "Computer Wins!";
+      true)
+    else (
+      draw_message_box "Player Wins!";
+      true)
+  else if Gamerecord.get_turn game <= 12 then
+    if !player_first then (
       draw_message_box "Player Wins!";
       true)
     else (
