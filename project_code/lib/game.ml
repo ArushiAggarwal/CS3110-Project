@@ -24,6 +24,9 @@ module type Gameboard = sig
   val set_answer : game -> int array -> unit
   (** [set_answer game] sets the answer in [game] for the round *)
 
+  val set_computer_answer : game -> unit
+  (** [set_computer_answer game] sets the answer in [game] for the round *)
+
   val get_turn : game -> int
   (** [get_turn game] returns the current turn number. *)
 
@@ -50,6 +53,9 @@ module type Gameboard = sig
 
   val update_computer_board : game -> int -> unit
   (** [update_computer_board] updates the board with the pins and feedback *)
+
+  val int_array_to_string : int array -> string
+  (** [int_array_to_string] converts int array to string*)
 end
 
 module Gamerecord : Gameboard = struct
@@ -119,6 +125,9 @@ module Gamerecord : Gameboard = struct
   (** [set_answer game] sets the answer in [game] for the round *)
   let set_answer game answer = game.answer <- answer
 
+  (** [set_computer_answer game] sets the answer in [game] for the round *)
+  let set_computer_answer game = game.answer <- Array.of_list (make_guess ())
+
   let get_latest_guess game =
     let ind = game.turn_number - 1 in
     game.game_board.(ind)
@@ -133,8 +142,8 @@ module Gamerecord : Gameboard = struct
      game.answer) in update_board game (Array.of_list (fst guess)) *)
 
   let update_computer_board game i =
-    print_endline game.algorithm;
-    if game.algorithm = "Random" then (
+    if (* Player made the code first *)
+       game.algorithm = "Random" then (
       print_endline " here guess";
       let guess = make_guess () in
       print_endline "generating guess";
@@ -148,4 +157,14 @@ module Gamerecord : Gameboard = struct
       update_board game guess_array;
       update_feedback game guess_array)
     else ()
+
+  let int_array_to_string arr =
+    let result = ref "" in
+    let sep = ref "" in
+    Array.iter
+      (fun x ->
+        result := !result ^ !sep ^ string_of_int x;
+        sep := ",")
+      arr;
+    !result
 end
