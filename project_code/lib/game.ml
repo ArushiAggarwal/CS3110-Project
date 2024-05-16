@@ -113,6 +113,10 @@ module Gamerecord : Gameboard = struct
     game.round_number <- game.round_number + 1
 
   (** [set_answer game] sets the answer in [game] for the round *)
+
+  (* let rec print arr = match arr with | [] -> "" | h :: t -> string_of_int h ^
+     print t *)
+
   let set_answer game answer = game.answer <- answer
 
   (* let check_feedback feedback guess = let real_feedback *)
