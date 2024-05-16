@@ -34,7 +34,9 @@ let score guess code =
   ( PinKnuth.count_reds (PinKnuth.make_pins guess_array code_array),
     4 - PinKnuth.count_reds (PinKnuth.make_pins guess_array code_array) )
 
-let compare_tuples (_, a) ((_, b) : 'a * ('b -> 'b -> int)) = compare a b
+let compare_tuples t1 t2 =
+  match (t1, t2) with
+  | (_, a), (_, b) -> a - b
 
 (*https://stackoverflow.com/questions/62430071/donald-knuth-algorithm-mastermind*)
 
@@ -54,13 +56,21 @@ let knuth_algorithm answer =
       if s' = [] then failwith "No solution found"
       else
         let next_guesses =
-          all_codes
-          |> List.filter (fun g -> not (List.mem g prev_guesses))
-          |> List.map (fun g -> let score = (g |> List.filter (fun c -> score g c = response) s' |> List.length)
-                 ( g, score
-                   
-                 ))
-          |> List.sort compare_tuples |> List.rev
+          let filtered_codes =
+            List.filter (fun g -> not (List.mem g prev_guesses)) all_codes
+          in
+          let result =
+            List.map
+              (fun g ->
+                let score =
+                  filtered_codes
+                  |> List.filter (fun c -> score g c = response)
+                  |> List.length
+                in
+                (g, score))
+              filtered_codes
+          in
+          List.rev (List.sort compare_tuples result)
         in
         let next_guess =
           if List.exists (fun (g, _) -> List.mem g s') next_guesses then

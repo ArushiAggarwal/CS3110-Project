@@ -4,15 +4,14 @@ open Project_code.Pin
 open Project_code.Donald_knuth_algorithm
 
 let test_random =
-  "Test suite to ensure pseudorandom generator works with respect to seed."
+  "Test suite to ensure pseudorandom generator works with\n   respect to seed."
   >::: [
          ( "Ensure seed 42 works" >:: fun _ ->
            assert_equal [ 5; 6; 3; 4; 7 ] (generate_guess 42) );
        ]
 
-let _ = run_test_tt_main test_random
-
 let test_pin =
+  print_endline "testing";
   "Testing Pins to ensure the provide the correct feedback for\n\
    a guess with respect to the answer."
   >::: [
@@ -34,15 +33,13 @@ let test_pin =
                 (PinModule.make_pins [| 1; 2; 3; 4 |] [| 3; 5; 8; 4 |])) );
        ]
 
-let _ = run_test_tt_main test_pin
-
 let test_knuth =
   "Test Knuth algorithm returns correctly."
   >::: [
          ("Test correct base case answer"
          >::
          let () = print_endline "hi" in
-         let solution, _ = knuth_algorithm [ 1; 2; 3 ] in
+         let solution, _ = knuth_algorithm [ 1; 2; 3; 4 ] in
          fun _ -> assert_equal [ 1; 2; 3; 4 ] solution);
          ("Test other answer"
          >::
@@ -51,4 +48,5 @@ let test_knuth =
          fun _ -> assert_equal [ 6; 1; 5; 2 ] solution2);
        ]
 
-let _ = run_test_tt_main test_knuth
+let suite = "Final project test suite" >::: [ test_knuth ]
+let _ = run_test_tt_main suite
