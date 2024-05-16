@@ -1,6 +1,10 @@
 (* @author *)
 open Project_code.Game
+<<<<<<< HEAD
 open Project_code.Pin
+=======
+open Project_code.Random_guessing_algorithm
+>>>>>>> 3b989f2c3ef42127ed740d96d9cf1e2caf9641cf
 
 (* global variables *)
 let screen_width = 1400
@@ -357,20 +361,51 @@ let get_feedback key guess =
   done;
   move_feedback_on guess
 
-let get_user_guess key =
-  while key <> 's' do
-    if !index_ref < 4 then (
-      let key = Graphics.read_key () in
-      if key >= '0' && key <= '9' then
-        !user_feedback_ref.(!index_ref) <- String.make 1 key;
-      index_ref := !index_ref + 1;
-      Graphics.moveto
-        ((screen_width / 2) + (50 * (!index_ref - 2)))
-        (screen_height / 2);
-      Graphics.set_color Graphics.black;
-      Graphics.draw_string (String.make 1 key))
-  done;
-  index_ref := 0
+(* let get_user_guess key = while key <> 's' do if !index_ref < 4 then ( let key
+   = Graphics.read_key () in if key >= '0' && key <= '9' then
+   !user_feedback_ref.(!index_ref) <- String.make 1 key; index_ref := !index_ref
+   + 1; Graphics.moveto ((screen_width / 2) + (50 * (!index_ref - 2)))
+   (screen_height / 2); Graphics.set_color Graphics.black; Graphics.draw_string
+   (String.make 1 key)) done; index_ref := 0 *)
+
+(** [get_user_guess ()] gets the user's guess input, validates it, and updates
+    the game board and feedback accordingly. *)
+let rec get_user_guess () =
+  if !index_ref < 4 then
+    let key = Graphics.read_key () in
+    if key >= '0' && key <= '9' then
+      let digit = Char.code key - Char.code '0' in
+      if not (Array.mem digit !user_code_ref) then (
+        !user_code_ref.(!index_ref) <- digit;
+        index_ref := !index_ref + 1;
+        Graphics.moveto
+          ((screen_width / 4 * 3) + (50 * (!index_ref - 2)))
+          (screen_height / 4);
+        Graphics.set_color Graphics.black;
+        Graphics.draw_string (String.make 1 key);
+        get_user_guess ())
+      else (
+        Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
+        Graphics.set_color Graphics.red;
+        Graphics.draw_string "Invalid input. Please try again.";
+        get_user_guess ())
+    else get_user_guess ()
+  else
+    let valid_input =
+      is_valid_length !user_code_ref && valid_code !user_code_ref
+    in
+    if valid_input then (
+      Gamerecord.update_board (Option.get !game) !user_code_ref;
+      Gamerecord.update_feedback (Option.get !game) !user_code_ref;
+      index_ref := 0)
+    else (
+      Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
+      Graphics.set_color Graphics.red;
+      Graphics.draw_string
+        "Invalid input. Code must be 4 digits with no duplicates.";
+      Array.iteri (fun i _ -> !user_code_ref.(i) <- 0) !user_code_ref;
+      index_ref := 0;
+      get_user_guess ())
 
 (*################# GRACE TODO ################################ *)
 let do_updates key guess = if !player_first then get_feedback key guess else ()
@@ -411,6 +446,7 @@ let win_condition game =
       true)
   else false
 
+<<<<<<< HEAD
 (** draw the game screen *)
 let draw_game_screen () =
   draw_details ();
@@ -434,8 +470,10 @@ let draw_game_screen () =
       (Gamerecord.get_turn (Option.get !game))
   in
 
+=======
+let paint_board () =
+>>>>>>> 3b989f2c3ef42127ed740d96d9cf1e2caf9641cf
   let board = Gamerecord.show_board (Option.get !game) in
-  (* let row = Gamerecord.get_round (Option.get !game) in *)
   Array.iteri
     (fun j lst ->
       Array.iteri
@@ -457,7 +495,41 @@ let draw_game_screen () =
           Graphics.set_color (map_feedback_to_color value);
           Graphics.fill_circle x y 5)
         lst)
-    pin_board;
+    pin_board
+
+(** draw the game screen *)
+let draw_game_screen () =
+  draw_details ();
+
+  (* background test *)
+  Graphics.moveto ((screen_width / 2) + 300) ((screen_height / 2) + 300);
+  Graphics.set_color 0x3a405a;
+  Graphics.set_text_size 48;
+  Graphics.draw_string "Play Game!";
+
+  draw_board ();
+  Graphics.set_color 0x000000;
+  let circle_x = 1000 in
+  let circle_y_start = (screen_height / 2) - 75 in
+  let circle_spacing = 100 in
+  draw_circles circle_x circle_y_start circle_spacing;
+  draw_circle_texts circle_x circle_y_start circle_spacing;
+
+  paint_board ();
+
+  if !player_first then
+    (* Player makes the code first *)
+    Gamerecord.update_computer_board (Option.get !game)
+      (Gamerecord.get_turn (Option.get !game))
+  else
+    (* Computer makes the code first *)
+    Gamerecord.set_computer_answer (Option.get !game);
+  print_endline
+    ("Computer's answer: "
+    ^ Gamerecord.int_array_to_string (Option.get !game).answer);
+  get_user_guess ();
+
+  paint_board ();
 
   let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
   do_updates key guess;

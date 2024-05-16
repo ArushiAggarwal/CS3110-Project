@@ -20,6 +20,9 @@ module type Gameboard = sig
   val set_answer : game -> int array -> unit
   (** [set_answer game] sets the answer in [game] for the round *)
 
+  val set_computer_answer : game -> unit
+  (** [set_computer_answer game] sets the answer in [game] for the round *)
+
   val get_turn : game -> int
   (** [get_turn game] returns the current turn number. *)
 
@@ -47,9 +50,14 @@ module type Gameboard = sig
   val update_computer_board : game -> int -> int array
   (** [update_computer_board] updates the board with the pins and feedback *)
 
+<<<<<<< HEAD
   val check_feedback : string -> game -> bool
   (** [check_feedback feedback game] checks that the user feedback for the last
       round of the game is correct *)
+=======
+  val int_array_to_string : int array -> string
+  (** [int_array_to_string] converts int array to string*)
+>>>>>>> 3b989f2c3ef42127ed740d96d9cf1e2caf9641cf
 end
 
 module Gamerecord : Gameboard
