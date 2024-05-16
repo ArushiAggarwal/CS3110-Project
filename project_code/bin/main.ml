@@ -17,6 +17,7 @@ let green = 0x8bc28c
 (* values *)
 let player_first = ref false
 let user_code_ref = ref (Array.make 4 0)
+let user_feedback_ref = ref (Array.make 4 "")
 let index_ref = ref 0
 
 (* variant type representing which window of the GUI is displayed *)
@@ -29,7 +30,6 @@ type screen =
   | Help
   | GetUserScreen
 
-(* [map_int_to_color] mapping int to color *)
 let map_int_to_color i =
   if i = 1 then yellow
   else if i = 2 then green
@@ -43,7 +43,6 @@ let curr_screen = ref Title
 
 (* setting up array to store user inputs to send to backend *)
 let user_inputs = ref [] (* algorithm, player order, rounds *)
-let user_game_input = Array.make 4 0
 let game : Gamerecord.game option ref = ref None
 
 (** draw a button containing [text] at position ([x], [y]), with [color] and
@@ -184,9 +183,6 @@ let draw_round_selection_screen () =
     curr_screen := Algorithm)
   else ()
 
-(*################# GRACE TODO ################################ *)
-let do_updates key = print_char key
-
 (** [is_valid_length code] checks that [code] is of the correct length *)
 let is_valid_length code = Array.length code = 4
 
@@ -233,6 +229,7 @@ let rec get_user_code () =
       in
       if valid_input then (
         Gamerecord.set_answer (Option.get !game) !user_code_ref;
+        index_ref := 0;
         curr_screen := Game)
       else (
         Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
@@ -310,6 +307,38 @@ let draw_circle_texts circle_x circle_y_start circle_spacing =
    Graphics.fill_circle (map_int_to_color guess.(j)); Graphics.set_color
    guess.(j); done; *)
 
+(* get user input based for a guess *)
+let get_feedback key =
+  while key <> 's' do
+    if !index_ref < 4 then (
+      let key = Graphics.read_key () in
+      if key = 'r' || key = 'w' || key = 'n' then
+        !user_feedback_ref.(!index_ref) <- String.make 1 key;
+      index_ref := !index_ref + 1;
+      Graphics.moveto (screen_width / 4) (screen_height / 4);
+      Graphics.set_color Graphics.black;
+      Graphics.draw_string (String.make 1 key))
+  done;
+  index_ref := 0
+
+let get_user_guess key =
+  while key <> 's' do
+    if !index_ref < 4 then (
+      let key = Graphics.read_key () in
+      if key >= '0' && key <= '9' then
+        !user_feedback_ref.(!index_ref) <- String.make 1 key;
+      index_ref := !index_ref + 1;
+      Graphics.moveto
+        ((screen_width / 2) + (50 * (!index_ref - 2)))
+        (screen_height / 2);
+      Graphics.set_color Graphics.black;
+      Graphics.draw_string (String.make 1 key))
+  done;
+  index_ref := 0
+
+(*################# GRACE TODO ################################ *)
+let do_updates key = if !player_first then get_feedback key else ()
+
 (** draw the game screen *)
 let draw_game_screen () =
   draw_details ();
@@ -332,7 +361,7 @@ let draw_game_screen () =
   draw_circle_texts circle_x circle_y_start circle_spacing;
 
   Gamerecord.update_computer_board (Option.get !game)
-    (Gamerecord.get_round (Option.get !game));
+    (Gamerecord.get_turn (Option.get !game));
 
   let board = Gamerecord.show_board (Option.get !game) in
   (* let row = Gamerecord.get_round (Option.get !game) in *)
@@ -361,9 +390,6 @@ let draw_game_screen () =
 
   let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
   do_updates key
-
-(* fetch the board information from the backend *)
-(* ####################### TODO ################################ *)
 
 (** choose algorithm and move screen *)
 let choose_algo () =

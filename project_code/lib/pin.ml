@@ -84,7 +84,7 @@ module PinModule : PinType = struct
 
   (** [count_whites arr] counts the number of [White] constructors in [arr]. *)
 
-  let count_reds arr = (all_colors arr).(1)
+  let count_whites arr = (all_colors arr).(1)
 
   (** [count_nulls arr] counts the number of [Nulls] constructors in [arr]. *)
 

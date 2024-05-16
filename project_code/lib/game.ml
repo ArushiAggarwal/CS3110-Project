@@ -122,12 +122,6 @@ module Gamerecord : Gameboard = struct
 
   let set_answer game answer = game.answer <- answer
 
-<<<<<<< HEAD
-  (* let update_computer_board game i = if game.algorithm = "p" then let guess =
-     generate_guess 42 in update_game game (Array.of_list guess) else if
-     game.algorithm = "k" then let guess = knuth_algorithm (Array.to_list
-     game.answer) in update_game game (Array.of_list (fst guess)) *)
-=======
   (* let check_feedback feedback guess = let real_feedback *)
 
   (* let update_computer_board game = if game.algorithm = "p" then let guess =
@@ -151,5 +145,4 @@ module Gamerecord : Gameboard = struct
       update_board game guess_array;
       update_feedback game guess_array)
     else ()
->>>>>>> e53742d3a61a51c0eff76c258ef7a044034e5959
 end
