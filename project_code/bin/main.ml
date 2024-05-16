@@ -20,7 +20,6 @@ let player_first = ref false
 let user_code_ref = ref (Array.make 4 0)
 let user_feedback_ref = ref (Array.make 4 "")
 let index_ref = ref 0
-let angle_ref = ref 0.0
 
 (* variant type representing which window of the GUI is displayed *)
 type screen =
@@ -96,6 +95,8 @@ let draw_title_text () =
   Graphics.set_text_size 100000;
   Graphics.draw_string "OCAML MASTERMIND"
 
+(*Accessed flower code from chatgpt 05/15/23*)
+
 (** draw the start and help buttons on the title screen *)
 let draw_title_buttons () =
   let button_x = (screen_width / 2) - 100 in
@@ -111,47 +112,85 @@ let draw_title_buttons () =
     (button_y + button_height + 50)
     button_width button_height button_color2 text_color
 
-(* Function to draw a petal *)
+(* Draws a petal*)
 let draw_petal x y petal_radius petal_color =
   Graphics.set_color petal_color;
   Graphics.fill_circle x y petal_radius
 
-(* Function to draw the flower *)
-let draw_flower () =
+(* Helper function to create a petal *)
+let make_petal flower_center_x flower_center_y flower_radius petal_index
+    petal_colors =
+  let angle =
+    float_of_int petal_index *. 2. *. Float.pi
+    /. float_of_int (Array.length petal_colors)
+  in
+  let petal_x =
+    int_of_float
+      (float_of_int flower_center_x +. (float_of_int flower_radius *. cos angle))
+  in
+  let petal_y =
+    int_of_float
+      (float_of_int flower_center_y +. (float_of_int flower_radius *. sin angle))
+  in
+  (petal_x, petal_y, petal_colors.(petal_index))
+
+(* Draws the petals *)
+let draw_petals flower_center_x flower_center_y flower_radius petal_colors =
+  Graphics.set_color 0xFFD700;
+  Graphics.fill_circle flower_center_x flower_center_y 20;
+  for i = 0 to Array.length petal_colors - 1 do
+    let petal_x, petal_y, petal_color =
+      make_petal flower_center_x flower_center_y flower_radius i petal_colors
+    in
+    draw_petal petal_x petal_y 25 petal_color
+  done
+
+(*draws the flower*)
+let draw_flower1 () =
   let flower_center_x = screen_width - 150 in
   let flower_center_y = screen_height / 2 in
   let flower_radius = 45 in
-  Graphics.set_color 0xFFD700;
-  Graphics.fill_circle flower_center_x flower_center_y 20;
+  let petal_colors = [| 0xFF69B4; 0xFF69B4; 0xFF69B4; 0xFF69B4; 0xFF69B4 |] in
+  draw_petals flower_center_x flower_center_y flower_radius petal_colors
 
-  (* Draw the petals *)
-  let petal_colors = [| 0xFF69B4; 0xFFA07A; 0xDC143C; 0xB22222; 0xFF1493 |] in
-  for i = 0 to Array.length petal_colors - 1 do
-    let angle =
-      !angle_ref
-      +. float_of_int i *. 2. *. Float.pi
-         /. float_of_int (Array.length petal_colors)
-    in
-    let petal_x =
-      int_of_float
-        (float_of_int flower_center_x
-        +. (float_of_int flower_radius *. cos angle))
-    in
-    let petal_y =
-      int_of_float
-        (float_of_int flower_center_y
-        +. (float_of_int flower_radius *. sin angle))
-    in
-    draw_petal petal_x petal_y 25 petal_colors.(i)
-  done;
-  angle_ref := !angle_ref +. 1.
+let draw_flower2 () =
+  let flower_center_x = 125 in
+  let flower_center_y = (screen_height / 2) + 200 in
+  let flower_radius = 45 in
+  let petal_colors = [| 0xFFA07A; 0xFFA07A; 0xFFA07A; 0xFFA07A; 0xFFA07A |] in
+  draw_petals flower_center_x flower_center_y flower_radius petal_colors
+
+let draw_flower3 () =
+  let flower_center_x = 200 in
+  let flower_center_y = (screen_height / 2) - 200 in
+  let flower_radius = 45 in
+  let petal_colors = [| 0xDC143C; 0xDC143C; 0xDC143C; 0xDC143C; 0xDC143C |] in
+  draw_petals flower_center_x flower_center_y flower_radius petal_colors
+
+let draw_flower4 () =
+  let flower_center_x = 1000 in
+  let flower_center_y = (screen_height / 2) - 300 in
+  let flower_radius = 45 in
+  let petal_colors = [| 0xB22222; 0xB22222; 0xB22222; 0xB22222; 0xB22222 |] in
+  draw_petals flower_center_x flower_center_y flower_radius petal_colors
+
+let draw_flower5 () =
+  let flower_center_x = 1150 in
+  let flower_center_y = (screen_height / 2) + 250 in
+  let flower_radius = 45 in
+  let petal_colors = [| 0xFF1493; 0xFF1493; 0xFF1493; 0xFF1493; 0xFF1493 |] in
+  draw_petals flower_center_x flower_center_y flower_radius petal_colors
 
 (** draw the title screen *)
 let draw_title_screen () =
   draw_details ();
   draw_title_text ();
   draw_title_buttons ();
-  draw_flower ();
+  draw_flower1 ();
+  draw_flower2 ();
+  draw_flower3 ();
+  draw_flower4 ();
+  draw_flower5 ();
 
   let key = Graphics.read_key () in
   if key = 's' then (
