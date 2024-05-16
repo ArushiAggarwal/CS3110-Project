@@ -1,10 +1,7 @@
 (* @author *)
 open Project_code.Game
-<<<<<<< HEAD
 open Project_code.Pin
-=======
 open Project_code.Random_guessing_algorithm
->>>>>>> 3b989f2c3ef42127ed740d96d9cf1e2caf9641cf
 
 (* global variables *)
 let screen_width = 1400
@@ -446,33 +443,7 @@ let win_condition game =
       true)
   else false
 
-<<<<<<< HEAD
-(** draw the game screen *)
-let draw_game_screen () =
-  draw_details ();
-
-  (* background test *)
-  Graphics.moveto ((screen_width / 2) + 300) ((screen_height / 2) + 300);
-  Graphics.set_color 0x3a405a;
-  Graphics.set_text_size 48;
-  Graphics.draw_string "Play Game!";
-
-  draw_board ();
-  Graphics.set_color 0x000000;
-  let circle_x = 1000 in
-  let circle_y_start = (screen_height / 2) - 75 in
-  let circle_spacing = 100 in
-  draw_circles circle_x circle_y_start circle_spacing;
-  draw_circle_texts circle_x circle_y_start circle_spacing;
-
-  let guess =
-    Gamerecord.update_computer_board (Option.get !game)
-      (Gamerecord.get_turn (Option.get !game))
-  in
-
-=======
 let paint_board () =
->>>>>>> 3b989f2c3ef42127ed740d96d9cf1e2caf9641cf
   let board = Gamerecord.show_board (Option.get !game) in
   Array.iteri
     (fun j lst ->
@@ -519,20 +490,21 @@ let draw_game_screen () =
 
   if !player_first then
     (* Player makes the code first *)
-    Gamerecord.update_computer_board (Option.get !game)
-      (Gamerecord.get_turn (Option.get !game))
-  else
+    let guess =
+      Gamerecord.update_computer_board (Option.get !game)
+        (Gamerecord.get_turn (Option.get !game))
+    in
+    let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
+    do_updates key guess
+  else (
     (* Computer makes the code first *)
     Gamerecord.set_computer_answer (Option.get !game);
-  print_endline
-    ("Computer's answer: "
-    ^ Gamerecord.int_array_to_string (Option.get !game).answer);
-  get_user_guess ();
+    print_endline
+      ("Computer's answer: "
+      ^ Gamerecord.int_array_to_string (Option.get !game).answer);
+    get_user_guess ());
 
   paint_board ();
-
-  let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
-  do_updates key guess;
 
   if win_condition (Option.get !game) then
     let key = Graphics.read_key () in

@@ -54,14 +54,11 @@ module type Gameboard = sig
   val update_computer_board : game -> int -> int array
   (** [update_computer_board] updates the board with the pins and feedback *)
 
-<<<<<<< HEAD
   val check_feedback : string -> game -> bool
   (** [check_feedback feedback game] checks that the user feedback for the last
       round of the game is correct *)
-=======
   val int_array_to_string : int array -> string
   (** [int_array_to_string] converts int array to string*)
->>>>>>> 3b989f2c3ef42127ed740d96d9cf1e2caf9641cf
 end
 
 module Gamerecord : Gameboard = struct
@@ -137,18 +134,14 @@ module Gamerecord : Gameboard = struct
   (** [set_answer game] sets the answer in [game] for the round *)
   let set_answer game answer = game.answer <- answer
 
-<<<<<<< HEAD
   (** [check_feedback feedback game] checks that the user feedback for the last
       round of the game is correct *)
-=======
-  (** [set_computer_answer game] sets the answer in [game] for the round *)
   let set_computer_answer game = game.answer <- Array.of_list (make_guess ())
 
   let get_latest_guess game =
     let ind = game.turn_number - 1 in
     game.game_board.(ind)
 
->>>>>>> 3b989f2c3ef42127ed740d96d9cf1e2caf9641cf
   let check_feedback feedback game =
     let guess = get_latest_guess game in
     PinModule.check_validation feedback guess game.answer
@@ -167,12 +160,8 @@ module Gamerecord : Gameboard = struct
       print_endline "generating guess";
       let guess_array = Array.of_list guess in
       update_board game guess_array;
-<<<<<<< HEAD
       guess_array)
     else failwith "Error"
-=======
-      update_feedback game guess_array)
-    else ()
 
   let int_array_to_string arr =
     let result = ref "" in
@@ -183,5 +172,4 @@ module Gamerecord : Gameboard = struct
         sep := ",")
       arr;
     !result
->>>>>>> 3b989f2c3ef42127ed740d96d9cf1e2caf9641cf
 end
