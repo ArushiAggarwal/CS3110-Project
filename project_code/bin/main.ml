@@ -309,29 +309,6 @@ let draw_circle_texts circle_x circle_y_start circle_spacing =
    Graphics.fill_circle (map_int_to_color guess.(j)); Graphics.set_color
    guess.(j); done; *)
 
-
-let get_feedback () = 
-  if !index_ref < 4 then
-    let key = Graphics.read_key () in
-    if key >= '0' && key <= '9' then
-      let digit = Char.code key - Char.code '0' in
-      if not (Array.mem digit !user_code_ref) then (
-        !user_code_ref.(!index_ref) <- digit;
-        index_ref := !index_ref + 1;
-        Graphics.moveto
-          ((screen_width / 2) + (50 * (!index_ref - 2)))
-          (screen_height / 2);
-        Graphics.set_color Graphics.black;
-        Graphics.draw_string (String.make 1 key);
-        input_loop ())
-      else (
-        Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
-        Graphics.set_color Graphics.red;
-        Graphics.draw_string "Invalid input. Please try again.";
-        input_loop ())
-    else input_loop ()
-  else
-
 (** draw the game screen *)
 let draw_game_screen () =
   draw_details ();
@@ -352,6 +329,34 @@ let draw_game_screen () =
   let circle_spacing = 100 in
   draw_circles circle_x circle_y_start circle_spacing;
   draw_circle_texts circle_x circle_y_start circle_spacing;
+
+  Gamerecord.update_computer_board (Option.get !game)
+    (Gamerecord.get_round (Option.get !game));
+
+  let board = Gamerecord.show_board (Option.get !game) in
+  (* let row = Gamerecord.get_round (Option.get !game) in *)
+  Array.iteri
+    (fun j lst ->
+      Array.iteri
+        (fun i value ->
+          let x = 150 + (i * 50) in
+          let y = 130 + (j * 25) in
+          Graphics.set_color (map_int_to_color value);
+          Graphics.fill_circle x y 10)
+        lst)
+    board;
+
+  let pin_board = Gamerecord.show_pins (Option.get !game) in
+  Array.iteri
+    (fun j lst ->
+      Array.iteri
+        (fun i value ->
+          let x = 550 + (i * 50) in
+          let y = 130 + (j * 50) in
+          Graphics.set_color (map_int_to_color value);
+          Graphics.fill_circle x y 5)
+        lst)
+    pin_board;
 
   let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
   do_updates key

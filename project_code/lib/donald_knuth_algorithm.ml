@@ -120,4 +120,4 @@ let knuth_algorithm answer =
         in
         aux s' next_guess (prev_guesses @ [ guess ])
   in
-  aux all_codes [ [ 1; 1; 2; 2 ] ] []
+  aux all_codes [] []
