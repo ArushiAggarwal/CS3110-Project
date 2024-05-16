@@ -1,6 +1,5 @@
 (* @author *)
 open Project_code.Game
-open Project_code.Pin
 
 (* global variables *)
 let screen_width = 1400
