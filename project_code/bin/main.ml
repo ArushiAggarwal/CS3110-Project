@@ -245,7 +245,10 @@ let draw_board () =
 
   (* white board *)
   Graphics.set_color 0xffffff;
-  Graphics.fill_rect 900 ((screen_height / 2) - 125) 400 250
+  Graphics.fill_rect 900 ((screen_height / 2) - 125) 400 250;
+  Graphics.set_color 0X685044;
+  Graphics.draw_rect 150 130 300 500;
+  Graphics.draw_rect 500 130 150 500
 
 (** draw the balls to represent the inputs *)
 let draw_circles circle_x circle_y_start circle_spacing =
@@ -363,10 +366,20 @@ let draw_algo_screen () =
   draw_button "Knuth Algorithm (press 'k')"
     (start_x + button_width + button_spacing)
     start_y button_width button_height button_color text_color;
-  draw_button "Genetic Algorithm (press 'g')"
-    (start_x + (2 * (button_width + button_spacing)))
-    start_y button_width button_height button_color text_color;
-  choose_algo ()
+
+  let to_screen = if !player_first then GetUserScreen else Game in
+  let key = Graphics.read_key () in
+  if key = 'p' then (
+    clear_graph ();
+    user_inputs := "Random" :: !user_inputs;
+    game := Some (store_in_backend (!user_inputs |> List.rev));
+    curr_screen := to_screen)
+  else if key = 'k' then (
+    clear_graph ();
+    user_inputs := "Knuth" :: !user_inputs;
+    game := Some (store_in_backend (!user_inputs |> List.rev));
+    curr_screen := to_screen)
+  else ()
 
 let draw_help_screen () =
   draw_details ();
