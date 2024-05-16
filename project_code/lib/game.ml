@@ -64,6 +64,10 @@ module type Gameboard = sig
   val get_latest_feedback : game -> int array -> int array
   (** [get_latest_guess game] returns the row of the latest guess in [game]'s
       feedback board *)
+
+  val give_motivation : game -> int array -> string
+  (** [give_motivation] returns a message based on the feedback and counts of
+      the pins*)
 end
 
 module Gamerecord : Gameboard = struct
@@ -179,4 +183,22 @@ module Gamerecord : Gameboard = struct
         sep := ",")
       arr;
     !result
+
+  let give_motivation game guess =
+    let a = PinModule.count_reds (PinModule.make_pins guess game.answer) in
+    let b = PinModule.count_whites (PinModule.make_pins guess game.answer) in
+    let c = PinModule.count_nulls (PinModule.make_pins guess game.answer) in
+    match (a, b, c) with
+    | 4, 0, 0 -> "great job!!"
+    | 3, 0, 1 -> "so close.."
+    | 2, 2, 0 -> "ooooo so close"
+    | 2, 1, 1 -> "hmm what next?"
+    | 2, 0, 2 -> "intresting..."
+    | 1, 3, 0 -> "not bad!"
+    | 1, 2, 1 -> "u can do this!"
+    | 1, 1, 2 -> "uhmmmm.."
+    | 0, 4, 0 -> "almost there!"
+    | 0, 3, 1 -> "awwww"
+    | 0, 2, 2 -> "u can do better :("
+    | _ -> "doing great!"
 end

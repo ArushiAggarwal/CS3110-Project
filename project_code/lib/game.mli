@@ -60,6 +60,10 @@ module type Gameboard = sig
   val get_latest_feedback : game -> int array -> int array
   (** [get_latest_guess game] returns the row of the latest guess in [game]'s
       feedback board *)
+
+  val give_motivation : game -> int array -> string
+  (** [give_motivation] returns a message based on the feedback and counts of
+      the pins*)
 end
 
 module Gamerecord : Gameboard
