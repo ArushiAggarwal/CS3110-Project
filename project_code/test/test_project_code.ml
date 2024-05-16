@@ -32,8 +32,6 @@ let test_pin =
                 (PinModule.make_pins [| 4; 6; 5; 1 |] [| 3; 6; 5; 1 |])) );
        ]
 
-let _ = run_test_tt_main test_pin
-
 let test_valid =
   "Test if pin validation function works."
   >::: [
@@ -79,8 +77,6 @@ let test_valid =
          );
        ]
 
-let _ = run_test_tt_main test_valid
-
 let test_all_colors =
   "Tests if the all_colors is working."
   >::: [
@@ -98,8 +94,6 @@ let test_all_colors =
                 (PinModule.make_pins [| 1; 2; 3; 4 |] [| 5; 6; 1; 4 |])) );
        ]
 
-let _ = run_test_tt_main test_all_colors
-
 let test_num_reds =
   "Check in we can count correct number of reds"
   >::: [
@@ -116,8 +110,6 @@ let test_num_reds =
              (PinModule.count_reds
                 (PinModule.make_pins [| 1; 2; 3; 4 |] [| 1; 2; 5; 6 |])) );
        ]
-
-let _ = run_test_tt_main test_num_reds
 
 let test_to_int_arr =
   "Test if can convert pin to int array"
@@ -139,8 +131,6 @@ let test_to_int_arr =
              (PinModule.to_int_array
                 (PinModule.make_pins [| 5; 6; 4; 2 |] [| 5; 6; 2; 4 |])) );
        ]
-
-let _ = run_test_tt_main test_to_int_arr
 
 let test_board =
   {
@@ -170,7 +160,6 @@ let test_make_game =
            assert_equal [| 1; 2; 3; 4 |] test_board.answer );
        ]
 
-let _ = run_test_tt_main test_make_game
 let _ = Gamerecord.set_answer test_board [| 5; 2; 6; 4 |]
 let _ = Gamerecord.update_game test_board [| 1; 2; 6; 4 |]
 
@@ -205,8 +194,6 @@ let test_update_game =
            assert_equal 3 test_board.turn_number );
        ]
 
-let _ = run_test_tt_main test_update_game
-
 let test_board_again =
   {
     game_board = Array.make 12 (Array.make 4 0);
@@ -239,4 +226,17 @@ let test_clear_board =
            assert_equal test_board_again test_board );
        ]
 
-let _ = run_test_tt_main test_clear_board
+let suite =
+  "test all cases"
+  >::: [
+         test_pin;
+         test_valid;
+         test_all_colors;
+         test_num_reds;
+         test_to_int_arr;
+         test_make_game;
+         test_update_game;
+         test_clear_board;
+       ]
+
+let _ = run_test_tt_main suite
