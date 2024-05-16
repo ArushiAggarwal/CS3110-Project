@@ -3,6 +3,8 @@ open Project_code.Pin
 open Project_code.Game
 open Project_code.Random_guessing_algorithm
 
+(** [test_random_seed] is a test to ensure that seeds correspond to certain
+    guesses.*)
 let test_random_seed =
   "Test suite to ensure pseudorandom generator works with respect to seed"
   >::: [
@@ -12,6 +14,8 @@ let test_random_seed =
            assert_equal [ 4; 2; 3; 1 ] (generate_guess 42) );
        ]
 
+(** [test_random_generation] ensures we can instantiate a random series of
+    guesses. *)
 let test_random_generation =
   "Test suite to ensure pseudorandom generator make_guess() is valid"
   >::: [
@@ -21,6 +25,8 @@ let test_random_generation =
            assert_equal (List.length (make_guess ())) 4 );
        ]
 
+(** [test_pin] tests multiple test cases where we convert a guess against an
+    answer to a pin; we're also testing the to string function. *)
 let test_pin =
   "Testing Pins to ensure the provide the correct feedback for\n\
    a guess with respect to the answer."
@@ -59,6 +65,8 @@ let test_pin =
                 (PinModule.make_pins [| 2; 3; 6; 1 |] [| 6; 2; 3; 1 |])) );
        ]
 
+(** [test_valid] finds test cases by which we check if the users feedback
+    corresponds to the computer generated feedback. *)
 let test_valid =
   "Test if pin validation function works."
   >::: [
@@ -104,8 +112,8 @@ let test_valid =
          );
        ]
 
-(* let _ = run_test_tt_main test_valid *)
-
+(** [test_all_colors] determines if we can indeed generate an array of the
+    mutliplicities of all colors. *)
 let test_all_colors =
   "Tests if the all_colors is working."
   >::: [
@@ -123,8 +131,7 @@ let test_all_colors =
                 (PinModule.make_pins [| 1; 2; 3; 4 |] [| 5; 6; 1; 4 |])) );
        ]
 
-(* let _ = run_test_tt_main test_all_colors *)
-
+(** [test_num_reds] considers different cases when counting reds in a pin array. *)
 let test_num_reds =
   "Check in we can count correct number of reds"
   >::: [
@@ -142,6 +149,8 @@ let test_num_reds =
                 (PinModule.make_pins [| 1; 2; 3; 4 |] [| 1; 2; 5; 6 |])) );
        ]
 
+(** [test_num_whites] considers different cases when counting whites in a pin
+    array. *)
 let test_num_whites =
   "Check in we can count correct number of whites"
   >::: [
@@ -159,6 +168,8 @@ let test_num_whites =
                 (PinModule.make_pins [| 1; 2; 3; 4 |] [| 2; 6; 3; 1 |])) );
        ]
 
+(** [test_num_nulls] considers different cases when counting nulls in a pin
+    array. *)
 let test_num_nulls =
   "Check in we can count correct number of nulls"
   >::: [
@@ -176,8 +187,7 @@ let test_num_nulls =
                 (PinModule.make_pins [| 1; 2; 3; 4 |] [| 2; 4; 3; 1 |])) );
        ]
 
-(* let _ = run_test_tt_main test_num_reds *)
-
+(** [test_to_int_arr] ensures we can convert a pin array to an int array. s*)
 let test_to_int_arr =
   "Test if can convert pin to int array"
   >::: [
@@ -199,8 +209,8 @@ let test_to_int_arr =
                 (PinModule.make_pins [| 5; 6; 4; 2 |] [| 5; 6; 2; 4 |])) );
        ]
 
-(* let _ = run_test_tt_main test_to_int_arr *)
-
+(** [test_make_game] ensures that we can instantiate a game baord and mutate
+    certain features. *)
 let test_make_game =
   let test_board =
     {
@@ -229,8 +239,8 @@ let test_make_game =
            assert_equal [| 1; 2; 3; 4 |] test_board.answer );
        ]
 
-(* let _ = run_test_tt_main test_make_game *)
-
+(** [test_update_game] makes sure that both boards are updated, while also
+    making sure only certain mutable fields have been changed. *)
 let test_update_game =
   let test_board =
     {
@@ -283,6 +293,9 @@ let guess_n_times game guess n =
     i := !i - 1
   done
 
+(** [test_clear_board] ensures that through any stage of the game we can restart
+    our boards; we also make sure certain mutable fields are appropriately
+    updated. *)
 let test_clear_board =
   let test_board =
     {

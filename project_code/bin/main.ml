@@ -705,10 +705,7 @@ let draw_algo_screen () =
     button_height button_color text_color;
   move_algo ()
 
-let draw_instruction text_x text_y text =
-  Graphics.moveto text_x text_y;
-  Graphics.draw_string text
-
+(** take actions based on user input key on the help screen *)
 let address_help_keys () =
   let key = Graphics.read_key () in
   if key = 's' then (
@@ -720,6 +717,7 @@ let address_help_keys () =
     exit 0)
   else ()
 
+(** draw the help screen *)
 let draw_help_screen () =
   draw_details ();
 
@@ -744,11 +742,12 @@ let draw_help_screen () =
   Graphics.set_color 0x3a405a;
   Graphics.draw_rect text_x (text_y - (12 * 30) + 15) text_width text_height;
   Graphics.set_text_size 20;
-  draw_instruction (text_x + 10) (text_y + 10)
+  Graphics.moveto (text_x + 10) (text_y + 10);
+  Graphics.draw_string
     "1. Press keys to advance through the game. The keys shown on the buttons \
      correspond to keys that need to be pressed.";
-  draw_instruction (text_x + 10)
-    (Graphics.current_y () - 30)
+  Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
+  Graphics.draw_string
     "2. The player will decide in advance whether they want to play as the \
      codemaker or the codebreaker.";
   Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
@@ -771,7 +770,7 @@ let draw_help_screen () =
   Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
   Graphics.draw_string
     "8. Once placed, the codemaker provides feedback by entering feedback \
-     (using the digits 2, 1, 0 in that order), which will show up as pegs in \
+     (using the digits r, w, n in that order), which will show up as pegs in \
      the small holes of the row with the guess.";
   Graphics.moveto (text_x + 10) (Graphics.current_y () - 30);
   Graphics.draw_string
@@ -807,4 +806,5 @@ let rec run_mastermind () =
     run_mastermind ()
   with _ -> print_endline "Thanks for playing!"
 
+(* execute the game *)
 let () = run_mastermind ()
