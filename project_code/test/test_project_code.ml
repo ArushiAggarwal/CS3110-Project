@@ -1,15 +1,24 @@
 open OUnit2
-open Project_code.Random_guessing_algorithm
 open Project_code.Pin
-open Project_code.Donald_knuth_algorithm
 
+<<<<<<< HEAD
+(**let test_random = "Test suite to ensure pseudorandom generator works with
+   respect to seed." >:::
+   [
+=======
 let test_random =
   "Test suite to ensure pseudorandom generator works with\n   respect to seed."
   >::: [
+>>>>>>> e53742d3a61a51c0eff76c258ef7a044034e5959
          ( "Ensure seed 42 works" >:: fun _ ->
            assert_equal [ 5; 6; 3; 4; 7 ] (generate_guess 42) );
        ]
 
+<<<<<<< HEAD
+   let _ = run_test_tt_main test_random*)
+
+=======
+>>>>>>> e53742d3a61a51c0eff76c258ef7a044034e5959
 let test_pin =
   print_endline "testing";
   "Testing Pins to ensure the provide the correct feedback for\n\
@@ -33,6 +42,37 @@ let test_pin =
                 (PinModule.make_pins [| 1; 2; 3; 4 |] [| 3; 5; 8; 4 |])) );
        ]
 
+<<<<<<< HEAD
+let _ = run_test_tt_main test_pin
+
+let test_valid =
+  "Test if pin validation function works."
+  >::: [
+         ( "All caps, true" >:: fun _ ->
+           assert_equal true
+             (PinModule.check_validation "RWNN" [| 0; 1; 2; 3 |]
+                [| 2; 5; 5; 3 |]) );
+         ( "All lower case, true" >:: fun _ ->
+           assert_equal true
+             (PinModule.check_validation "rwnn" [| 0; 1; 2; 3 |]
+                [| 2; 5; 5; 3 |]) );
+         ( "A mix, true" >:: fun _ ->
+           assert_equal true
+             (PinModule.check_validation "rWnN" [| 0; 1; 2; 3 |]
+                [| 2; 5; 5; 3 |]) );
+         ( "Correct amount of chars, not in right order" >:: fun _ ->
+           assert_equal false
+             (PinModule.check_validation "nWrN" [| 0; 1; 2; 3 |]
+                [| 2; 5; 5; 3 |]) );
+         ( "Not correct amount chars, incorrect order" >:: fun _ ->
+           assert_equal false
+             (PinModule.check_validation "nWrN" [| 0; 1; 2; 3 |]
+                [| 7; 5; 4; 6 |]) );
+       ]
+
+
+let
+=======
 let test_knuth =
   "Test Knuth algorithm returns correctly."
   >::: [
@@ -50,3 +90,4 @@ let test_knuth =
 
 let suite = "Final project test suite" >::: [ test_knuth ]
 let _ = run_test_tt_main suite
+>>>>>>> e53742d3a61a51c0eff76c258ef7a044034e5959

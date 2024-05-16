@@ -4,8 +4,9 @@ module type PinType = sig
   val make_pins : int array -> int array -> pin array
   val count_reds : pin array -> int
   val to_string_pin : pin array -> string
-  val to_int_array : pin array -> int array
   val all_colors : pin array -> int array
+  val check_validation : string -> int array -> int array -> bool
+  val to_int_array : pin array -> int array
 end
 
 (** This is a module implementation for an array of pins, which are indicative
@@ -31,6 +32,18 @@ module PinModule : PinType = struct
     | White
     | Null
 
+  let pin_to_int = function
+    | Red -> 0
+    | White -> 1
+    | Null -> 2
+
+  let int_to_pin i = if i = 0 then Red else if i = 1 then White else Null
+
+  (** [to_int_array arr] converts a pin [arr] to an int array. *)
+  let to_int_array arr = Array.map pin_to_int arr
+
+  let to_pin_array arr = Array.map int_to_pin arr
+
   (** [make_pins array_guess array_answer] Takes an an [int array] of
       [array_guess] and an [int array] of [array_answer] and creates a
       [pin_array] representative of the progress of the guess with respect to
@@ -39,17 +52,20 @@ module PinModule : PinType = struct
     let pinArray = Array.make 4 Null in
     let ind = ref 0 in
     for i = 0 to 3 do
-      if array_guess.(i) = array_answer.(i) then
-        let _ = pinArray.(!ind) <- Red in
-        ind := !ind + 1
-      else if Array.mem array_guess.(i) array_answer then
-        let _ = pinArray.(!ind) <- White in
-        ind := !ind + 1
-      else
-        let _ = pinArray.(!ind) <- Null in
-        ind := !ind
+      if array_guess.(i) = array_answer.(i) then (
+        pinArray.(!ind) <- Red;
+        ind := !ind + 1)
+      else if Array.mem array_guess.(i) array_answer then (
+        pinArray.(!ind) <- White;
+        ind := !ind + 1)
+      else pinArray.(!ind) <- Null;
+      ind := !ind
     done;
-    pinArray
+    let int_version = to_int_array pinArray in
+    Array.sort
+      (fun x y -> if x < y then -1 else if x > y then 1 else 0)
+      int_version;
+    to_pin_array int_version
 
   (** [all_colors arr] takes a pin array [arr] and returns a 3 size array of the
       multiplicity of each color. [0] -> [Red] [1] -> [White] [2] -> [Null]*)
@@ -85,11 +101,19 @@ module PinModule : PinType = struct
   (** [to_string_pin arr] converts an [arr] of all type [pin] to a string.*)
   let to_string_pin arr = to_string_help arr "" 0
 
-  (** [pin_to_int pin] converts [pin] to an int. *)
-  let pin_to_int = function
-    | Red -> 2
-    | White -> 1
-    | Null -> 0
+  let char_to_pin c =
+    if c = 'R' || c = 'r' then Red
+    else if c = 'W' || c = 'w' then White
+    else Null
 
-  let to_int_array arr = Array.map pin_to_int arr
+  (** [check_validation str guess answer] converts a [str] with
+      'r','w','n','R','W','N' characters into a pin array, asserting it indeed
+      matches with the pin algorithm set up, based on [guess] and [answer]. *)
+  let check_validation str guess answer =
+    let pin_array1 = Array.make 4 Null in
+    for i = 0 to 3 do
+      pin_array1.(i) <- char_to_pin str.[i]
+    done;
+    let pin_array2 = make_pins guess answer in
+    pin_array1 = pin_array2
 end

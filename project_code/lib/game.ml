@@ -24,8 +24,8 @@ module type Gameboard = sig
   val set_answer : game -> int array -> unit
   (** [set_answer game] sets the answer in [game] for the round *)
 
-  val get_round : game -> int
-  (** [get_round game] returns the number of rounds played. *)
+  val get_turn : game -> int
+  (** [get_turn game] returns the current turn number. *)
 
   val show_board : game -> int array array
   (** [show_board game] returns the board of [game] *)
@@ -72,7 +72,7 @@ module Gamerecord : Gameboard = struct
     }
 
   (** [get_round game] returns the number of rounds played. *)
-  let get_round game : int = game.round_number
+  let get_turn game : int = game.turn_number
 
   (** [update_board game guess] updates the next empty row of the [game] board
       with the guess array. *)
@@ -122,6 +122,12 @@ module Gamerecord : Gameboard = struct
 
   let set_answer game answer = game.answer <- answer
 
+<<<<<<< HEAD
+  (* let update_computer_board game i = if game.algorithm = "p" then let guess =
+     generate_guess 42 in update_game game (Array.of_list guess) else if
+     game.algorithm = "k" then let guess = knuth_algorithm (Array.to_list
+     game.answer) in update_game game (Array.of_list (fst guess)) *)
+=======
   (* let check_feedback feedback guess = let real_feedback *)
 
   (* let update_computer_board game = if game.algorithm = "p" then let guess =
@@ -130,17 +136,20 @@ module Gamerecord : Gameboard = struct
      game.answer) in update_board game (Array.of_list (fst guess)) *)
 
   let update_computer_board game i =
-    if game.algorithm = "p" then (
-      let guess = generate_guess 42 in
+    print_endline game.algorithm;
+    if game.algorithm = "Random" then (
+      print_endline " here guess";
+      let guess = make_guess () in
       print_endline "generating guess";
       let guess_array = Array.of_list guess in
       update_board game guess_array;
       update_feedback game guess_array)
-    else if game.algorithm = "k" then (
+    else if game.algorithm = "Knuth" then (
       let guess, _ = knuth_algorithm (Array.to_list game.answer) in
       print_endline "generating guess";
       let guess_array = Array.of_list guess in
       update_board game guess_array;
       update_feedback game guess_array)
     else ()
+>>>>>>> e53742d3a61a51c0eff76c258ef7a044034e5959
 end

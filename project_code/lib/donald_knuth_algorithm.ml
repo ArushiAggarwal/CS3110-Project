@@ -127,12 +127,19 @@ let knuth_algorithm answer =
           in
           List.rev (List.sort compare_tuples result)
         in
-        let next_guess =
-          if List.exists (fun (g, _) -> List.mem g s') next_guesses then
-            List.find (fun (g, _) -> List.mem g s') next_guesses |> fst
-          else List.hd next_guesses |> fst
+        let best_guesses =
+          score_counts
+          |> filter (fun (_, count) -> count = min_count)
+          |> map fst
         in
-        aux s' next_guess (prev_guesses @ [ guess ])
+        let next_guess = if List.mem g s then g else best_guesses in
+        let response = score next_guess answer in
+        if response = (4, 0) then (
+          print_endline "we did it :D";
+          (next_guess, prev_guesses @ [ next_guess ]))
+        else
+          let s' = s |> filter (fun code -> score next_guess code = response) in
+          aux s' rest (prev_guesses @ [ next_guess ])
   in
   aux all_codes [] []
 >>>>>>> e53742d3a61a51c0eff76c258ef7a044034e5959
