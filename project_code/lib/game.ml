@@ -50,7 +50,7 @@ module type Gameboard = sig
   val clear_board : game -> unit
   (** [clear_board game] resets all values in [game] for the next round *)
 
-  val update_computer_board : game -> int -> int array
+  val update_computer_board : game -> int array
   (** [update_computer_board] updates the board with the pins and feedback *)
 
   val check_feedback : string -> game -> bool
@@ -155,7 +155,7 @@ module Gamerecord : Gameboard = struct
   let get_latest_feedback game guess =
     PinModule.to_int_array (PinModule.make_pins guess game.answer)
 
-  let update_computer_board game i =
+  let update_computer_board game =
     if (* Player made the code first *)
        game.algorithm = "Random" then (
       let guess = make_guess () in

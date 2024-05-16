@@ -47,7 +47,7 @@ module type Gameboard = sig
   val clear_board : game -> unit
   (** [clear_board game] resets all values in [game] for the next round *)
 
-  val update_computer_board : game -> int -> int array
+  val update_computer_board : game -> int array
   (** [update_computer_board] updates the board with the pins and feedback *)
 
   val check_feedback : string -> game -> bool

@@ -462,17 +462,24 @@ let get_feedback key guess =
    (String.make 1 key)) done; index_ref := 0 *)
 
 let draw_invalid_guess () =
-  Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 250);
+  Graphics.moveto ((screen_width / 4 * 3) - 100) ((screen_height / 4) - 40);
   Graphics.set_color Graphics.red;
   Graphics.draw_string
     "Invalid input. Code must be 4 digits with no duplicates."
+
+let draw_motivation () =
+  Graphics.moveto ((screen_width / 4 * 3) - 100) ((screen_height / 4) - 40);
+  Graphics.set_color Graphics.blue;
+  Graphics.draw_string
+    (Gamerecord.give_motivation (Option.get !game) !user_code_ref);
+  Graphics.set_color Graphics.black
 
 (** [get_user_guess ()] gets the user's guess input, validates it, and updates
     the game board and feedback accordingly. *)
 let rec get_user_guess () =
   if !index_ref < 4 then
     let key = Graphics.read_key () in
-    if key >= '0' && key <= '9' then
+    if key >= '1' && key <= '6' then
       let digit = Char.code key - Char.code '0' in
       if not (Array.mem digit !user_code_ref) then (
         !user_code_ref.(!index_ref) <- digit;
@@ -495,6 +502,8 @@ let rec get_user_guess () =
       Gamerecord.update_board (Option.get !game) !user_code_ref;
       Gamerecord.update_feedback (Option.get !game) !user_code_ref;
       index_ref := 0;
+      draw_motivation ();
+      Unix.sleep 1;
       Array.iteri (fun i _ -> !user_code_ref.(i) <- 0) !user_code_ref)
     else (
       draw_invalid_guess ();
@@ -600,10 +609,7 @@ let draw_game_screen () =
 
   if !player_first then (
     (* Player makes the code first *)
-    let guess =
-      Gamerecord.update_computer_board (Option.get !game)
-        (Gamerecord.get_turn (Option.get !game))
-    in
+    let guess = Gamerecord.update_computer_board (Option.get !game) in
     paint_board ();
     let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
     do_updates key guess)
@@ -765,12 +771,11 @@ let rec run_mastermind () =
      match !curr_screen with
      | Title -> draw_title_screen ()
      | PlayerSelection -> draw_player_selection_screen ()
-     (* | RoundScreen -> draw_round_selection_screen () *)
      | Algorithm -> draw_algo_screen ()
      | GetUserScreen -> get_user_code ()
      | Game -> draw_game_screen ()
      | Help -> draw_help_screen ());
     run_mastermind ()
-  with exn -> print_endline "Thanks for playing!"
+  with _ -> print_endline "Thanks for playing!"
 
 let () = run_mastermind ()

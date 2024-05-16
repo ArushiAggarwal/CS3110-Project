@@ -59,8 +59,6 @@ let test_pin =
                 (PinModule.make_pins [| 2; 3; 6; 1 |] [| 6; 2; 3; 1 |])) );
        ]
 
-(* let _ = run_test_tt_main test_pin *)
-
 let test_valid =
   "Test if pin validation function works."
   >::: [
@@ -277,8 +275,6 @@ let test_update_game =
          ( "Ensure this mutable field has been affected" >:: fun _ ->
            assert_equal 3 test_board.turn_number );
        ]
-
-(* let _ = run_test_tt_main test_update_game *)
 
 let guess_n_times game guess n =
   let i = ref n in
