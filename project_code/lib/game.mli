@@ -20,8 +20,8 @@ module type Gameboard = sig
   val set_answer : game -> int array -> unit
   (** [set_answer game] sets the answer in [game] for the round *)
 
-  val get_round : game -> int
-  (** [get_round game] returns the number of rounds played. *)
+  val get_turn : game -> int
+  (** [get_turn game] returns the current turn number. *)
 
   val show_board : game -> int array array
   (** [show_board game] returns the board of [game] *)
