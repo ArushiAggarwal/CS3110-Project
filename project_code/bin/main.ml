@@ -486,18 +486,18 @@ let draw_game_screen () =
   draw_circles circle_x circle_y_start circle_spacing;
   draw_circle_texts circle_x circle_y_start circle_spacing;
 
-  paint_board ();
-
-  if !player_first then
+  if !player_first then (
     (* Player makes the code first *)
     let guess =
       Gamerecord.update_computer_board (Option.get !game)
         (Gamerecord.get_turn (Option.get !game))
     in
+    paint_board ();
     let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
-    do_updates key guess
+    do_updates key guess)
   else (
     (* Computer makes the code first *)
+    paint_board ();
     Gamerecord.set_computer_answer (Option.get !game);
     print_endline
       ("Computer's answer: "
