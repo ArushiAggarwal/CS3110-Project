@@ -5,8 +5,8 @@
     involving 4 integers between 1 and 6 (inclusive), with no duplicates. *)
 
 val make_guess : unit -> int list
-(** [make_guess] generates a guess (a list of 4 unique integers between 1 and 6)
-    using a pseudorandom seed. *)
+(** [make_guess ()] generates a guess (a list of 4 unique integers between 1 and
+    6) using a pseudorandom seed. *)
 
 val generate_guess : int -> int list
 (** [generate_guess seed] generates a list of 4 random integers between 1 and 5
@@ -14,7 +14,7 @@ val generate_guess : int -> int list
     generated list. *)
 
 val lcg : int -> int * int
-(** [lcg] is a Linear Congruential Generator (LCG) function used for
+(** [lcg state] is a Linear Congruential Generator (LCG) function used for
     pseudorandom number generation. *)
 
 val max_value : int

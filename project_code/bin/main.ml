@@ -90,14 +90,14 @@ let store_in_backend lst =
   | [ player; algo ] -> Gamerecord.make_game 1 algo player
   | _ -> failwith "Error with input"
 
-(** [reset_game] resets global varaible. *)
+(** [reset_game ()] resets global variable. *)
 let reset_game () =
   user_inputs := [];
   player_first := false;
   user_feedback_ref := Array.make 4 "";
   index_ref := 0
 
-(** draw the background *)
+(** [draw_details ()] draws the background *)
 let draw_details () =
   Graphics.set_color 0xf9dec9;
   Graphics.fill_rect 0 0 screen_width screen_height;
@@ -105,21 +105,21 @@ let draw_details () =
   Graphics.moveto (screen_width - 200) (screen_height - 25);
   Graphics.draw_string "(press 'q' to quit)"
 
-(** clear everything on the graph and draw the background *)
+(** [clear_graph ()] clears everything on the graph and draws the background *)
 let clear_graph () =
   Graphics.clear_graph ();
   draw_details ()
 
 (**************************** TITLE SCREEN **********************************)
 
-(** draw the text on the title screen *)
+(** [draw_title_text ()] draws the text on the title screen *)
 let draw_title_text () =
   Graphics.moveto ((screen_width / 2) - 50) ((screen_height / 2) + 125);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 100000;
   Graphics.draw_string "OCAML MASTERMIND"
 
-(** draw the start and help buttons on the title screen *)
+(** [draw_title_buttons ()] draws the start and help buttons on the title screen *)
 let draw_title_buttons () =
   let button_x = (screen_width / 2) - 100 in
   let button_y = (screen_height / 2) - 100 in
@@ -136,12 +136,14 @@ let draw_title_buttons () =
 
 (* Accessed flower code from chatgpt 05/15/23 *)
 
-(** Draws a petal*)
+(** [draw_petal x y petal_radius petal_color] is a helper function to draw a
+    petal*)
 let draw_petal x y petal_radius petal_color =
   Graphics.set_color petal_color;
   Graphics.fill_circle x y petal_radius
 
-(* Helper function to create a petal *)
+(** [make_petal flower_center_x flower_center_y flower_radius petal_index] is a
+    helper function to create a petal in the right angle*)
 let make_petal flower_center_x flower_center_y flower_radius petal_index
     petal_colors =
   let angle =
@@ -158,7 +160,8 @@ let make_petal flower_center_x flower_center_y flower_radius petal_index
   in
   (petal_x, petal_y, petal_colors.(petal_index))
 
-(** Draws the petals *)
+(** [draw_petals flower_center_x flower_center_y flower_radius petal_colors]
+    draws all the petals *)
 let draw_petals flower_center_x flower_center_y flower_radius petal_colors =
   Graphics.set_color 0xFFD700;
   Graphics.fill_circle flower_center_x flower_center_y 20;
@@ -169,7 +172,7 @@ let draw_petals flower_center_x flower_center_y flower_radius petal_colors =
     draw_petal petal_x petal_y 25 petal_color
   done
 
-(** Draws flower 1 with coordinates *)
+(** [draw_flower1 ()] draws the first flower with coordinates *)
 let draw_flower1 () =
   let flower_center_x = screen_width - 150 in
   let flower_center_y = screen_height / 2 in
@@ -177,7 +180,7 @@ let draw_flower1 () =
   let petal_colors = [| 0xFF69B4; 0xFF69B4; 0xFF69B4; 0xFF69B4; 0xFF69B4 |] in
   draw_petals flower_center_x flower_center_y flower_radius petal_colors
 
-(** Draws flower 2 with coordinates *)
+(** [draw_flower2 ()] draws the first flower with coordinates *)
 let draw_flower2 () =
   let flower_center_x = 125 in
   let flower_center_y = (screen_height / 2) + 200 in
@@ -185,7 +188,7 @@ let draw_flower2 () =
   let petal_colors = [| 0xFFA07A; 0xFFA07A; 0xFFA07A; 0xFFA07A; 0xFFA07A |] in
   draw_petals flower_center_x flower_center_y flower_radius petal_colors
 
-(** Draws flower 3 with coordinates *)
+(** [draw_flower3 ()] draws the first flower with coordinates *)
 let draw_flower3 () =
   let flower_center_x = 200 in
   let flower_center_y = (screen_height / 2) - 200 in
@@ -193,7 +196,7 @@ let draw_flower3 () =
   let petal_colors = [| 0xDC143C; 0xDC143C; 0xDC143C; 0xDC143C; 0xDC143C |] in
   draw_petals flower_center_x flower_center_y flower_radius petal_colors
 
-(** Draws flower 4 with coordinates *)
+(** [draw_flower4 ()] draws the first flower with coordinates *)
 let draw_flower4 () =
   let flower_center_x = 1000 in
   let flower_center_y = (screen_height / 2) - 300 in
@@ -201,7 +204,7 @@ let draw_flower4 () =
   let petal_colors = [| 0xB22222; 0xB22222; 0xB22222; 0xB22222; 0xB22222 |] in
   draw_petals flower_center_x flower_center_y flower_radius petal_colors
 
-(** Draws flower 5 with coordinates *)
+(** [draw_flower5 ()] draws the first flower with coordinates *)
 let draw_flower5 () =
   let flower_center_x = 1150 in
   let flower_center_y = (screen_height / 2) + 250 in
@@ -209,7 +212,8 @@ let draw_flower5 () =
   let petal_colors = [| 0xFF1493; 0xFF1493; 0xFF1493; 0xFF1493; 0xFF1493 |] in
   draw_petals flower_center_x flower_center_y flower_radius petal_colors
 
-(** Take action based on user key pressed on title screen *)
+(** [process_title_key key] takes the appropriate action based on user key
+    pressed on title screen *)
 let process_title_key key =
   if key = 's' then (
     clear_graph ();
@@ -223,7 +227,7 @@ let process_title_key key =
     exit 0)
   else ()
 
-(** Draw the title screen *)
+(** [draw_title_screen ()] draws the main title screen *)
 let draw_title_screen () =
   draw_details ();
   draw_title_text ();
@@ -239,7 +243,8 @@ let draw_title_screen () =
 
 (**************************** PLAYER SCREEN **********************************)
 
-(** draw text and buttons on player screen *)
+(** [draw_player_text_and_buttons ()] draws text and buttons that will show up
+    on the player screen *)
 let draw_player_text_and_buttons () =
   Graphics.moveto ((screen_width / 2) - 25) ((screen_height / 2) + 125);
   Graphics.set_color 0x3a405a;
@@ -261,7 +266,8 @@ let draw_player_text_and_buttons () =
     (button_x + button_width + 50)
     button_y button_width button_height button_color2 text_color
 
-(** draw screen where player selects who starts *)
+(** [draw_player_selection_screen ()] draws the screen where player selects if
+    they want to start as the codemaker or the code breaker *)
 let draw_player_selection_screen () =
   draw_details ();
   draw_player_text_and_buttons ();
@@ -296,7 +302,8 @@ let valid_code code =
   in
   aux [] (Array.to_list code)
 
-(** Get the answer from the user *)
+(** [get_user_code ()] is the main function to the get the answer from the user
+    by creating a new screen and making sure each input is validated*)
 let rec get_user_code () =
   Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 200);
   Graphics.set_color 0x3a405a;
@@ -348,7 +355,8 @@ let rec get_user_code () =
 
 (**************************** GAME SCREEN **********************************)
 
-(** Draw the boards for the game and balls *)
+(** [draw_board ()] draws the boards for the game and balls (the main game
+    screen) *)
 let draw_board () =
   (* brown board*)
   Graphics.set_color 0xb9998a;
@@ -363,7 +371,8 @@ let draw_board () =
   Graphics.draw_rect 150 130 300 500;
   Graphics.draw_rect 500 130 150 500
 
-(** draw the balls to represent the inputs *)
+(** [draw_circles circle_x circle_y_start circle_spacing] helper function to
+    draw the circles which represent the inputs *)
 let draw_circles circle_x circle_y_start circle_spacing =
   let circle_radius = 25 in
   Graphics.set_color purple;
@@ -375,8 +384,9 @@ let draw_circles circle_x circle_y_start circle_spacing =
     (circle_x + (2 * circle_spacing))
     circle_y_start circle_radius
 
+(** [draw_second_row circle_x circle_y_start circle_spacing] helper function to
+    draw the circle which represent the input *)
 let draw_second_row circle_x circle_y_start circle_spacing =
-  (* Draw the second row of circles *)
   let circle_radius = 25 in
   Graphics.set_color yellow;
   Graphics.fill_circle circle_x (circle_y_start + circle_spacing) circle_radius;
@@ -391,7 +401,8 @@ let draw_second_row circle_x circle_y_start circle_spacing =
     (circle_y_start + circle_spacing)
     circle_radius
 
-(** add label text to the input balls *)
+(** [draw_circle_texts circle_x circle_y_start circle_spacing] adds number label
+    text to the input circles *)
 let draw_circle_texts circle_x circle_y_start circle_spacing =
   Graphics.set_color Graphics.black;
   Graphics.moveto (circle_x - 5) (circle_y_start - 12);
@@ -411,10 +422,8 @@ let draw_circle_texts circle_x circle_y_start circle_spacing =
     (circle_y_start + circle_spacing - 12);
   Graphics.draw_string "3"
 
-(* let draw_guess_pin guess i = let x = ref 170 in for j = 0 to 4 do
-   Graphics.fill_circle (map_int_to_color guess.(j)); Graphics.set_color
-   guess.(j); done; *)
-
+(** [draw_incorrect_feedback guess] is the graphics part for checking the
+    feedback *)
 let draw_incorrect_feedback guess =
   Graphics.moveto ((screen_width / 4 * 3) - 100) ((screen_height / 4) - 40);
   Graphics.set_color Graphics.red;
@@ -425,9 +434,9 @@ let draw_incorrect_feedback guess =
        (Array.to_list
           (Array.map map_feedback_to_string
              (Gamerecord.get_latest_feedback (Option.get !game) guess))));
-  (* draw the to string *)
   Graphics.set_color Graphics.black
 
+(** [move_feedback_on guess] is the graphics part for checking the feedback *)
 let move_feedback_on guess =
   index_ref := 0;
   let feedback = !user_feedback_ref in
@@ -442,6 +451,7 @@ let move_feedback_on guess =
   Unix.sleepf 1.;
   Gamerecord.update_feedback (Option.get !game) guess
 
+(** [draw_feedback_string key] writes the feedback onto the main screen*)
 let draw_feedback_string key =
   !user_feedback_ref.(!index_ref) <- String.make 1 key;
   index_ref := !index_ref + 1;
@@ -451,6 +461,7 @@ let draw_feedback_string key =
   Graphics.set_color Graphics.black;
   Graphics.draw_string (String.make 1 key)
 
+(** [address_key_feedback key] takes the feedback and stores it*)
 let address_key_feedback key =
   if key = 'r' || key = 'w' || key = 'n' then (
     !user_feedback_ref.(!index_ref) <- String.make 1 key;
@@ -465,7 +476,7 @@ let address_key_feedback key =
     Graphics.close_graph ();
     exit 0)
 
-(* get user input based for a guess *)
+(** [get_feedback key guess] get user input based for a guess *)
 let get_feedback key guess =
   if key = 'q' then (
     print_endline "Thanks for playing!";
@@ -480,6 +491,7 @@ let get_feedback key guess =
   done;
   move_feedback_on guess
 
+(** [draw_motivation ()] writes motivation messages to the main game screen*)
 let draw_motivation () =
   Graphics.moveto ((screen_width / 4 * 3) - 100) ((screen_height / 4) - 40);
   Graphics.set_color Graphics.blue;
@@ -487,6 +499,7 @@ let draw_motivation () =
     (Gamerecord.give_motivation (Option.get !game) !user_code_ref);
   Graphics.set_color Graphics.black
 
+(** [address_valid_input ()] updates board with the valid feedback *)
 let address_valid_input () =
   Gamerecord.update_board (Option.get !game) !user_code_ref;
   Gamerecord.update_feedback (Option.get !game) !user_code_ref;
@@ -495,6 +508,7 @@ let address_valid_input () =
   Unix.sleep 1;
   Array.iteri (fun i _ -> !user_code_ref.(i) <- 0) !user_code_ref
 
+(** [draw_invalid_guess ()] addresses invalid guess *)
 let draw_invalid_guess () =
   Graphics.moveto ((screen_width / 4 * 3) - 100) ((screen_height / 4) - 40);
   Graphics.set_color Graphics.red;
@@ -536,6 +550,7 @@ let rec get_user_guess () =
       index_ref := 0;
       get_user_guess ())
 
+(** [draw_message_text ()] adds text to the final message from the win conditon *)
 let draw_message_text () =
   let text = "Thanks for playing!" in
   Graphics.moveto
@@ -551,6 +566,7 @@ let draw_message_text () =
   Graphics.moveto ((screen_width / 2) - 50) ((screen_height / 2) - 50);
   Graphics.draw_string text
 
+(** [draw_message_box ()] draws win condition final message box*)
 let draw_message_box message =
   let rect_x = (screen_width / 2) - 1000 in
   let rect_y = (screen_height / 2) - 400 in
@@ -566,7 +582,7 @@ let draw_message_box message =
   Graphics.draw_string message;
   draw_message_text ()
 
-(** [win_condition game] checks if the player or computer wins based on the
+(** [win_condition game ()] checks if the player or computer wins based on the
     current state of the game. *)
 let win_condition game =
   let board = Gamerecord.show_pins game in
@@ -589,6 +605,8 @@ let win_condition game =
       true)
   else false
 
+(** [paint_board ()] updates the main game screen with the board array and the
+    feedback*)
 let paint_board () =
   let board = Gamerecord.show_board (Option.get !game) in
   Array.iteri
@@ -614,6 +632,8 @@ let paint_board () =
         lst)
     pin_board
 
+(** [check_win ()] checking win condition for the computer and player sides
+    taking the turn into account*)
 let check_win () =
   if win_condition (Option.get !game) then
     let key = Graphics.read_key () in
@@ -628,6 +648,7 @@ let check_win () =
     else ()
   else ()
 
+(** [draw_circle_inputs ()] draws the circles *)
 let draw_circle_inputs () =
   Graphics.set_color 0x000000;
   let circle_x = 1000 in
@@ -637,13 +658,14 @@ let draw_circle_inputs () =
   draw_second_row circle_x circle_y_start circle_spacing;
   draw_circle_texts circle_x circle_y_start circle_spacing
 
+(** [player_guesses ()] stores player guesses and updates board*)
 let player_guesses () =
   let guess = Gamerecord.update_computer_board (Option.get !game) in
   paint_board ();
   let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
   if !player_first then get_feedback key guess else ()
 
-(** draw the game screen *)
+(** [draw_game_screen ()] draws the game screen (calls helper functions) *)
 let draw_game_screen () =
   draw_details ();
   Graphics.moveto ((screen_width / 4 * 3) + 20) ((screen_height / 2) + 300);
@@ -654,17 +676,14 @@ let draw_game_screen () =
   draw_board ();
   draw_circle_inputs ();
 
-  if !player_first then player_guesses () (* Player makes the code first *)
+  if !player_first then player_guesses ()
   else (
-    (* Computer makes the code first *)
     paint_board ();
     get_user_guess ());
   paint_board ();
   check_win ()
 
-(* in the main file *)
-
-(** choose algorithm and move screen *)
+(** [move_algo ()] to choose the algorithm and move screen *)
 let move_algo () =
   let to_screen = if !player_first then GetUserScreen else Game in
   let key = Graphics.read_key () in
@@ -684,7 +703,7 @@ let move_algo () =
     exit 0)
   else ()
 
-(** draw screen to select algorithm *)
+(** [draw_algo_screen ()] draws screen to select algorithm *)
 let draw_algo_screen () =
   draw_details ();
   Graphics.moveto ((screen_width / 2) - 150) ((screen_height / 2) + 125);
@@ -705,7 +724,8 @@ let draw_algo_screen () =
     button_height button_color text_color;
   move_algo ()
 
-(** take actions based on user input key on the help screen *)
+(** [address_help_keys ()] takes actions based on user input key on the help
+    screen *)
 let address_help_keys () =
   let key = Graphics.read_key () in
   if key = 's' then (
@@ -717,7 +737,8 @@ let address_help_keys () =
     exit 0)
   else ()
 
-(** draw the help screen *)
+(** [draw_help_screen ()] draws the help screen and the graphics and string text
+    for it*)
 let draw_help_screen () =
   draw_details ();
 
@@ -791,7 +812,7 @@ let draw_help_screen () =
      codemaker wins.";
   address_help_keys ()
 
-(** run main game *)
+(** [run_mastermind ()] runs main game *)
 let rec run_mastermind () =
   try
     (Graphics.open_graph
@@ -806,5 +827,5 @@ let rec run_mastermind () =
     run_mastermind ()
   with _ -> print_endline "Thanks for playing!"
 
-(* execute the game *)
+(* this executes the game *)
 let () = run_mastermind ()
