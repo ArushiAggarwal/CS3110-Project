@@ -1,6 +1,6 @@
 (* @author *)
 open Project_code.Game
-open Project_code.Pin
+(* open Project_code.Pin *)
 
 (* global variables *)
 let screen_width = 1400
@@ -36,7 +36,11 @@ let map_int_to_color i =
   else if i = 3 then red
   else if i = 4 then purple
   else if i = 5 then pink (* else if i = 0 then 0x685044 *)
-  else orange
+  else if i = 6 then orange
+  else 0x685044
+
+let map_feedback_to_color i =
+  if i = 0 then 0xff0000 else if i = 1 then 0xffffff else 0x685044
 
 (* mutable reference to the current screen *)
 let curr_screen = ref Title
@@ -309,13 +313,24 @@ let draw_circle_texts circle_x circle_y_start circle_spacing =
 
 (* get user input based for a guess *)
 let get_feedback key =
-  while key <> 's' do
+  if key = 'r' || key = 'w' || key = 'n' then (
+    !user_feedback_ref.(!index_ref) <- String.make 1 key;
+    index_ref := !index_ref + 1;
+    Graphics.moveto
+      ((screen_width / 4 * 3) + (50 * (!index_ref - 2)))
+      (screen_height / 4);
+    Graphics.set_color Graphics.black;
+    Graphics.draw_string (String.make 1 key))
+  else ();
+  while key <> 's' && !index_ref < 4 do
     if !index_ref < 4 then (
       let key = Graphics.read_key () in
       if key = 'r' || key = 'w' || key = 'n' then
         !user_feedback_ref.(!index_ref) <- String.make 1 key;
       index_ref := !index_ref + 1;
-      Graphics.moveto (screen_width / 4) (screen_height / 4);
+      Graphics.moveto
+        ((screen_width / 4 * 3) + (50 * (!index_ref - 2)))
+        (screen_height / 4);
       Graphics.set_color Graphics.black;
       Graphics.draw_string (String.make 1 key))
   done;
@@ -370,7 +385,7 @@ let draw_game_screen () =
       Array.iteri
         (fun i value ->
           let x = 150 + (i * 50) in
-          let y = 130 + (j * 25) in
+          let y = 130 + (j * 30) in
           Graphics.set_color (map_int_to_color value);
           Graphics.fill_circle x y 10)
         lst)
@@ -382,8 +397,8 @@ let draw_game_screen () =
       Array.iteri
         (fun i value ->
           let x = 550 + (i * 50) in
-          let y = 130 + (j * 50) in
-          Graphics.set_color (map_int_to_color value);
+          let y = 130 + (j * 30) in
+          Graphics.set_color (map_feedback_to_color value);
           Graphics.fill_circle x y 5)
         lst)
     pin_board;

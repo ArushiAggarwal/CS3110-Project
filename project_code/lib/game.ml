@@ -62,7 +62,7 @@ module Gamerecord : Gameboard = struct
   let make_game rounds algo player =
     {
       game_board = Array.init 12 (fun _ -> Array.init 4 (fun _ -> 0));
-      pin_board = Array.init 12 (fun _ -> Array.init 4 (fun _ -> 0));
+      pin_board = Array.init 12 (fun _ -> Array.init 4 (fun _ -> 3));
       total_rounds = rounds;
       algorithm = algo;
       player;
@@ -117,10 +117,6 @@ module Gamerecord : Gameboard = struct
     game.round_number <- game.round_number + 1
 
   (** [set_answer game] sets the answer in [game] for the round *)
-
-  (* let rec print arr = match arr with | [] -> "" | h :: t -> string_of_int h ^
-     print t *)
-
   let set_answer game answer = game.answer <- answer
 
   (* let check_feedback feedback guess = let real_feedback *)
