@@ -61,7 +61,7 @@ let store_in_backend lst =
   match lst with
   | [ player; rounds; algo ] ->
       print_endline ("rounds" ^ rounds);
-      Gamerecord.make_game (int_of_string rounds) player algo
+      Gamerecord.make_game (int_of_string rounds) algo player
   | _ -> failwith "Error with input"
 
 (** draw the background *)
