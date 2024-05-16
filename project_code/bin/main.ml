@@ -30,10 +30,6 @@ type screen =
   | Help
   | GetUserScreen
 
-<<<<<<< HEAD
-=======
-(* [map_int_to_color] mapping int to color *)
->>>>>>> e53742d3a61a51c0eff76c258ef7a044034e5959
 let map_int_to_color i =
   if i = 1 then yellow
   else if i = 2 then green
@@ -367,7 +363,7 @@ let draw_game_screen () =
   print_endline "before";
 
   Gamerecord.update_computer_board (Option.get !game)
-    (Gamerecord.get_round (Option.get !game));
+    (Gamerecord.get_turn (Option.get !game));
 
   print_endline "after";
 
