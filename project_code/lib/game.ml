@@ -1,6 +1,6 @@
 open Pin
 open Random_guessing_algorithm
-open Donald_knuth_algorithm
+(* open Donald_knuth_algorithm *)
 
 type game_record = {
   game_board : int array array;
@@ -151,7 +151,7 @@ module Gamerecord : Gameboard = struct
       update_board game guess_array;
       update_feedback game guess_array)
     else if game.algorithm = "Knuth" then (
-      let guess, _ = knuth_algorithm (Array.to_list game.answer) in
+      let guess = make_guess () in
       print_endline "generating guess";
       let guess_array = Array.of_list guess in
       update_board game guess_array;

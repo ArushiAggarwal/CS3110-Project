@@ -1,6 +1,6 @@
 (* @author *)
 open Project_code.Game
-open Project_code.Random_guessing_algorithm
+(* open Project_code.Random_guessing_algorithm *)
 
 (* global variables *)
 let screen_width = 1400
