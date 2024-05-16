@@ -105,19 +105,20 @@ module Gamerecord : Gameboard = struct
   (** [show_pins game] returns the pin board of [game] *)
   let show_pins game = game.pin_board
 
+  (** [set_answer game] sets the answer in [game] for the round *)
+  let set_answer game answer = game.answer <- answer
+
   (** [clear_board game] resets all values in [game] for the next round *)
   let clear_board game =
     Array.iter
       (fun row -> Array.iteri (fun i _ -> row.(i) <- 0) row)
       game.game_board;
     Array.iter
-      (fun row -> Array.iteri (fun i _ -> row.(i) <- 0) row)
+      (fun row -> Array.iteri (fun i _ -> row.(i) <- 3) row)
       game.pin_board;
     game.turn_number <- 0;
-    game.round_number <- game.round_number + 1
-
-  (** [set_answer game] sets the answer in [game] for the round *)
-  let set_answer game answer = game.answer <- answer
+    game.round_number <- game.round_number + 1;
+    set_answer game [| 0; 0; 0; 0 |]
 
   (* let check_feedback feedback guess = let real_feedback *)
 
