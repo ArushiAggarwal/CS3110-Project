@@ -55,7 +55,7 @@ module PinModule : PinType = struct
       multiplicity of each color. [0] -> [Red] [1] -> [White] [2] -> [Null]*)
   let all_colors arr =
     let acc = Array.make 3 0 in
-    for i = 0 to 4 do
+    for i = 0 to 3 do
       match arr.(i) with
       | Red -> acc.(0) <- acc.(0) + 1
       | White -> acc.(1) <- acc.(1) + 1
@@ -68,7 +68,7 @@ module PinModule : PinType = struct
 
   (** [count_whites arr] counts the number of [White] constructors in [arr]. *)
 
-  let count_reds arr = (all_colors arr).(1)
+  let count_whites arr = (all_colors arr).(1)
 
   (** [count_nulls arr] counts the number of [Nulls] constructors in [arr]. *)
 
