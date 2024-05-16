@@ -93,6 +93,7 @@ let test_valid1 =
              (PinModule.check_validation "nWrN" [| 0; 1; 2; 3 |]
                 [| 2; 5; 5; 3 |]) );
        ]
+
 (** [test_valid2] generates some other niche test cases the user might input. *)
 let test_valid2 =
   "Other test cases for validity"
@@ -108,10 +109,12 @@ let test_valid2 =
          ( "Features incorrect char" >:: fun _ ->
            assert_equal false
              (PinModule.check_validation "nWrP" [| 0; 1; 2; 3 |]
-                [| 7; 5; 4; 6 |]) ); ]
+                [| 7; 5; 4; 6 |]) );
+       ]
 
-let test_valid3 = 
-  "Some final test cases for validity" >::: [
+let test_valid3 =
+  "Some final test cases for validity"
+  >::: [
          ( "Empty string" >:: fun _ ->
            assert_equal false
              (PinModule.check_validation "" [| 0; 1; 2; 3 |] [| 7; 5; 4; 6 |])
@@ -300,6 +303,8 @@ let test_update_game =
            assert_equal 3 test_board.turn_number );
        ]
 
+(** [guess_n_times game guess n] helper function for testing, runs update game
+    10 times *)
 let guess_n_times game guess n =
   let i = ref n in
   while !i > 0 do
@@ -375,6 +380,7 @@ let many_random_tests =
     [many_random_tests]. If any one of those fails, the entire OUnit test fails. *)
 let ounit_rnd_test = QCheck_runner.to_ounit2_test many_random_tests
 
+(* main test suite*)
 let suite =
   "test all cases"
   >::: [
@@ -396,4 +402,5 @@ let suite =
          ounit_rnd_test;
        ]
 
+(* run test suite *)
 let _ = run_test_tt_main suite
