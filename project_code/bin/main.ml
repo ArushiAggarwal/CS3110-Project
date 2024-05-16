@@ -464,7 +464,7 @@ let rec get_user_guess () =
       index_ref := 0;
       get_user_guess ())
 
-(*################# GRACE TODO ################################ *)
+(*************************** GRACE TODO ****************************)
 let do_updates key guess = if !player_first then get_feedback key guess else ()
 
 let draw_message_box message =
@@ -488,12 +488,10 @@ let draw_message_box message =
   let text = "press 'q' to quit" in
   Graphics.moveto
     ((screen_width / 2) - (String.length text * 12))
-    (screen_height / 2);
+    ((screen_height / 2) - 50);
   Graphics.draw_string text;
   let text = "press 'm' to return to the menu" in
-  Graphics.moveto
-    ((screen_width / 2) - (String.length text * 12))
-    ((screen_height / 2) - 50);
+  Graphics.moveto ((screen_width / 2) - 50) ((screen_height / 2) - 50);
   Graphics.draw_string text
 
 (** [win_condition game] checks if the player or computer wins based on the
@@ -503,12 +501,14 @@ let win_condition game =
   let is_all_red row = Array.for_all (fun x -> x = 0) row in
   if Array.exists is_all_red board then
     if !player_first then (
+      print_endline "computer, all row";
       draw_message_box "Computer Wins!";
       true)
     else (
+      print_endline "player, all row";
       draw_message_box "Player Wins!";
       true)
-  else if Gamerecord.get_turn game <= 12 then
+  else if Gamerecord.get_turn game >= 12 then
     if !player_first then (
       draw_message_box "Player Wins!";
       true)

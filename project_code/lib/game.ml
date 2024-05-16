@@ -95,9 +95,8 @@ module Gamerecord : Gameboard = struct
   (** [update_board game guess] updates the next empty row of the [game] board
       with the guess array. *)
   let update_board board guess =
-    if board.turn_number < 12 then (
-      Array.set board.game_board board.turn_number (Array.copy guess);
-      print_endline (string_of_int board.turn_number))
+    if board.turn_number < 12 then
+      Array.set board.game_board board.turn_number (Array.copy guess)
     else ()
 
   (** [get_latest_guess game] returns the row of the latest guess in [game]'s
@@ -160,15 +159,7 @@ module Gamerecord : Gameboard = struct
   let update_computer_board game i =
     if (* Player made the code first *)
        game.algorithm = "Random" then (
-      print_endline " here guess";
       let guess = make_guess () in
-      print_endline "generating guess";
-      let guess_array = Array.of_list guess in
-      update_board game guess_array;
-      guess_array)
-    else if game.algorithm = "Knuth" then (
-      let guess = make_guess () in
-      print_endline "generating guess";
       let guess_array = Array.of_list guess in
       update_board game guess_array;
       guess_array)
