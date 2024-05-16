@@ -20,6 +20,7 @@ let player_first = ref false
 let user_code_ref = ref (Array.make 4 0)
 let user_feedback_ref = ref (Array.make 4 "")
 let index_ref = ref 0
+let angle_ref = ref 0.0
 
 (* variant type representing which window of the GUI is displayed *)
 type screen =
@@ -110,11 +111,47 @@ let draw_title_buttons () =
     (button_y + button_height + 50)
     button_width button_height button_color2 text_color
 
+(* Function to draw a petal *)
+let draw_petal x y petal_radius petal_color =
+  Graphics.set_color petal_color;
+  Graphics.fill_circle x y petal_radius
+
+(* Function to draw the flower *)
+let draw_flower () =
+  let flower_center_x = screen_width - 150 in
+  let flower_center_y = screen_height / 2 in
+  let flower_radius = 45 in
+  Graphics.set_color 0xFFD700;
+  Graphics.fill_circle flower_center_x flower_center_y 20;
+
+  (* Draw the petals *)
+  let petal_colors = [| 0xFF69B4; 0xFFA07A; 0xDC143C; 0xB22222; 0xFF1493 |] in
+  for i = 0 to Array.length petal_colors - 1 do
+    let angle =
+      !angle_ref
+      +. float_of_int i *. 2. *. Float.pi
+         /. float_of_int (Array.length petal_colors)
+    in
+    let petal_x =
+      int_of_float
+        (float_of_int flower_center_x
+        +. (float_of_int flower_radius *. cos angle))
+    in
+    let petal_y =
+      int_of_float
+        (float_of_int flower_center_y
+        +. (float_of_int flower_radius *. sin angle))
+    in
+    draw_petal petal_x petal_y 25 petal_colors.(i)
+  done;
+  angle_ref := !angle_ref +. 1.
+
 (** draw the title screen *)
 let draw_title_screen () =
   draw_details ();
   draw_title_text ();
   draw_title_buttons ();
+  draw_flower ();
 
   let key = Graphics.read_key () in
   if key = 's' then (
@@ -627,7 +664,7 @@ let draw_help_screen () =
   Graphics.set_color 0x3a405a;
   Graphics.draw_rect text_x (text_y - (12 * 30) + 15) text_width text_height;
   Graphics.set_text_size 20;
-  draw_instruction (text_x + 10) text_y
+  draw_instruction (text_x + 10) (text_y + 10)
     "1. Press keys to advance through the game. The keys shown on the buttons \
      correspond to keys that need to be pressed.";
   draw_instruction (text_x + 10)
