@@ -25,9 +25,9 @@ let test_random_generation =
            assert_equal (List.length (make_guess ())) 4 );
        ]
 
-(** [test_pin] tests multiple test cases where we convert a guess against an
+(** [test_pin1] tests multiple test cases where we convert a guess against an
     answer to a pin; we're also testing the to string function. *)
-let test_pin =
+let test_pin1 =
   "Testing Pins to ensure the provide the correct feedback for\n\
    a guess with respect to the answer."
   >::: [
@@ -47,6 +47,12 @@ let test_pin =
            assert_equal "RWNN"
              (PinModule.to_string_pin
                 (PinModule.make_pins [| 1; 2; 3; 4 |] [| 3; 5; 6; 4 |])) );
+       ]
+
+(** [test_pin2] is some additional edge cases or specific cases on pins.*)
+let test_pin2 =
+  "More test cases for pins"
+  >::: [
          ( "Ensuring pins work with nothing in place number 1" >:: fun _ ->
            assert_equal "RWWN"
              (PinModule.to_string_pin
@@ -65,9 +71,9 @@ let test_pin =
                 (PinModule.make_pins [| 2; 3; 6; 1 |] [| 6; 2; 3; 1 |])) );
        ]
 
-(** [test_valid] finds test cases by which we check if the users feedback
+(** [test_valid1] finds test cases by which we check if the users feedback
     corresponds to the computer generated feedback. *)
-let test_valid =
+let test_valid1 =
   "Test if pin validation function works."
   >::: [
          ( "All caps, true" >:: fun _ ->
@@ -86,6 +92,11 @@ let test_valid =
            assert_equal false
              (PinModule.check_validation "nWrN" [| 0; 1; 2; 3 |]
                 [| 2; 5; 5; 3 |]) );
+       ]
+(** [test_valid2] generates some other niche test cases the user might input. *)
+let test_valid2 =
+  "Other test cases for validity"
+  >::: [
          ( "Not correct amount chars, incorrect order" >:: fun _ ->
            assert_equal false
              (PinModule.check_validation "nWrN" [| 0; 1; 2; 3 |]
@@ -97,7 +108,10 @@ let test_valid =
          ( "Features incorrect char" >:: fun _ ->
            assert_equal false
              (PinModule.check_validation "nWrP" [| 0; 1; 2; 3 |]
-                [| 7; 5; 4; 6 |]) );
+                [| 7; 5; 4; 6 |]) ); ]
+
+let test_valid3 = 
+  "Some final test cases for validity" >::: [
          ( "Empty string" >:: fun _ ->
            assert_equal false
              (PinModule.check_validation "" [| 0; 1; 2; 3 |] [| 7; 5; 4; 6 |])
@@ -366,8 +380,11 @@ let suite =
   >::: [
          test_random_seed;
          test_random_generation;
-         test_pin;
-         test_valid;
+         test_pin1;
+         test_pin2;
+         test_valid1;
+         test_valid2;
+         test_valid3;
          test_all_colors;
          test_num_reds;
          test_num_whites;
