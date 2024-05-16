@@ -354,6 +354,42 @@ let get_user_guess key =
 (*################# GRACE TODO ################################ *)
 let do_updates key = if !player_first then get_feedback key else ()
 
+let draw_message_box message =
+  let rect_x = (screen_width / 2) - 1000 in
+  let rect_y = (screen_height / 2) - 400 in
+  let rect_width = 2000 in
+  let rect_height = 800 in
+  Graphics.set_color 0x3a405a;
+  Graphics.fill_rect rect_x rect_y rect_width rect_height;
+  Graphics.set_color 0xffffff;
+  Graphics.set_text_size 48;
+  Graphics.moveto
+    ((screen_width / 2) - (String.length message * 12))
+    ((screen_height / 2) + 25);
+  Graphics.draw_string message
+
+(** [win_condition game] checks if the player or computer wins based on the
+    current state of the game. *)
+let win_condition game =
+  let board = Gamerecord.show_pins game in
+  let is_all_red row = Array.for_all (fun x -> x = 0) row in
+  let is_any_non_red row = Array.exists (fun x -> x <> 0) row in
+  if Gamerecord.get_turn game = 12 then
+    if !player_first then
+      if Array.exists is_all_red board then (
+        draw_message_box "Computer Wins!";
+        true)
+      else (
+        draw_message_box "Player Wins!";
+        true)
+    else if Array.exists is_any_non_red board then (
+      draw_message_box "Player Wins!";
+      true)
+    else (
+      draw_message_box "Computer Wins!";
+      true)
+  else false
+
 (** draw the game screen *)
 let draw_game_screen () =
   draw_details ();
@@ -404,7 +440,14 @@ let draw_game_screen () =
     pin_board;
 
   let key = (Graphics.wait_next_event [ Graphics.Key_pressed ]).key in
-  do_updates key
+  do_updates key;
+
+  if win_condition (Option.get !game) then
+    let key = Graphics.read_key () in
+    if key = 'q' then exit 0 else clear_graph ()
+  else ()
+
+(* in the main file *)
 
 (** choose algorithm and move screen *)
 let choose_algo () =
