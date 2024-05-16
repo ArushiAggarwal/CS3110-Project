@@ -1,7 +1,6 @@
 (* @author *)
 open Project_code.Game
 open Project_code.Pin
-(* open Project_code.Random_guessing_algorithm *)
 
 (* global variables *)
 let screen_width = 1400
@@ -654,24 +653,22 @@ let choose_algo () =
 let draw_algo_screen () =
   draw_details ();
 
-  Graphics.moveto ((screen_width / 2) - 25) ((screen_height / 2) + 125);
+  Graphics.moveto ((screen_width / 2) - 150) ((screen_height / 2) + 125);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 48;
-  Graphics.draw_string "Choose an Algorithm to play against!";
+  Graphics.draw_string
+    "You will be playing aganist the Pseudo Randomizer Algorithm!!";
 
   let button_width = 200 in
   let button_height = 50 in
   let button_spacing = 50 in
-  let start_x = (screen_width / 2) - (button_width + button_spacing) in
+  let start_x = (screen_width / 2) - button_spacing in
   let start_y = screen_height / 2 in
   let button_color = 0xe9afa3 in
   let text_color = 0x3a405a in
 
-  draw_button "Pseudo Randomizer (press 'p')" start_x start_y button_width
+  draw_button "I'm ready to win! (press 'p')" start_x start_y button_width
     button_height button_color text_color;
-  draw_button "Knuth Algorithm (press 'k')"
-    (start_x + button_width + button_spacing)
-    start_y button_width button_height button_color text_color;
 
   choose_algo ()
 

@@ -1,6 +1,5 @@
 open Pin
 open Random_guessing_algorithm
-(* open Donald_knuth_algorithm *)
 
 type game_record = {
   game_board : int array array;
