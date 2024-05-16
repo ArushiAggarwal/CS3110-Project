@@ -3,8 +3,10 @@ module type PinType = sig
 
   val make_pins : int array -> int array -> pin array
   val count_reds : pin array -> int
+  val count_whites : pin array -> int
+  val count_nulls : pin array -> int
   val to_string_pin : pin array -> string
-  val all_colors : pin array -> int array
+  val all_colors : pin array -> int * int * int
   val check_validation : string -> int array -> int array -> bool
   val to_int_array : pin array -> int array
   val list_to_string : string list -> string
@@ -78,18 +80,24 @@ module PinModule : PinType = struct
       | White -> acc.(1) <- acc.(1) + 1
       | Null -> acc.(2) <- acc.(2) + 1
     done;
-    acc
+    (acc.(0), acc.(1), acc.(2))
 
   (** [count_reds arr] counts the number of [Red] constructors in [arr]. *)
-  let count_reds arr = (all_colors arr).(0)
+  let count_reds arr =
+    let r, _, _ = all_colors arr in
+    r
 
   (** [count_whites arr] counts the number of [White] constructors in [arr]. *)
 
-  let count_whites arr = (all_colors arr).(1)
+  let count_whites arr =
+    let _, w, _ = all_colors arr in
+    w
 
   (** [count_nulls arr] counts the number of [Nulls] constructors in [arr]. *)
 
-  let count_nulls arr = (all_colors arr).(2)
+  let count_nulls arr =
+    let _, _, n = all_colors arr in
+    n
 
   let rec to_string_help arr acc int =
     if int = 4 then acc

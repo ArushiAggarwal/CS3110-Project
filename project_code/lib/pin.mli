@@ -11,11 +11,17 @@ module type PinType = sig
   val count_reds : pin array -> int
   (** [count_reds arr] counts the number of [Red] constructors in [arr]. *)
 
+  val count_whites : pin array -> int
+  (** [count_reds arr] counts the number of [Red] constructors in [arr]. *)
+
+  val count_nulls : pin array -> int
+  (** [count_reds arr] counts the number of [Red] constructors in [arr]. *)
+
   val to_string_pin : pin array -> string
   (** [to_string_pin arr] converts an [arr] of all type [pin] to a string.*)
 
-  val all_colors : pin array -> int array
-  (** [all_colors arr] takes a pin array [arr] and returns a 3 size array of the
+  val all_colors : pin array -> int * int * int
+  (** [all_colors arr] takes a pin array [arr] and returns a 3 size tuple of the
       multiplicity of each color. [0] -> [Red] [1] -> [White] [2] -> [Null] *)
 
   val check_validation : string -> int array -> int array -> bool

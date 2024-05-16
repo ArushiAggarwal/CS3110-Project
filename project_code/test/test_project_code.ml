@@ -13,9 +13,11 @@ let test_random_seed =
        ]
 
 let test_random_generation =
-  "Test suite to ensure pseudorandom generator make_guess() outputs length 4"
+  "Test suite to ensure pseudorandom generator make_guess() is valid"
   >::: [
-         ( "Ensure seed 1 works" >:: fun _ ->
+         ( "Ensure length 4" >:: fun _ ->
+           assert_equal (List.length (make_guess ())) 4 );
+         ( "Ensure length 4" >:: fun _ ->
            assert_equal (List.length (make_guess ())) 4 );
        ]
 
@@ -110,15 +112,15 @@ let test_all_colors =
   "Tests if the all_colors is working."
   >::: [
          ( "Only reds" >:: fun _ ->
-           assert_equal [| 4; 0; 0 |]
+           assert_equal (4, 0, 0)
              (PinModule.all_colors
                 (PinModule.make_pins [| 1; 2; 3; 4 |] [| 1; 2; 3; 4 |])) );
          ( "Only whites" >:: fun _ ->
-           assert_equal [| 0; 4; 0 |]
+           assert_equal (0, 4, 0)
              (PinModule.all_colors
                 (PinModule.make_pins [| 1; 2; 3; 4 |] [| 4; 3; 2; 1 |])) );
          ( "A mix + max nulls" >:: fun _ ->
-           assert_equal [| 1; 1; 2 |]
+           assert_equal (1, 1, 2)
              (PinModule.all_colors
                 (PinModule.make_pins [| 1; 2; 3; 4 |] [| 5; 6; 1; 4 |])) );
        ]
@@ -140,6 +142,40 @@ let test_num_reds =
            assert_equal 2
              (PinModule.count_reds
                 (PinModule.make_pins [| 1; 2; 3; 4 |] [| 1; 2; 5; 6 |])) );
+       ]
+
+let test_num_whites =
+  "Check in we can count correct number of whites"
+  >::: [
+         ( "All whites" >:: fun _ ->
+           assert_equal 4
+             (PinModule.count_whites
+                (PinModule.make_pins [| 1; 2; 3; 4 |] [| 1; 2; 3; 4 |])) );
+         ( "No whites" >:: fun _ ->
+           assert_equal 0
+             (PinModule.count_whites
+                (PinModule.make_pins [| 1; 2; 3; 4 |] [| 1; 2; 6; 5 |])) );
+         ( "Some whites" >:: fun _ ->
+           assert_equal 2
+             (PinModule.count_whites
+                (PinModule.make_pins [| 1; 2; 3; 4 |] [| 2; 6; 3; 1 |])) );
+       ]
+
+let test_num_nulls =
+  "Check in we can count correct number of nulls"
+  >::: [
+         ( "Two nulls" >:: fun _ ->
+           assert_equal 4
+             (PinModule.count_nulls
+                (PinModule.make_pins [| 5; 6; 3; 4 |] [| 1; 2; 3; 4 |])) );
+         ( "No nulls correct" >:: fun _ ->
+           assert_equal 0
+             (PinModule.count_nulls
+                (PinModule.make_pins [| 1; 2; 3; 4 |] [| 1; 2; 3; 4 |])) );
+         ( "No nulls incorect" >:: fun _ ->
+           assert_equal 2
+             (PinModule.count_nulls
+                (PinModule.make_pins [| 1; 2; 3; 4 |] [| 2; 6; 3; 1 |])) );
        ]
 
 (* let _ = run_test_tt_main test_num_reds *)
@@ -325,6 +361,8 @@ let suite =
          test_valid;
          test_all_colors;
          test_num_reds;
+         test_num_whites;
+         test_num_nulls;
          test_to_int_arr;
          test_make_game;
          test_update_game;
