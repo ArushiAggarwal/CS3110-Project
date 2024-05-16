@@ -48,22 +48,22 @@ module type Gameboard = sig
   (** [clear_board game] resets all values in [game] for the next round *)
 
   val update_computer_board : game -> int array
-  (** [update_computer_board] updates the board with the pins and feedback *)
+  (** [update_computer_board game] updates the board with the pins and feedback *)
 
   val check_feedback : string -> game -> bool
   (** [check_feedback feedback game] checks that the user feedback for the last
       round of the game is correct *)
 
   val int_array_to_string : int array -> string
-  (** [int_array_to_string] converts int array to string*)
+  (** [int_array_to_string arr] converts int array to string*)
 
   val get_latest_feedback : game -> int array -> int array
-  (** [get_latest_guess game] returns the row of the latest guess in [game]'s
-      feedback board *)
+  (** [get_latest_guess game arr] returns the row of the latest guess in
+      [game]'s feedback board *)
 
   val give_motivation : game -> int array -> string
-  (** [give_motivation] returns a message based on the feedback and counts of
-      the pins*)
+  (** [give_motivation game guess] returns a message based on the feedback and
+      counts of the pins*)
 end
 
 module Gamerecord : Gameboard
