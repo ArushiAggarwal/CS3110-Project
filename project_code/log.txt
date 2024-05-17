@@ -1,3 +1,11 @@
+commit 515120a4906d81b5269ed32b18795d5b868cc2bd
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 20:58:03 2024 -0400
+
+    Edited documentation
+    - added AF and RI
+    - changed file structure
+
 commit 668855196384a7cdfedb3bcd2f0b43073b9f2577
 Merge: df74676 d974066
 Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
