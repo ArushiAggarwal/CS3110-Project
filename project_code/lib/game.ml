@@ -72,6 +72,9 @@ end
 module Gamerecord : Gameboard = struct
   (* represents the playing board *)
   type game = game_record
+  (** RI: the record [game] represents a current run of the game that uses
+      [algorithm] for solving, has [player] as the codemaker, has [answer] as
+      the codemaker's answer, and is on current turn [turn_number]. *)
 
   (** [make_game rounds algo player] makes initializes a game instance that will
       run [rounds] amount of rounds. The computer's guesses will feature the
