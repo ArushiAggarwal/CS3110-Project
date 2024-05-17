@@ -26,9 +26,9 @@ end
     the players would receive the pins [[Red, White, Null, Null]]*)
 
 module PinModule : PinType = struct
-  (** [pin] represents a progress mark for a guess with respect to answer. [Red]
-      means a color is in the right place and in the answer. [White] means a
-      color is in the answer but not in the right place. [Null] means that the
+  (** AF : [pin] represents a progress mark for a guess with respect to answer.
+      [Red] means a color is in the right place and in the answer. [White] means
+      a color is in the answer but not in the right place. [Null] means that the
       color isn't in the answer. *)
   type pin =
     | Red

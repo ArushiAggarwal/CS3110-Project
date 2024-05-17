@@ -1,0 +1,1546 @@
+commit 668855196384a7cdfedb3bcd2f0b43073b9f2577
+Merge: df74676 d974066
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 20:42:30 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit df746767df273be5c233658de9a31332738c9ee6
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 20:42:28 2024 -0400
+
+    pushing ms3 report
+    
+    - done
+
+commit d974066805bce945ce17c5ab083c46fcc1f32208
+Merge: 8ede682 08aea59
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 20:41:54 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    - fix conflicts in main
+
+commit 8ede68262f4b2e59c7620f9d2bfa2baa8d333e99
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 20:40:15 2024 -0400
+
+    Updating interface and documentation
+    - add RI to data type
+    - fix layout
+
+commit 08aea593ba6560386dbe61e9f2bafe09557d972e
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 20:22:10 2024 -0400
+
+    pushing test plan and user manual
+    
+    - to git
+
+commit d848376e85ed8a3d4221d1e4b4447204432d2e92
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 20:01:02 2024 -0400
+
+    pushing edits in main
+    
+    - get user code
+
+commit 316e943d01b601cfafb099ef93610ed7c2da63ff
+Merge: 187a208 d1666d9
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 19:51:04 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit 187a208bd762f683f3ea4696a1779ede129fc299
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 19:51:01 2024 -0400
+
+    pushing updating testing code
+    
+    - fixed changes
+
+commit d1666d92b970c336bc4a6cce47f3ca450c023563
+Author: pag238 <pag238@cornell.edu>
+Date:   Thu May 16 19:49:29 2024 -0400
+
+    Minor Issue with Test Format
+    Fixed ambiguous test documentation
+
+commit 613960cc4e0c2500bed298959b6c3b4bbe4115b3
+Merge: 27da7f8 2ec316d
+Author: pag238 <pag238@cornell.edu>
+Date:   Thu May 16 19:46:44 2024 -0400
+
+    Merge branch 'main' of github.com:ArushiAggarwal/CS3110-Project
+    Finished the testing module by making it look neater.
+
+commit 27da7f8b302ee79683074380f8043d8d3ac48898
+Author: pag238 <pag238@cornell.edu>
+Date:   Thu May 16 19:46:35 2024 -0400
+
+    Fixing Test Format
+    Finished the testing module by making it look neater.
+
+commit 2ec316d6ff7d653b00fe150f61d0c6f8ed98afbb
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 19:38:48 2024 -0400
+
+    pushing documentation
+    
+    - did the documentation for everything
+
+commit 9397b4d09d16a46a8473ae7d8c8d34a6bd65ca39
+Merge: 5871d57 86a8136
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 19:06:12 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit 5871d5792646c6335315694471163e866589c79a
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 19:06:09 2024 -0400
+
+    updating documentation on main
+    
+    - updating documentation on main and everything else
+
+commit 86a8136ae9f53a608b9c88a63df4943318c44034
+Merge: 5614c12 132a7a4
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 19:03:58 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    - fix conflicts
+
+commit 5614c129906ea7d5e89976ed288738d28ca6e63d
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 19:03:21 2024 -0400
+
+    Update main
+    - add documentation comments
+    - fix typo
+
+commit 132a7a486872f310c429851dbaae1defe583f274
+Merge: 129c352 82e0a57
+Author: pag238 <pag238@cornell.edu>
+Date:   Thu May 16 18:09:41 2024 -0400
+
+    Merge branch 'main' of github.com:ArushiAggarwal/CS3110-Project
+    Added documentation to all test functions
+
+commit 129c35234623c7af60031c6ab5fd10d30cdcf497
+Author: pag238 <pag238@cornell.edu>
+Date:   Thu May 16 18:09:32 2024 -0400
+
+    Committing Documentation
+    Added documentation to all test functions
+
+commit 82e0a57c8b628699a454e05c628aca776c7a428c
+Merge: 28c50af 5b5e2f9
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 18:04:26 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit 28c50af55dfe624d294a1b9f55375d490eca0b28
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 18:04:24 2024 -0400
+
+    pushing documentation
+    
+    - game, pin, part of main
+
+commit 5b5e2f9a103e5409c678f438c530565b6b7552f4
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 18:02:40 2024 -0400
+
+    Style fixing
+    - reformatted functions
+    - divider comments
+
+commit 2b66e7ffdb0ea73cfdf792102613d7e07274292b
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 17:17:56 2024 -0400
+
+    Completed implementation
+    - removed dead code
+    - all functionality
+    - bug testing
+
+commit 625c02fac91303861be387a439016f28b788718c
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 16:46:21 2024 -0400
+
+    fixed screens
+    
+    - not the final mesage board
+
+commit 415fb51baca8766d4dc79cf7f0223243b620c485
+Merge: 1a0789f 628c531
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 16:25:35 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    - merge conflicts in main
+
+commit 1a0789f8cd6bfa23b3c1f92fddd71e6f452a1a90
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 16:21:42 2024 -0400
+
+    Update interface
+    - delete unused code
+    - typo fix
+
+commit 628c531e64dd5e7f8689b592cffac6ceb8a3b1e8
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 16:20:50 2024 -0400
+
+    made the flowers
+    
+    - made flowers for gui
+
+commit 023b48706d83031ac8484b691aed9b9162c183a3
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 15:53:21 2024 -0400
+
+    Update testing and documentation
+    - add readme and yaml
+    - add and fix test cases
+
+commit 6e1e946cd0ae344e5c90b5d0ceb05ec6759a7c02
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 15:51:11 2024 -0400
+
+    created give motivation
+    
+    - enhance and use pin functions
+
+commit 9380ce769076ff13f533c5ca5e210c88b890b16a
+Merge: a10a4b0 4a7207e
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 15:32:36 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    - main conflicts
+
+commit a10a4b0d5bd48bfaec5b4d93ce86acc057c3dd1e
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 15:32:05 2024 -0400
+
+    Update implementation
+    - add test cases
+    - update pin to return tuple
+
+commit 4a7207e044438cea965f9cf46c6663b28322d0d4
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 15:22:31 2024 -0400
+
+    fixed help
+    
+    - fits the box
+
+commit 55abe8201350dadba093c44a3dfa2bb1056cfd4c
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 15:19:24 2024 -0400
+
+    pushing help
+    
+    - help fix
+
+commit db68f4c339cc502e9ffdd22b5fcac579031dd808
+Merge: f7e3c9f 1dc514b
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 15:15:42 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit f7e3c9f48a40e0ee19a88c766d81316ac16ec957
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 15:15:41 2024 -0400
+
+    pushing a flower
+    
+    - made flower on main screen
+
+commit 1dc514b1e53ee999222d52c72b1078fb1d9bdab7
+Merge: 69dbfce d467a3f
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 14:54:17 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    - interface main conflicts
+
+commit 69dbfce1a06954d0c8c3592663bf1e0c40126062
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 14:48:17 2024 -0400
+
+    Edit interface
+    - fix help screen text
+
+commit d467a3f7029b4e33d8088e70c50f32a5e2e5649b
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 14:45:55 2024 -0400
+
+    pushing win condition
+    
+    - should work
+
+commit 42692ab50a9dfc58c1e993ac63893faeedaf7509
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 14:41:26 2024 -0400
+
+    Update implementation and tests
+    - add test cases
+    - remove rounds
+
+commit 65152e6eb6b7cf27486040abc9420226cbf6d698
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 14:01:53 2024 -0400
+
+    added mli for algorithm and fixed pins
+    
+    - added mli
+    - added documentation
+
+commit 067ccdc5a361ff125b2700272c53bedf6df1d853
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 13:44:42 2024 -0400
+
+    making q check
+    
+    - its pain
+
+commit 4eacf4279cdaa2f8fc8c30f7d72d8864f0546342
+Merge: da4ab1d 3c68446
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 13:19:59 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit da4ab1da547380397e0cc917719ed51a059963a6
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 13:19:58 2024 -0400
+
+    updated test suite
+    
+    - added everything to one list
+
+commit 3c684467ae513129fed056267754894e26907f71
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 12:15:24 2024 -0400
+
+    Update documentation
+    - revise blurb in yaml and readme
+
+commit 7f076d113622fafe836078c12eb42578127c5445
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 11:23:23 2024 -0400
+
+    Interface implementation
+    - fix errors
+    - add to game
+
+commit 0a51c244f0b2d682e442be59717eeee2542e9bba
+Merge: a980988 2e70a76
+Author: pag238 <pag238@cornell.edu>
+Date:   Thu May 16 10:18:01 2024 -0400
+
+    Merge branch 'main' of github.com:ArushiAggarwal/CS3110-Project
+    Total of 40 tests in test suite
+    Removed old test suite not used
+
+commit a9809888f6c58d0b8ab14e07429bc08583f3a281
+Author: pag238 <pag238@cornell.edu>
+Date:   Thu May 16 10:17:30 2024 -0400
+
+    Bulk of Test Suite
+    Total of 40 tests in test suite
+    Removed old test suite not used
+
+commit 2e70a76613e05b10f472f4dfd70a3890ad257793
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 04:32:31 2024 -0400
+
+    Update main
+    - bug fixes in user guess
+
+commit 5951915e97f78ea933977c3154366b22e4bda11c
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 04:28:47 2024 -0400
+
+    Bug fixes
+    - fix error with user guess
+
+commit f65476a22547306c8d190397002846a7c7f5947a
+Author: pag238 <pag238@cornell.edu>
+Date:   Thu May 16 04:28:25 2024 -0400
+
+    Minor Test Fix
+    Fixed unbound error for game in testing
+
+commit 4a88b1c5621715d6f4b46b71cd3b8bac2d1773cb
+Merge: ccedc1b 282c5b7
+Author: pag238 <pag238@cornell.edu>
+Date:   Thu May 16 04:24:08 2024 -0400
+
+    Merge branch 'main' of github.com:ArushiAggarwal/CS3110-Project
+    Added Game Tests
+    Added more tests for the functionality of the Game module, including starting the board, clearing it, and updating it based on guesses
+
+commit ccedc1b6d446b09656e2dab3f99bef006a0172df
+Author: pag238 <pag238@cornell.edu>
+Date:   Thu May 16 04:20:56 2024 -0400
+
+    Added Game Tests
+    Added more tests for the functionality of the Game module, including starting the board, clearing it, and updating it based on guesses
+
+commit 282c5b7ee0402cc3441e7a895a6eaf130cebdf9e
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 04:17:03 2024 -0400
+
+    mergeing changes
+    - fixed mergeing
+
+commit 06aa4dcfcd1e8d3dbf43f4dc380ab9255d13921b
+Merge: 65cb64c 9d8d2ab
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 04:17:01 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit 65cb64cf4fa71b35ada3e7d73a74c8cec788688c
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 04:15:26 2024 -0400
+
+    made changes
+    
+    - fixing dune build
+
+commit 9d8d2abac10bdbca50daa4df1111d36a417fa9d9
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 04:14:25 2024 -0400
+
+    Address final merge conflict errors
+    - update main
+    - update game
+
+commit efadee2081e1dd7b6f664479efec1f8eebaf099a
+Merge: fa1a1d4 3b989f2
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 03:54:02 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    - fix errors in main
+
+commit fa1a1d44cdf261460346248ea61f6186655f6fc2
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 03:42:07 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    
+    Co-authored-by: ArushiAggarwal <ArushiAggarwal@users.noreply.github.com>
+
+commit 4c5273124988c4cfca3638901d18cd65608a5631
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 03:38:59 2024 -0400
+
+    Update implementation
+    - finish checking feedback
+
+commit 3b989f2c3ef42127ed740d96d9cf1e2caf9641cf
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 03:36:02 2024 -0400
+
+    finished computer as code maker and user guesses
+    
+    - breaking after first user input
+
+commit fef31296fbaa54e6224d7a5214c12a123df6e05a
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 02:18:26 2024 -0400
+
+    Update implementation
+    - finish checking feedback in game.ml
+
+commit f37e69a7c0039abdb6e6d6de6966edd880f4b78b
+Merge: f889670 6d9f5d3
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 02:11:20 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    Address merge conflicts
+    - fix main
+
+commit f889670ad24d5d5e52f531b9b5683f0731878029
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 02:09:20 2024 -0400
+
+    Implementation updates
+    - add to main and game module
+    - edits to random
+
+commit 6d9f5d3fd974a99d08b3fd2edacf7c0d501d9a58
+Merge: 1d1ea47 f29c4d8
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 01:57:51 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit 1d1ea473a17e8fddd23da22815603d20798484e9
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 01:57:42 2024 -0400
+
+    created a win condition function
+    
+    - checks and prints who wins
+
+commit f29c4d8616bb66056d609663dfcdaf3fc435e95d
+Merge: 3dd2624 0f720b0
+Author: pag238 <pag238@cornell.edu>
+Date:   Thu May 16 01:25:58 2024 -0400
+
+    Merge
+    Accepting merge
+
+commit 3dd262473578623fce69d300b89a7ff8762e8ab4
+Author: pag238 <pag238@cornell.edu>
+Date:   Thu May 16 01:23:14 2024 -0400
+
+    Adding Tests
+    Added tests for pin functions all colors and to int array
+    Deleted redundant tests
+
+commit 0f720b017e769be338ca5703658e9cfcd3ea7588
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 01:19:53 2024 -0400
+
+    WORKING VERSION 1
+    
+    - could submit
+
+commit 2aabe653d06cc5f79521bf04070aaa0b5b4fdcd6
+Merge: 0cbb40e b25a2e9
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 01:14:30 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit 0cbb40ec9691f44c09b45dcd0d85ed7a99a9db27
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Thu May 16 01:13:37 2024 -0400
+
+    stashing changing
+    
+    - commiting progress code
+
+commit b25a2e9cecf1ca2d49cce187c3b633adae6a5814
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 01:11:32 2024 -0400
+
+    Update implementation
+    - update interface
+    - fix feedback bug
+
+commit fecbf9eb517a1e3dec0d479d0ce753f935c28f2d
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 00:26:29 2024 -0400
+
+    Bug fix
+    - fix typo in main
+
+commit 963a40ce1bbf4cf0f53214da76b66e9c728d8a01
+Merge: fe14295 be8cf63
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 00:21:24 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    Address merge conflict
+    - update UI
+
+commit fe1429566517085015579fa43d5c7dd5b633bfc9
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Thu May 16 00:20:27 2024 -0400
+
+    Update implementation
+    - fix random algorithm
+    - add to UI
+
+commit be8cf63059f3b73365e483c3f374b735fe659d39
+Merge: ab73e64 dfea633
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 23:45:47 2024 -0400
+
+    Merging
+    Fixing merge conflicts
+
+commit ab73e6491b240999b73d2565969cca48b9862e45
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 23:44:48 2024 -0400
+
+    Merging
+    Fixing merge conflicts
+
+commit dfea6333ab6301bec22a565140453b6fcb5c787c
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 23:43:02 2024 -0400
+
+    Fix merge conflicts
+    - edit test file
+    - update interface
+
+commit f29ad43499836efd9515fd6ff37c23063f41b5ac
+Merge: f1c69ae 58c9175
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 23:35:19 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    Fix merge conflict
+    - interface main issues
+
+commit f1c69aee2a45e3cdcd55cef925433ccc33bf648a
+Merge: aa05a86 e53742d
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 23:34:47 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    
+    Implement changes
+    - update interface
+    - fix knuth algorithm
+
+commit 58c9175d07f01b3066926a97bc5cab96929576d1
+Merge: 30cc0cc 2b89176
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 23:34:14 2024 -0400
+
+    Merge branch 'main' of github.com:ArushiAggarwal/CS3110-Project
+    Created a function to ensure the user’s pin feedback is corresponding to the actual feedback.
+    Fixed a bug in make pins with some extra functionality.
+    Added tests for extra pin functions, deleted old test file.
+
+commit 30cc0ccd4ce01b0aa35a09a62f576617a57bba6b
+Merge: ca00d9b e53742d
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 23:34:06 2024 -0400
+
+    Pina and Testing Changes
+    Created a function to ensure the user’s pin feedback is corresponding to the actual feedback.
+    Fixed a bug in make pins with some extra functionality.
+    Added tests for extra pin functions, deleted old test file.
+
+commit 2b891760db53d94e171c1999e6ae1a4aba292949
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 23:33:23 2024 -0400
+
+    pushing changes
+    
+    - it kinda works
+    
+    Co-authored-by: Grace Wei <GraceW03@users.noreply.github.com>
+
+commit ca00d9b8100ce72c4a148c2cb316537d6e4140e3
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 23:32:52 2024 -0400
+
+    Pina and Testing Changes
+    Created a function to ensure the user’s pin feedback is corresponding to the actual feedback.
+    Fixed a bug in make pins with some extra functionality.
+    Added tests for extra pin functions, deleted old test file.
+
+commit aa05a86e5bfe19a0bd80ef65dbf066ef4705cb53
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 23:15:31 2024 -0400
+
+    Update implementation
+    - interface
+    - try to fix knuth algorithm bug
+
+commit e53742d3a61a51c0eff76c258ef7a044034e5959
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 23:13:29 2024 -0400
+
+    prints default values on the board
+    
+    - prints default
+
+commit 1543cdd81cbe34bcabb8eb2ba4fe59efd939c386
+Merge: ed60008 2d0935c
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 21:47:29 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit ed60008e096b1bcb7be255b7722177a57eb74dce
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 21:47:28 2024 -0400
+
+    editing feedback
+    
+    - getting feedback
+
+commit 2d0935c375e255ef29e00c2e0f62c38988e4f86b
+Merge: 03138d3 da952aa
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 21:00:44 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    - fix issues in Knuth algorithm
+
+commit 03138d3d7dc0d2cdbfa2ce51dadf77f1e44c600c
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 20:55:28 2024 -0400
+
+    Update implementation
+    - fix error in Knuth algorithm
+    - update testing
+
+commit da952aa8b1b2cd3f677bac8e26f71e053769abdf
+Merge: f01c7d4 cd34648
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 20:55:05 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit f01c7d4e89f9ba30aa7d7ba6a4c74adcc34b5749
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 20:54:03 2024 -0400
+
+    pushing the fixed user input
+    - fixed user input
+
+commit cae98c91502ba1ecfd63e247968d89644d4f7b6d
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 20:54:00 2024 -0400
+
+    pushing fixed user input
+    
+    - fixed the errors in user input
+
+commit cd346482e6a94257013161069155d17adb4a9a18
+Merge: 9a3ca98 a9baf11
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 19:56:11 2024 -0400
+
+    Main Changes
+    Board now shows separate boards for guesses and pins
+
+commit 9a3ca985fa7af0d88b4fe8a5e91a03c922cc14a1
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 19:54:27 2024 -0400
+
+    Main Changes
+    Board now shows separate boards for guesses and pins
+
+commit a9baf111e53972cbd03f4766d9ce0c1c4c860ffa
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 19:53:44 2024 -0400
+
+    donald knuth changes
+    
+    - attempting to address issues in knuth
+
+commit c7c98b8162cde4d74eec290902498dcc3a0f65a6
+Merge: d7035b7 8537977
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 19:52:56 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    
+    Address merge conflicts
+    - refactor code
+
+commit d7035b7b07e003c6fa2227f0ed898cf2a26fa775
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 19:51:12 2024 -0400
+
+    Update implementation
+    - add to interface
+    - fix testing error
+
+commit 85379778f7c7e137ddaf65070793e5dbd86556d6
+Merge: deb4019 20e037f
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 18:50:18 2024 -0400
+
+    Merge Acceptance
+    Accepting incoming changes
+
+commit deb4019467e89a7d4c3ed01d07325bdc5fb94acd
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 18:49:14 2024 -0400
+
+    Main Change
+    Minor change to change (indent)
+
+commit 20e037f49d2c43f679a18ec97faae1853af64c6e
+Merge: 258d9e0 5121f72
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 18:46:49 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    
+    Implement interface
+    - address merge conflict
+    - finish user answer
+
+commit 258d9e0902da635305024110e983aa0985af9813
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 18:45:30 2024 -0400
+
+    Implement interface
+    - refactor code
+    - fix bug with user input
+
+commit 5121f7242bbf864956a1c24bac803d0661b019ba
+Merge: 4c503a3 e970340
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 18:35:27 2024 -0400
+
+    Merge branch 'main' of github.com:ArushiAggarwal/CS3110-Project
+    Added feature to update game board during computer’s turn
+
+commit 4c503a3f6a932a2a4080c73f2c770fadcf0b863a
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 18:35:20 2024 -0400
+
+    Game Board
+    Added feature to update game board during computer’s turn
+
+commit e9703400af8915796654ee37472ab2c7854789a2
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 17:40:33 2024 -0400
+
+    added get_user_code
+    
+    - gets user input
+    - still testing
+
+commit de6fd73767c061cdd9d589233c1663bff88c7708
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 16:50:40 2024 -0400
+
+    Edit test file
+    - add tests for knuth algorithm
+
+commit 56291ef1df9908ad1ff1e01e775a6da629013d13
+Merge: 7589974 90d7604
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 16:10:33 2024 -0400
+
+    Merge branch 'main' of github.com:ArushiAggarwal/CS3110-Project
+    Minor Change to Algo
+    Knuth algo now takes a int list parameter
+
+commit 7589974eadf22d08f87bbfb45c88278406a96482
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 16:10:26 2024 -0400
+
+    Minor Change to Algo
+    Knuth algo now takes a int list parameter
+
+commit 90d760458d671b6400759294bedd20b6e5312a4c
+Merge: b342a37 7876e89
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 15:53:26 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit b342a37947898c397fe749619bf13bde5078fa8b
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 15:53:24 2024 -0400
+
+    added numbers on circle
+    
+    - added circles on top of the circles in the gui
+
+commit 7876e8926705382de1c1e6c83c6be9ef19ccf01b
+Merge: 705e17f 99e5f8c
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 15:38:47 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    Address merge conflict in interface
+    - conflict in main loop
+
+commit 705e17f6bc1ccaed004b68588532dd38da345456
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 15:35:57 2024 -0400
+
+    Refactor input code
+    - move recursive call to end
+
+commit 99e5f8c7ab54258e770dce806f749bdcd307d3eb
+Merge: b43047e 3c17926
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 15:21:58 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit b43047e791193ea7e74812ce4ac0ee1a8507b763
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 15:21:57 2024 -0400
+
+    added validate code
+    - aded get_user_code and validate code
+
+commit 3c1792640a52456d2e009f65f27073aa3d5ffae0
+Merge: bca4e86 a3438fb
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 13:58:32 2024 -0400
+
+    Deleting Genetic Algo
+    Minor changes to pin
+    No longer using genetic algorithm
+
+commit bca4e868b2463a0807dc189bee1564e9c8a58b12
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 13:49:33 2024 -0400
+
+    Deleting Genetic Algo
+    Minor changes to pin
+    No longer using genetic algorithm
+
+commit a3438fbe169209215af936757f2024ccbb1aedac
+Merge: e55d1a7 daa5d7a
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 13:05:38 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit e55d1a767a59e0e92c230e5e2ae21f5cc47dfb33
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 13:05:16 2024 -0400
+
+    mli file for donald knuth
+    
+    - made the mli file for the ml file of the knuth algo
+
+commit daa5d7a75e044d4f921cbc5da2494a892440d081
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 12:58:25 2024 -0400
+
+    Fix error
+    - standardized game type signature
+
+commit 05718fc2763f8f2c8086d05a2bba0f6456cc4c8b
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 12:57:34 2024 -0400
+
+    Bug fixes
+    - finished unfinished function
+
+commit 80be9b58e3105a83a77f7d713b5550ccfa3d54a4
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 10:09:23 2024 -0400
+
+    Edit user interface
+      - fix type checking error
+      - create game ref
+
+commit 3c1e327adc16e94cb7957f59d32771a0d7a3893f
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 09:32:56 2024 -0400
+
+    Finish user input for set up
+      - store in backend
+      - still need to instantiate game instance
+
+commit 48815f21496736848b85d5d27c629d856ee3a8ab
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 09:18:21 2024 -0400
+
+    Edits to interface
+      - implement more user functionality
+      - edits to game module
+
+commit 2d25505b3259a8a7880e4752dcf6913ab60331dc
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 04:06:26 2024 -0400
+
+    Updates to interface
+      - added initial functionality for user input
+      - bug fixes
+
+commit e73d46db45a199a961bb5178dbaab7c28e4e1b64
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 02:04:54 2024 -0400
+
+    finished board
+    
+    - finished the board gui
+
+commit 9f52e86035c86745f45ff55d8bba34f926cafefd
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 01:43:43 2024 -0400
+
+    updating board
+    
+    - chaning circle positon
+
+commit 1515fd4e5b15222af0a9843d67b88cd1b12d70fe
+Merge: ec6cad1 534d90c
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 01:40:53 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit ec6cad1373b54c06eda7f1bccdad8aae803f390b
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 01:40:52 2024 -0400
+
+    update draw game
+
+commit 534d90c71388f57e4305302ea817bff9bd308365
+Merge: dd2a674 7f937eb
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 01:37:58 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    Merge interface conflicts
+      - add draw game screen
+      - help screen
+
+commit 7f937eba3ee4a824ab3940c065e4a5ae9fc64876
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 01:30:10 2024 -0400
+
+    updating draw game
+
+commit dd2a67488b276a7157592677f98656077a6b6cac
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 01:26:43 2024 -0400
+
+    Edit interface
+      - add rectangle on help screen
+
+commit 92b12617386af84dd6bfd287b37faddf6beb0c1e
+Merge: d9012bb 831d06a
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 01:21:42 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit d9012bb95003cdb14aa05b0bb7d4494976f76950
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 01:21:41 2024 -0400
+
+    working on draw game
+
+commit 831d06a731bcff5ecb42e4e25d1e7a0e6519b36b
+Merge: ee34b5c 2c2872b
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 01:10:29 2024 -0400
+
+    Merge branch 'main' of github.com:ArushiAggarwal/CS3110-Project
+    - Started genetic algorithm
+    - Inserting probabilities
+
+commit ee34b5c8fe6857f81009c3de7d6b970029330353
+Author: pag238 <pag238@cornell.edu>
+Date:   Wed May 15 01:10:06 2024 -0400
+
+    Started genetic algo
+
+commit 2c2872b0df68f003d1aaa30d8888d887c8f02e86
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 00:56:49 2024 -0400
+
+    Comment out terminal main code
+      - for line count purposes
+      - not currently using
+
+commit 9fff45f415881cd464a72d0d92a297a58e7c15b0
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 00:56:03 2024 -0400
+
+    Delete main2.ml
+      - no longer using
+
+commit 05d3dd9d226c23260b85df377eafbec01f8fc7c6
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Wed May 15 00:43:26 2024 -0400
+
+    Update game board
+      - add mli file
+      - add functions
+
+commit eecede94297db58628cf92a1e7b8e056bfb497ee
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed May 15 00:39:58 2024 -0400
+
+    made help
+
+commit d89323caf13aeafe887bfaa9d6958828f4dbcbe5
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 23:35:57 2024 -0400
+
+    pushed main except for help
+
+commit a18703e99359f54e21e8f6b75324650ad115f5ee
+Merge: dc16397 e92424e
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 22:58:32 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit dc16397b76555bae70c0a4c0c67a0ce1699b0667
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 22:58:30 2024 -0400
+
+    pushed title screen gui
+
+commit e92424ed2a181aafa713881a1be09cfc3cd83298
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Tue May 14 22:52:26 2024 -0400
+
+    Update implementation
+      - add file for the actual game
+      - add a function to Pin compilation unit
+
+commit 457ffe59c37b9bcda5dd33b0fd2a0da10413a992
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Tue May 14 21:39:56 2024 -0400
+
+    Bug fixes
+      - fixed typo in main.ml
+      - commented out unfinished code
+
+commit 73b974eb35d8199d213b326fb47cdd06d071609b
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Tue May 14 21:36:30 2024 -0400
+
+    Fix typo
+
+commit fb7f6add55b0416218f42a0a829636e1c0489126
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Tue May 14 21:30:04 2024 -0400
+
+    Add to GUI
+
+commit 4de02b3e2e8f3f838ec6c57b9cabb76a5336258b
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 21:18:58 2024 -0400
+
+    pushing title matching
+
+commit 37e00afa9403138129eefcfca121ac84289b50b3
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 21:07:18 2024 -0400
+
+    pushed round selection and player selection
+    
+    Co-authored-by: Grace Wei <GraceW03@users.noreply.github.com>
+
+commit b063ae6e37d25137deefbf183781fa97cd7df1ce
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Tue May 14 20:54:08 2024 -0400
+
+    add help screen
+
+commit 9a1aa2564e39485a280ffffd3f01c864bac77dc2
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 20:48:07 2024 -0400
+
+    pushing player selection screen
+
+commit 92c4bc90616a209dcf4d6aa68f8cb3b783ec9232
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 20:17:22 2024 -0400
+
+    pushing updated code
+
+commit be72fb3a883a588bc1eccd8515b0dfd07b20d056
+Merge: f2e9787 db0819b
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 20:15:52 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    stash
+
+commit f2e9787e0d24b03898b99d4469f98c6c0c77e293
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 20:15:47 2024 -0400
+
+    stashing
+
+commit db0819b36b082a9df30d904325def7b09ae010ce
+Author: pag238 <pag238@cornell.edu>
+Date:   Tue May 14 20:15:27 2024 -0400
+
+    Minor changes to testing
+
+commit 77babf510ef5dbd68d48d3665d1119b5efee5c0f
+Merge: e1d790d dd9a731
+Author: pag238 <pag238@cornell.edu>
+Date:   Tue May 14 20:07:54 2024 -0400
+
+    Fixed bugs in tests
+
+commit e1d790ddafd83330afa4699568e9430404af8a76
+Author: pag238 <pag238@cornell.edu>
+Date:   Tue May 14 20:06:51 2024 -0400
+
+    Fixed testbbugs
+
+commit dd9a7314f20e59662e4392e502d3196108b08c8f
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Tue May 14 20:00:39 2024 -0400
+
+    add GUI base code
+
+commit 03fa4f7c7881c3bcc236ba95d5223129af1657db
+Merge: b395174 c9c7ffc
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 19:53:53 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit b395174c898f523a7fe3c7538f75275a095b25c0
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 19:53:52 2024 -0400
+
+    created pin modules for every file
+
+commit c9c7ffc2b140e8a75a5b7b20290b2d2a0307cfae
+Merge: 1bfaec8 d36ab28
+Author: pag238 <pag238@cornell.edu>
+Date:   Tue May 14 19:50:46 2024 -0400
+
+    Pin mli change
+
+commit 1bfaec8cb4d7058b3432a27c98790892e8d7f251
+Author: pag238 <pag238@cornell.edu>
+Date:   Tue May 14 19:47:06 2024 -0400
+
+    Minor pin MLI changes
+
+commit d36ab281dde30bfce7439ac12693c8a035aee980
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 19:43:00 2024 -0400
+
+    pushing updates
+
+commit 8092ed696ea4ae96760dc56595c757edbc756fec
+Author: pag238 <pag238@cornell.edu>
+Date:   Tue May 14 19:32:56 2024 -0400
+
+    Added orresponding MLI
+
+commit b9cbf38625746c58eacdabea442b8a377a6577ee
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 17:46:32 2024 -0400
+
+    update
+
+commit 0dab5767261c83ca29f86d9a55032755489f7a57
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 17:41:54 2024 -0400
+
+    implemented the donald knuth algorithm
+
+commit 1e7e1f381db45fe7bb207942816a7a92e320ac46
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 16:37:40 2024 -0400
+
+    implemented score tracker function
+
+commit 66509ccac094c446edc8e0ed4f0eef1f6cc6ce9c
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 16:23:37 2024 -0400
+
+    perms to return all possible combinations
+
+commit f066e7b3ac27b632edc1d0c68f6459cfb7e15342
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 16:23:19 2024 -0400
+
+    donald knuth algorithm for duplicates
+
+commit c3117d3308f7772083b066f78577b60da616f4b9
+Merge: 5d1c5e4 8b9df66
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 15:53:08 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit 5d1c5e4d0be5ba846c77a3fee2b2e261b86c2a2c
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 15:53:02 2024 -0400
+
+    pushing changes on knuth
+
+commit 8b9df6694d194664521b49275fa131b95d8ee54a
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Tue May 14 15:42:29 2024 -0400
+
+    updating donal knuth with duplicates not allowed and right number of code
+
+commit 3fcd6686c12032e543a5fdbaf5331b3d3cf260aa
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Sat May 4 10:58:13 2024 -0400
+
+    add dune file
+
+commit 0fcd21faaba650cd626c6d5af1ee27ea826166fb
+Merge: 3ded659 13eebdb
+Author: pag238 <pag238@cornell.edu>
+Date:   Sat May 4 10:38:59 2024 -0400
+
+    updates
+
+commit 3ded65963a1f39b9e973c2e708b697399a62f6cd
+Author: pag238 <pag238@cornell.edu>
+Date:   Sat May 4 10:35:22 2024 -0400
+
+    Duplicates
+    Added additional functionality in the main file to assure there are no duplicates in the user’s answers
+    Used pin module to show progress in user’s turn
+
+commit 13eebdb9a5f2a961f5d8b65e88ca9026abec92a5
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Sat May 4 10:06:08 2024 -0400
+
+    pushing donald knuth algorithm
+
+commit ada4271f902fc3a6436d79b1028ba6da3e2b6131
+Merge: 679e611 9bc07c3
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Sat May 4 10:02:23 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit 679e611ea46ec62de7cd4210c19e3792821e8444
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Sat May 4 09:20:27 2024 -0400
+
+    changed file name of computer_output
+
+commit 9bc07c3974ee61707cccda70c1defecebf17fd12
+Author: pag238 <pag238@cornell.edu>
+Date:   Thu May 2 22:25:23 2024 -0400
+
+    Pin Push
+    Created a pin module, which is representative of a players progress towards the answer from their guess
+
+commit 37e799155a2b275dcd8e979886b2b4234c2f585c
+Author: Arushi Aggarwal <arushi.sparkle@gmail.com>
+Date:   Wed Apr 24 21:16:02 2024 -0400
+
+    Testing commits.
+
+commit 1bb4e3117548f7d11cff839de41cbf1fcdb97a1b
+Author: Arushi Aggarwal <aa2555@cornell.edu>
+Date:   Wed Apr 24 21:09:50 2024 -0400
+
+    Changed to 4 in main.ml
+
+commit 21ab65d4bc9c3f941b851066f7f6977ab53b5033
+Merge: 851ccb4 a790d81
+Author: Arushi Aggarwal <aa2555@cornell.edu>
+Date:   Wed Apr 24 21:05:26 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit 851ccb4d4cd42815985bdf759e9136e8bb3530d2
+Author: Arushi Aggarwal <aa2555@cornell.edu>
+Date:   Wed Apr 24 21:05:24 2024 -0400
+
+    Changed the number of digits to 4.
+
+commit a790d818ab0fac168fcd536ca7b8bbd3bb836228
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Thu Mar 28 22:22:32 2024 -0400
+
+    Update INSTALL.txt
+
+commit ed99c3aa3e543b89e04f779db421e2be2a176006
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Thu Mar 28 22:08:05 2024 -0400
+
+    Added Youtube link into YAML
+
+commit 56c58370f8079c8f9a74b04606cbb924e67376c5
+Author: Arushi Aggarwal <aa2555@cornell.edu>
+Date:   Thu Mar 28 22:03:04 2024 -0400
+
+    Updated game instructions.
+
+commit cadc00551614e1f050f8d7fa7d634c97d39a8280
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Thu Mar 28 21:58:43 2024 -0400
+
+    Fixed error in main.ml
+
+commit a6c245baad3a35294c84a4d311bac38f0c4ef4cd
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Thu Mar 28 21:52:33 2024 -0400
+
+    Updated user interface
+      - changed messages to be more appropriate
+
+commit 273ca52492fd3a5073b22bae5801dd76c1736788
+Author: pag238 <pag238@cornell.edu>
+Date:   Thu Mar 28 21:19:15 2024 -0400
+
+    Added a round in interface for the user to guess a code generated by computer
+
+commit c95d4039f893e5468f158937957c7fd1b789af9c
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Thu Mar 28 14:26:19 2024 -0400
+
+    Added functionality to interface
+      - added in feature that does not accept invalid feedback from user
+
+commit ec109a25d76b0453dcb01d29375dddaf50a8a56f
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Wed Mar 27 20:19:47 2024 -0400
+
+    Updated implementation
+      - Added in randomly changing the seed
+      - Made [to_string] tail-recursive
+
+commit 39d0bef0137af80db094f2fa586c26928a309652
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Wed Mar 27 17:47:37 2024 -0400
+
+    Fixed error in main.ml
+
+commit 1a5a6c2ff1d94ffff9cdeb36c9d145ce0eff78f3
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Wed Mar 27 17:31:23 2024 -0400
+
+    Add INSTALL.txt
+
+commit 02fa348d9f44f9ff3490a2601ac2288e1c0e39ce
+Merge: 6e260e2 13f8ba8
+Author: pag238 <pag238@cornell.edu>
+Date:   Tue Mar 26 17:38:26 2024 -0400
+
+    Merge branch 'main' of github.com:ArushiAggarwal/CS3110-Project
+    Fixing Merge Conflict
+
+commit 6e260e2ea903633f0d746e87798cd528bf0b070a
+Author: pag238 <pag238@cornell.edu>
+Date:   Tue Mar 26 17:36:59 2024 -0400
+
+    Created an OUnit Test Suite with just one test to ensure random seed 42 works
+
+commit 13f8ba82811aa1e9290f9f13877518ada6cf443a
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Tue Mar 26 17:22:21 2024 -0400
+
+    Added documentation to functions
+
+commit e381889534878ffcd4ed35166ef2680a27913a10
+Merge: 288fab5 998f9fd
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Tue Mar 26 17:19:55 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    Merging changes to computer_output.ml
+
+commit 288fab57ed085f0373a0e7951b879bebb02376db
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Tue Mar 26 17:19:49 2024 -0400
+
+    Implemented terminal UI in main.ml
+
+commit 998f9fd28bac10b86776172922a2ef31a33b7ce5
+Author: Arushi Aggarwal <aa2555@cornell.edu>
+Date:   Tue Mar 26 17:10:51 2024 -0400
+
+    Updated the YAML file.
+
+commit 4e1d5d43edeb9f2e397584bc28033be81be1e92c
+Merge: 995bfa0 e35077b
+Author: Arushi Aggarwal <aa2555@cornell.edu>
+Date:   Tue Mar 26 17:09:24 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+
+commit 995bfa05f8d7988b7cf71407475912c8a5b5a94d
+Author: Arushi Aggarwal <aa2555@cornell.edu>
+Date:   Tue Mar 26 17:08:16 2024 -0400
+
+    Updated README.md and created the YAML file.
+
+commit e35077b5e60c72c6e5e6a76d9b69753a70b220a8
+Author: pag238 <pag238@cornell.edu>
+Date:   Tue Mar 26 16:27:12 2024 -0400
+
+    Removed rec flag to remove compiler warning
+
+commit 524d0d355ed547fdee1b346b4f66ed6d76735dc4
+Author: Arushi Aggarwal <aa2555@cornell.edu>
+Date:   Tue Mar 26 12:23:55 2024 -0400
+
+    Created a function to generate a random list of 5 integers for guesses.
+
+commit 475249aca7529cceb7519344f373514e49027ccc
+Author: Arushi Aggarwal <aa2555@cornell.edu>
+Date:   Tue Mar 26 12:21:37 2024 -0400
+
+    Created LCG based algorithm to generate random guesses based on seed value with citation.
+
+commit 783a4d46b4c6c65e28ae0018c96f484c34231066
+Author: Arushi Aggarwal <aa2555@cornell.edu>
+Date:   Tue Mar 26 12:19:34 2024 -0400
+
+    Intialized values for random guess generator.
+
+commit e51b68d7eb1fb236ff772e6d5586f206979671b0
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Sun Mar 24 12:57:55 2024 -0400
+
+    Deleted build and added .ocamlformat + .gitignore
+
+commit 308af166a3d766909d441bce09c25326755b11e4
+Merge: 62b1c90 940488c
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Sat Mar 23 17:19:02 2024 -0400
+
+    Merge branch 'main' of https://github.com/ArushiAggarwal/CS3110-Project
+    Merging conflicting branches
+
+commit 62b1c9072bec3baa507c304891c62bada7639c18
+Author: Grace Wei <gtw25@cornell.edu>
+Date:   Sat Mar 23 17:17:30 2024 -0400
+
+    Initialized Dune project
+
+commit 940488c3df61a7cd7d90368e25bc56dd2dbc0a3c
+Author: Grace Wei <117541421+GraceW03@users.noreply.github.com>
+Date:   Sat Mar 9 13:40:02 2024 -0500
+
+    Update README.md
+
+commit 8efc1053e3db325e697f50944943dec387e83876
+Author: Petros Georgiou <pag238@cornell.edu>
+Date:   Sat Mar 9 13:23:21 2024 -0500
+
+    Added name and netID for Petros
+
+commit 3596f88e400cca6cc5c6713f19fe4d9ec18782dc
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Sat Mar 9 11:38:55 2024 -0500
+
+    Fixing typo in README
+
+commit 8bad6d0889b76505346eebe4d8b9071a896e58b2
+Author: Grace Wei <gracetw210@gmail.com>
+Date:   Sat Mar 9 11:35:41 2024 -0500
+
+    Added name and and netID for Grace
+
+commit 13ee59b27f8a4b037ee9f95616f08a4b905d9ee5
+Author: Arushi Aggarwal <aa2555@cornell.edu>
+Date:   Sat Mar 9 11:29:15 2024 -0500
+
+    Added name and and netID for Arushi
+
+commit 732cabb7598e0264e77f9616b985c2061f54bbe1
+Author: ArushiAggarwal <arushi.sparkle@gmail.com>
+Date:   Sat Mar 9 11:20:01 2024 -0500
+
+    Initial commit
