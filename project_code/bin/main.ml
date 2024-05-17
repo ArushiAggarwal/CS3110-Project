@@ -555,12 +555,10 @@ let draw_message_text () =
   let text = "Thanks for playing!" in
   Graphics.moveto
     ((screen_width / 2) - (String.length text * 12))
-    (screen_height / 2);
+    ((screen_height / 2) + 75);
   Graphics.draw_string text;
   let text = "press 'q' to quit" in
-  Graphics.moveto
-    ((screen_width / 2) - (String.length text * 12))
-    ((screen_height / 2) - 50);
+  Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) - 50);
   Graphics.draw_string text;
   let text = "press 'm' to return to the menu" in
   Graphics.moveto ((screen_width / 2) - 50) ((screen_height / 2) - 50);
@@ -576,9 +574,7 @@ let draw_message_box message =
   Graphics.fill_rect rect_x rect_y rect_width rect_height;
   Graphics.set_color 0xffffff;
   Graphics.set_text_size 48;
-  Graphics.moveto
-    ((screen_width / 2) - (String.length message * 12))
-    ((screen_height / 2) + 25);
+  Graphics.moveto ((screen_width / 2) - 100) ((screen_height / 2) + 150);
   Graphics.draw_string message;
   draw_message_text ()
 

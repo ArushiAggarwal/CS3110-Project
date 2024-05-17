@@ -9,7 +9,7 @@ val make_guess : unit -> int list
     6) using a pseudorandom seed. *)
 
 val generate_guess : int -> int list
-(** [generate_guess seed] generates a list of 4 random integers between 1 and 5
+(** [generate_guess seed] generates a list of 4 random integers between 1 and 6
     (inclusive) using the given [seed] value. No duplicates are allowed in the
     generated list. *)
 
