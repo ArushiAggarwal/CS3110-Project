@@ -305,15 +305,17 @@ let valid_code code =
 (** [get_user_code ()] is the main function to the get the answer from the user
     by creating a new screen and making sure each input is validated*)
 let rec get_user_code () =
+  draw_details ();
   Graphics.moveto ((screen_width / 2) - 200) ((screen_height / 2) + 200);
   Graphics.set_color 0x3a405a;
   Graphics.set_text_size 24;
-  Graphics.draw_string "Enter your code (4 digits, no duplicates):";
+  Graphics.draw_string
+    "Enter your code (4 digits, no duplicates, digits 1 to 6 only):";
   index_ref := 0;
   let rec input_loop () =
     if !index_ref < 4 then
       let key = Graphics.read_key () in
-      if key >= '0' && key <= '9' then
+      if key >= '1' && key <= '6' then
         let digit = Char.code key - Char.code '0' in
         if not (Array.mem digit !user_code_ref) then (
           !user_code_ref.(!index_ref) <- digit;
